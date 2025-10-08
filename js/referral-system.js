@@ -26,22 +26,17 @@ class ReferralSystem {
     checkReferralParams() {
         const urlParams = new URLSearchParams(window.location.search);
         const refAddress = urlParams.get('ref');
-        
+
         if (refAddress) {
             console.log('🔍 检测到邀请链接:', refAddress);
-            
+
             // 验证地址格式
             if (this.isValidAddress(refAddress)) {
                 // 保存邀请人地址到localStorage
                 this.saveReferralAddress(refAddress);
-                
-                // 如果当前在platform页面，跳转到主页
-                if (window.location.pathname.includes('platform.html')) {
-                    console.log('🔄 检测到邀请链接，跳转到主页...');
-                    window.location.href = '/index.html';
-                    return;
-                }
-                
+
+                // 🔧 FIX: 移除跳转逻辑，允许在 platform.html 直接填充
+                // 移动端钱包需要在当前页面完成自动填充，不能跳转
                 console.log('✅ 邀请人地址已保存:', refAddress);
             } else {
                 console.warn('⚠️ 无效的邀请地址格式:', refAddress);

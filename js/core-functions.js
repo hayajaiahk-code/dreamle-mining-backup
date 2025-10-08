@@ -2810,6 +2810,12 @@ function showMessage(message, type = 'info') {
 
 // 更新挖矿数据显示
 function updateMiningDataDisplay(miningData) {
+    // 🔒 安全检查：未连接钱包时不显示用户数据
+    if (!isConnected || !userAccount) {
+        console.log('🔒 未连接钱包，跳过挖矿数据显示更新');
+        return;
+    }
+
     try {
         // miningData 包含: totalHashPower, ownHashPower, referralHashPower, totalClaimed, minerCount, lastUpdateTime, isActive, pendingRewards, lockEndTime
         console.log('🔄 更新挖矿数据显示 (原始数据):', miningData);
@@ -4223,6 +4229,12 @@ document.head.appendChild(style);
 
 // 更新矿机显示 (异步版本)
 async function updateMinersDisplay(userMiners) {
+    // 🔒 安全检查：未连接钱包时不显示矿机
+    if (!isConnected || !userAccount) {
+        console.log('🔒 未连接钱包，跳过矿机显示更新');
+        return;
+    }
+
     try {
         console.log('🔄 更新矿机显示:', userMiners);
 
