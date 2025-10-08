@@ -89,13 +89,13 @@
     <script src="libs/ethers.min.js"></script>
 
     <!-- Loading Manager - Must load first to show loading screen -->
-    <script src="js/loading-manager.js"></script>
+    <script src="js/loading-manager.js?v=20251009"></script>
 
     <!-- Auto clear local storage - Ensure fresh state on every open -->
-    <script src="js/auto-clear-storage.js"></script>
+    <script src="js/auto-clear-storage.js?v=20251009"></script>
 
     <!-- DApp initialization - Must be after Web3, before other scripts -->
-    <script src="js/dapp-init.js"></script>
+    <script src="js/dapp-init.js?v=20251009"></script>
 
     <!-- BSC Mainnet Contract Configuration - Add timestamp to prevent caching -->
     <script src="config/contracts.js?v=2025-09-30-MAINNET"></script>
@@ -4222,8 +4222,8 @@
 
     <!-- JavaScript functionality -->
     <!-- Phase 1: Basic configuration and ABI (priority loading) -->
-    <script src="js/unified-system-v19-abi.js"></script>
-    <script src="js/dreamle-token-abi.js"></script>
+    <script src="js/unified-system-v19-abi.js?v=20251009"></script>
+    <script src="js/dreamle-token-abi.js?v=20251009"></script>
     <script>
         // Compatibility layer: Map V19 ABI to old variable names
         window.UNIFIED_SYSTEM_V16_ABI = window.UNIFIED_SYSTEM_V19_ABI;
@@ -4231,10 +4231,10 @@
         window.ERC20_ABI = window.DREAMLE_TOKEN_ABI;
         console.log('✅ ABI compatibility layer loaded');
     </script>
-    <script src="js/web3-config.js"></script>
+    <script src="js/web3-config.js?v=20251009"></script>
 
     <!-- Image Optimizer (WebP + Lazy Loading) - Saves 94% bandwidth -->
-    <script src="js/image-optimizer.js"></script>
+    <script src="js/image-optimizer.js?v=20251009"></script>
 
     <!-- v16-config.js has been replaced by contracts.js, ensure using latest contract addresses -->
     <!-- <script src="js/v16-config.js"></script> -->
@@ -4275,21 +4275,21 @@
             console.log('📱 DApp 浏览器检测到，跳过自动网络切换脚本（防止无限刷新）');
         }
     </script>
-    <script src="js/network-helper.js"></script>
-    <script src="js/mobile-wallet-fix.js"></script>
-    <script src="js/core-functions.js"></script>
+    <script src="js/network-helper.js?v=20251009"></script>
+    <script src="js/mobile-wallet-fix.js?v=20251009"></script>
+    <script src="js/core-functions.js?v=20251009-fix3"></script>
 
     <!-- API adapter removed - Use direct RPC connection for performance improvement -->
     <!-- Performance improvement: 269ms → 69ms (74% improvement) -->
 
     <!-- Additional function modules - Renewal, admin functions, etc. -->
-    <script src="js/additional-functions.js"></script>
+    <script src="js/additional-functions.js?v=20251009"></script>
 
     <!-- Admin function module -->
-    <script src="js/admin-functions.js"></script>
+    <script src="js/admin-functions.js?v=20251009"></script>
 
     <!-- Referral system -->
-    <script src="js/referral-system.js"></script>
+    <script src="js/referral-system.js?v=20251009-fix3"></script>
 
 
 
@@ -6608,7 +6608,7 @@
     </script>
 
     <!-- Auto-load admin data -->
-    <script src="js/auto-load-admin-data.js"></script>
+    <script src="js/auto-load-admin-data.js?v=20251009"></script>
 
 </body>
 </html>
