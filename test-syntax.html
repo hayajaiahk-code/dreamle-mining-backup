@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Syntax Test</title>
+</head>
+<body>
+    <h1>Testing platform.html syntax</h1>
+    <div id="result"></div>
+    
+    <script>
+        // Test if platform.html loads without errors
+        fetch('/platform.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('result').innerHTML = '✅ platform.html loaded successfully';
+                console.log('✅ File loaded, length:', html.length);
+                
+                // Try to find syntax errors
+                const scriptMatches = html.match(/<script[^>]*>([\s\S]*?)<\/script>/gi);
+                if (scriptMatches) {
+                    console.log(`Found ${scriptMatches.length} script blocks`);
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = '❌ Error: ' + error.message;
+                console.error('❌ Error:', error);
+            });
+    </script>
+</body>
+</html>
+

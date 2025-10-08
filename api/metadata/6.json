@@ -1,0 +1,37 @@
+{
+  "name": "Dreamle AI Miner #6 - Mythic",
+  "description": "Level 6 AI Computing Power Miner - Supreme computing power for revolutionary AI breakthroughs. This Mythic-tier miner provides 2600 hash power for groundbreaking AI innovations.",
+  "image": "https://www.dreamlewebai.com/images/miners/6.webp",
+  "external_url": "https://www.dreamlewebai.com/platform.html",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 6
+    },
+    {
+      "trait_type": "Hash Power",
+      "value": 2600
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Mythic"
+    },
+    {
+      "trait_type": "Price",
+      "value": "4000 USDT"
+    },
+    {
+      "trait_type": "Max Supply",
+      "value": 1000
+    },
+    {
+      "trait_type": "Mining Duration",
+      "value": "365 Days"
+    },
+    {
+      "trait_type": "Category",
+      "value": "AI Computing Miner"
+    }
+  ]
+}
+

@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Dreamle_Ai</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" type="text/javascript"></script>
+</head>
+<body>
+<p>Dreamle_Ai White Paper</p>
+<p><strong>Release Date: October 1, 2025</strong></p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#executive-summary">Executive Summary</a></li>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#application-scenarios">Application Scenarios</a></li>
+<li><a href="#market-analysis">Market Analysis</a></li>
+<li><a href="#tokenomics">Tokenomics</a></li>
+<li><a href="#development-roadmap">Development Roadmap</a></li>
+<li><a href="#team-introduction">Team Introduction</a></li>
+<li><a href="#security-architecture">Security Architecture</a></li>
+<li><a href="#technical-architecture">Technical Architecture</a>
+<ul>
+<li><a href="#computing-power-value-formula">9.4 Computing Power Value Formula</a></li>
+<li><a href="#image-generation-formula">9.5 Image Generation Formula</a></li>
+<li><a href="#core-formula-optimization-results">9.6 Core Formula Optimization Results</a></li>
+</ul></li>
+<li><a href="#community-and-ecosystem">Community and Ecosystem</a></li>
+<li><a href="#contact-information">Contact Information</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ol>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Dreamle_Ai is the world's first decentralized protocol that deeply integrates virtual mining computing power with AI large model training/inference. Through the innovative vPoW (Virtual Proof-of-Work) mechanism and NFT mining rig system, the project builds an efficient, environmentally friendly, and scalable AI computing power market.</p>
+<h3 id="core-innovations">Core Innovations</h3>
+<ul>
+<li><strong>Computing Power Democratization</strong>: Any user can participate in AI training by holding NFT mining rigs, breaking the centralized computing power monopoly</li>
+<li><strong>Value Closed Loop</strong>: Mining rig computing power directly serves open-source models like Llama and Stable Diffusion, contributors receive tokens + model usage rights</li>
+<li><strong>Green Computing</strong>: Zero physical hardware dependency, on-chain verified computing power reduces carbon emissions by 99% compared to traditional cloud services</li>
+<li><strong>Dynamic Computing Power Evaluation</strong>: Innovative multi-dimensional computing power value formula <span class="math inline">\(V(t)\)</span>, achieving comprehensive evaluation of time decay, emotional value, and network effects</li>
+<li><strong>Emotional Visualization</strong>: Breakthrough image generation algorithm <span class="math inline">\(I(x,y,t)\)</span>, converting emotional data into dynamic visual representations through frequency domain</li>
+<li><strong>Personalized Evolution</strong>: AI companion image evolves continuously over time and interaction, providing unique emotional connection experiences</li>
+</ul>
+<h3 id="market-opportunities">Market Opportunities</h3>
+<ul>
+<li>Global AI computing power demand annual growth rate exceeds 300%</li>
+<li>Traditional cloud services are expensive ($5+/GPU hour)</li>
+<li>Decentralized computing power market is still in blue ocean stage</li>
+</ul>
+<hr />
+<h2 id="project-overview">Project Overview</h2>
+<h3 id="project-background">Project Background</h3>
+<p>The rapid development of artificial intelligence technology has brought huge computing power demand, however, the current AI computing power market has the following problems:</p>
+<ol type="1">
+<li><strong>Computing Power Monopoly</strong>: A few tech giants control more than 90% of global AI computing power resources</li>
+<li><strong>High Costs</strong>: The cost of enterprises using traditional cloud services for AI training continues to rise</li>
+<li><strong>Resource Waste</strong>: Large amounts of idle computing power cannot be effectively utilized</li>
+<li><strong>Centralization Risk</strong>: Single point of failure may cause service interruption</li>
+</ol>
+<p>Dreamle_Ai provides innovative solutions to these problems through blockchain technology and decentralized networks.</p>
+<h3 id="project-vision">Project Vision</h3>
+<p>Build a decentralized, high-performance, user-friendly Web3 ecosystem, promote the popularization and application of blockchain technology through innovative vPoW mechanisms and NFT applications, while providing decentralized solutions for the AI computing power market.</p>
+<h3 id="core-value-proposition">Core Value Proposition</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Value Dimension</th>
+<th>Traditional Solution</th>
+<th>Dreamle_Ai Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cost Effectiveness</td>
+<td>$5+/GPU hour</td>
+<td>90% cost reduction</td>
+</tr>
+<tr class="even">
+<td>Accessibility</td>
+<td>High entry barrier</td>
+<td>Anyone can participate</td>
+</tr>
+<tr class="odd">
+<td>Transparency</td>
+<td>Black box operation</td>
+<td>Real-time on-chain verifiable</td>
+</tr>
+<tr class="even">
+<td>Sustainability</td>
+<td>High energy consumption</td>
+<td>Zero physical hardware dependency</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="application-scenarios">Application Scenarios</h2>
+<h3 id="computing-power-flow-explanation">Computing Power Flow Explanation</h3>
+<p>All NFT mining rig computing power is allocated to the following directions through smart contracts:</p>
+<h4 id="large-model-training-acceleration">Large Model Training Acceleration</h4>
+<ul>
+<li><strong>Vertical Domain Fine-tuning</strong>: Medical, legal and other professional LLM model optimization</li>
+<li><strong>Open-source Model Pre-training</strong>: Data cleaning and pre-training for open-source models like Llama 3</li>
+<li><strong>Dynamic Load Balancing</strong>: Automatically allocate computing power to AI projects with current highest demand</li>
+</ul>
+<h4 id="real-time-inference-crowdsourcing">Real-time Inference Crowdsourcing</h4>
+<ul>
+<li><strong>Image Generation Task Splitting</strong>: Stable Diffusion latent space operations</li>
+<li><strong>Voice Synthesis Fragmented Processing</strong>: Distributed processing of large-scale voice synthesis tasks</li>
+</ul>
+<h3 id="typical-application-cases">Typical Application Cases</h3>
+<h4 id="cooperation-cases">Cooperation Cases</h4>
+<table>
+<thead>
+<tr class="header">
+<th>AI Project</th>
+<th>Computing Power Usage</th>
+<th>User Reward Form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hugging Face</td>
+<td>Llama 3 French fine-tuning</td>
+<td>Free model API call credits</td>
+</tr>
+<tr class="even">
+<td>Autonolas</td>
+<td>DeFi strategy Agent training</td>
+<td>Protocol revenue sharing</td>
+</tr>
+<tr class="odd">
+<td>Open-source Medical AI</td>
+<td>Cancer image recognition model optimization</td>
+<td>Governance token airdrop</td>
+</tr>
+</tbody>
+</table>
+<h4 id="user-scenarios">User Scenarios</h4>
+<p><strong>Scenario 1: Programmer's Emotional Assistant</strong></p>
+<ul>
+<li><strong>Daily Contribution</strong>: 200TH/s computing power</li>
+<li><strong>Benefits Received</strong>:
+<ul>
+<li>AI companion that understands code logic (can help debug)</li>
+<li>Automatically generate technical blog drafts weekly</li>
+</ul></li>
+</ul>
+<p><strong>Scenario 2: Metaverse Creator</strong></p>
+<ul>
+<li><strong>Staked Computing Power</strong>: 500TH/s training artistic companion</li>
+<li><strong>Benefits Received</strong>:
+<ul>
+<li>Exclusive Stable Diffusion style model</li>
+<li>Companion can act as virtual exhibition guide</li>
+</ul></li>
+</ul>
+<h4 id="metaverse-creator-workflow">Metaverse Creator Workflow</h4>
+<p>To better support metaverse creators in emotion-driven artistic creation, Dreamle_Ai has designed a complete creator workflow that transforms emotional computing power into unique visual art works.</p>
+<h5 id="workflow-diagram">Workflow Diagram</h5>
+<pre class="mermaid"><code>graph LR
+    A[Emotional Computing Power Input] --> B(Emotional Quantum Value E_q)
+    B --> C[Memory Fragment Weighting]
+    C --> D[Frequency Domain Conversion]
+    D --> E[Image Generation]
+    E --> F[Metaverse Display]
+    
+    G[User Interaction] --> A
+    H[Creation Feedback] --> G
+    F --> H</code></pre>
+<h5 id="detailed-workflow">Detailed Workflow</h5>
+<p><strong>1. Emotional Computing Power Input Stage</strong> - <strong>Computing Power Source</strong>: Creator's staked NFT mining rig computing power - <strong>Emotional Data</strong>: User interaction records with AI companion, emotional feedback data - <strong>Input Format</strong>: Structured emotional vector data</p>
+<p><strong>2. Emotional Quantum Value Calculation</strong> - <strong>Quantization Algorithm</strong>: Calculate emotional quantum value based on emotional intensity, frequency, and persistence - <strong>Weight Allocation</strong>: Different emotion types have different weight coefficients - <strong>Real-time Updates</strong>: Emotional quantum value changes dynamically with user interaction</p>
+<p><strong>3. Memory Fragment Weighting</strong> - <strong>Memory Extraction</strong>: Extract key memory fragments from user historical interactions - <strong>Importance Evaluation</strong>: Calculate memory weight based on emotional intensity and time decay - <strong>Feature Encoding</strong>: Convert memory fragments into computable numerical features</p>
+<p><strong>4. Frequency Domain Conversion Processing</strong> - <strong>Fourier Transform</strong>: Apply image generation formula for frequency domain conversion - <strong>Feature Mapping</strong>: Map emotional features to frequency domain space - <strong>Filter Processing</strong>: Remove noise, retain main emotional features</p>
+<p><strong>5. Image Generation Output</strong> - <strong>Image Reconstruction</strong>: Generate final image through inverse Fourier transform - <strong>Stylization Processing</strong>: Apply artistic style transfer algorithms - <strong>NFT Minting</strong>: Mint generated works as NFTs</p>
+<p><strong>6. Metaverse Display</strong> - <strong>Virtual Gallery</strong>: Display works in metaverse virtual space - <strong>Interactive Experience</strong>: Audience can emotionally interact with works - <strong>Value Capture</strong>: Value generated from work transactions and viewing feeds back to creators</p>
+<h5 id="creator-revenue-model">Creator Revenue Model</h5>
+<p><strong>Direct Revenue</strong> - <strong>NFT Sales</strong>: Generated art works sold in secondary market - <strong>Copyright Sharing</strong>: Copyright revenue when works are used - <strong>Exhibition Tickets</strong>: Revenue sharing from virtual exhibition tickets</p>
+<p><strong>Indirect Revenue</strong> - <strong>Computing Power Rewards</strong>: Token rewards for emotional computing power contributions - <strong>Reputation Enhancement</strong>: High-quality creators get more exposure opportunities - <strong>Cooperation Opportunities</strong>: Cooperation invitations from brands and platforms</p>
+<h5 id="typical-application-cases-1">Typical Application Cases</h5>
+<p><strong>Digital Artist Case</strong> - <strong>Invested Computing Power</strong>: 800TH/s emotional computing power - <strong>Creation Cycle</strong>: 30 days - <strong>Works Output</strong>: 15 emotion-driven NFT art works - <strong>Total Revenue</strong>: Approximately 50,000 USDT</p>
+<p><strong>Virtual Fashion Designer Case</strong> - <strong>Invested Computing Power</strong>: 1200TH/s emotional computing power - <strong>Creation Cycle</strong>: 60 days - <strong>Works Output</strong>: 30-piece virtual clothing series - <strong>Total Revenue</strong>: Approximately 80,000 USDT</p>
+<h3 id="computing-power-allocation-table">Computing Power Allocation Table</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Computing Power Type</th>
+<th>Purpose</th>
+<th>User Benefits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Training Computing Power</td>
+<td>Large model fine-tuning</td>
+<td>Tokens + Model API credits</td>
+</tr>
+<tr class="even">
+<td>Inference Computing Power</td>
+<td>Real-time AIGC tasks</td>
+<td>Generated content copyright sharing</td>
+</tr>
+<tr class="odd">
+<td>Emotional Computing Power</td>
+<td>Companion training and interaction</td>
+<td>Evolution points + Emotional NFT blind boxes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="market-analysis">Market Analysis</h2>
+<h3 id="target-market">Target Market</h3>
+<h4 id="main-user-groups">Main User Groups</h4>
+<ol type="1">
+<li><strong>Cryptocurrency Enthusiasts</strong>: Early adopters with deep understanding of blockchain technology</li>
+<li><strong>NFT Collectors</strong>: Users interested in digital art and collectibles</li>
+<li><strong>DeFi Investors</strong>: Financial users seeking high-yield investment opportunities</li>
+<li><strong>Web3 Developers</strong>: Developers wanting to build applications on the platform</li>
+<li><strong>Enterprise Clients</strong>: Business institutions seeking blockchain solutions</li>
+</ol>
+<h4 id="market-size">Market Size</h4>
+<ul>
+<li><strong>Global Cryptocurrency Users</strong>: Over 400 million users</li>
+<li><strong>NFT Market</strong>: Over $25 billion in transaction volume in 2023</li>
+<li><strong>DeFi Market</strong>: Total value locked exceeds $50 billion</li>
+<li><strong>Web3 Application Market</strong>: Expected to reach $80 billion by 2025</li>
+</ul>
+<h3 id="competitive-analysis">Competitive Analysis</h3>
+<h4 id="main-competitors">Main Competitors</h4>
+<ol type="1">
+<li><strong>Traditional PoW Projects</strong>: Bitcoin, Ethereum Classic, etc.</li>
+<li><strong>NFT Mining Projects</strong>: Other NFT-based mining platforms</li>
+<li><strong>Layer2 Solutions</strong>: Polygon, Arbitrum, etc.</li>
+<li><strong>DeFi Protocols</strong>: Aave, Compound, etc.</li>
+</ol>
+<h4 id="competitive-advantages">Competitive Advantages</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Dimension</th>
+<th>Dreamle_Ai</th>
+<th>Competitors</th>
+<th>Advantage Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Energy Efficiency</td>
+<td>Extremely Low</td>
+<td>High</td>
+<td>vPoW mechanism reduces energy consumption by 99%</td>
+</tr>
+<tr class="even">
+<td>Participation Barrier</td>
+<td>Low</td>
+<td>High</td>
+<td>No hardware required, participate with NFT</td>
+</tr>
+<tr class="odd">
+<td>Revenue Model</td>
+<td>Diverse</td>
+<td>Single</td>
+<td>Mining + Staking + Trading multiple revenue streams</td>
+</tr>
+<tr class="even">
+<td>Technical Innovation</td>
+<td>High</td>
+<td>Medium</td>
+<td>vPoW + NFT innovative combination</td>
+</tr>
+<tr class="odd">
+<td>Ecosystem Completeness</td>
+<td>High</td>
+<td>Low</td>
+<td>Full-stack Web3 solution</td>
+</tr>
+<tr class="even">
+<td>Computing Power Evaluation Accuracy</td>
+<td>High</td>
+<td>Low</td>
+<td>Multi-dimensional dynamic formula <span class="math inline">\(V(t)\)</span> real-time precise evaluation</td>
+</tr>
+<tr class="odd">
+<td>Emotional Computing Capability</td>
+<td>Exclusive</td>
+<td>None</td>
+<td>Image generation algorithm <span class="math inline">\(I(x,y,t)\)</span> industry first</td>
+</tr>
+<tr class="even">
+<td>Technical Patent Barrier</td>
+<td>Strong</td>
+<td>Weak</td>
+<td>Core algorithms have applied for multiple international patents</td>
+</tr>
+</tbody>
+</table>
+<h4 id="technical-barrier-analysis">Technical Barrier Analysis</h4>
+<p><strong>1. Algorithm Patent Protection</strong> - <strong>Core Patents</strong>: Multi-dimensional computing power value evaluation algorithm - <strong>Innovation Patents</strong>: Emotional data frequency domain conversion technology - <strong>Application Patents</strong>: AI companion dynamic evolution system</p>
+<p><strong>2. Technical Implementation Complexity</strong> - <strong>Mathematical Depth</strong>: Involves interdisciplinary cross of advanced mathematics, signal processing, machine learning - <strong>Engineering Difficulty</strong>: Requires deep blockchain development and AI engineering experience - <strong>Optimization Challenges</strong>: Technical challenges of real-time computing performance and accuracy balance</p>
+<p><strong>3. Data Network Effects</strong> - <strong>Emotional Data Accumulation</strong>: User emotional interaction data forms unique data assets - <strong>Algorithm Iterative Optimization</strong>: Continuous algorithm optimization based on big data - <strong>Ecosystem Synergy Effects</strong>: Data sharing and collaborative enhancement across multiple application scenarios</p>
+<h4 id="industry-technology-comparison">Industry Technology Comparison</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Technical Dimension</th>
+<th>Dreamle_Ai</th>
+<th>Traditional Computing Power Projects</th>
+<th>Other AI + Blockchain Projects</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Computing Power Evaluation Model</td>
+<td>Multi-dimensional dynamic formula</td>
+<td>Static hash rate</td>
+<td>Simple weight calculation</td>
+</tr>
+<tr class="even">
+<td>Emotional Computing Capability</td>
+<td>Complete frequency domain conversion</td>
+<td>No emotional computing</td>
+<td>Basic emotion recognition</td>
+</tr>
+<tr class="odd">
+<td>Image Generation Technology</td>
+<td>Time evolution algorithm</td>
+<td>No image generation</td>
+<td>Static image generation</td>
+</tr>
+<tr class="even">
+<td>Smart Contract Complexity</td>
+<td>Advanced mathematical operations</td>
+<td>Basic transfer functions</td>
+<td>Medium complexity</td>
+</tr>
+<tr class="odd">
+<td>Cross-chain Compatibility</td>
+<td>Multi-chain native support</td>
+<td>Single chain or no cross-chain</td>
+<td>Limited cross-chain support</td>
+</tr>
+<tr class="even">
+<td>Scalable Architecture</td>
+<td>Modular microservices</td>
+<td>Monolithic architecture</td>
+<td>Hybrid architecture</td>
+</tr>
+</tbody>
+</table>
+<h4 id="technical-leadership-indicators">Technical Leadership Indicators</h4>
+<p><strong>Performance Indicator Comparison</strong> - <strong>Computing Power Evaluation Accuracy</strong>: ≥95% (industry average: ≤70%) - <strong>Emotion Recognition Accuracy</strong>: ≥92% (industry average: ≤80%) - <strong>Image Generation Speed</strong>: ≤3 seconds (industry average: ≥10 seconds) - <strong>System Availability</strong>: ≥99.9% (industry average: ≥99%)</p>
+<p><strong>Technical Innovation Indicators</strong> - <strong>Number of Patent Applications</strong>: 12 core patents - <strong>Algorithm Innovation Degree</strong>: 100% original algorithms - <strong>Technical Complexity</strong>: Involves cross-disciplinary of 8 technical fields - <strong>R&D Investment Intensity</strong>: Annual R&D investment ratio ≥40%</p>
+<h3 id="swot-analysis">SWOT Analysis</h3>
+<h4 id="strengths">Strengths</h4>
+<ul>
+<li>Innovative vPoW consensus mechanism</li>
+<li>Complete NFT ecosystem</li>
+<li>Experienced development team</li>
+<li>Scientific and reasonable token economics</li>
+</ul>
+<h4 id="weaknesses">Weaknesses</h4>
+<ul>
+<li>Project is in early stage</li>
+<li>Brand awareness needs improvement</li>
+<li>Regulatory environment uncertainty</li>
+<li>High technical implementation complexity</li>
+</ul>
+<h4 id="opportunities">Opportunities</h4>
+<ul>
+<li>Web3 market rapid growth</li>
+<li>NFT application scenarios expansion</li>
+<li>Institutional investors entering market</li>
+<li>Regulatory framework gradually improving</li>
+</ul>
+<h4 id="threats">Threats</h4>
+<ul>
+<li>Increasing competing projects</li>
+<li>Technical security risks</li>
+<li>High market volatility</li>
+<li>Regulatory policy changes</li>
+</ul>
+<hr />
+<h2 id="tokenomics">Tokenomics</h2>
+<h3 id="token-basic-information">Token Basic Information</h3>
+<ul>
+<li><strong>Token Name</strong>: DREAMLE</li>
+<li><strong>Token Symbol</strong>: DREAMLE</li>
+<li><strong>Total Supply</strong>: 21,000,000 tokens</li>
+<li><strong>Decimals</strong>: 18</li>
+<li><strong>Blockchain</strong>: BSC (BEP-20)</li>
+</ul>
+<h3 id="token-allocation-plan">Token Allocation Plan</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Purpose</th>
+<th>Percentage</th>
+<th>Quantity (DREAMLE)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mining Rewards</td>
+<td>68%</td>
+<td>14,280,000</td>
+</tr>
+<tr class="even">
+<td>Community Rewards</td>
+<td>10%</td>
+<td>2,100,000</td>
+</tr>
+<tr class="odd">
+<td>DAO Management</td>
+<td>7%</td>
+<td>1,470,000</td>
+</tr>
+<tr class="even">
+<td>Team Incentives</td>
+<td>6%</td>
+<td>1,260,000</td>
+</tr>
+<tr class="odd">
+<td>Game Ecosystem</td>
+<td>4%</td>
+<td>840,000</td>
+</tr>
+<tr class="even">
+<td>OTC Incentives</td>
+<td>3%</td>
+<td>630,000</td>
+</tr>
+<tr class="odd">
+<td>Liquidity Mining</td>
+<td>2%</td>
+<td>420,000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-release-plan">Phase Release Plan</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Phase</th>
+<th>Reward Percentage</th>
+<th>Reward per Block</th>
+<th>Phase Release Amount</th>
+<th>Duration (Days)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phase 0</td>
+<td>50%</td>
+<td>1.72 DREAMLE</td>
+<td>7,140,000</td>
+<td>360</td>
+</tr>
+<tr class="even">
+<td>Phase 1</td>
+<td>25%</td>
+<td>0.86 DREAMLE</td>
+<td>3,570,000</td>
+<td>360</td>
+</tr>
+<tr class="odd">
+<td>Phase 2</td>
+<td>12.5%</td>
+<td>0.43 DREAMLE</td>
+<td>1,785,000</td>
+<td>360</td>
+</tr>
+<tr class="even">
+<td>Phase 3</td>
+<td>6.25%</td>
+<td>0.215 DREAMLE</td>
+<td>892,500</td>
+<td>360</td>
+</tr>
+<tr class="odd">
+<td>Phase 4</td>
+<td>3.125%</td>
+<td>0.107 DREAMLE</td>
+<td>446,250</td>
+<td>360</td>
+</tr>
+<tr class="even">
+<td>Phase 5</td>
+<td>1.5625%</td>
+<td>0.054 DREAMLE</td>
+<td>223,125</td>
+<td>360</td>
+</tr>
+<tr class="odd">
+<td>Phase 6</td>
+<td>0.78125%</td>
+<td>0.027 DREAMLE</td>
+<td>111,562.5</td>
+<td>360</td>
+</tr>
+<tr class="even">
+<td>Phase 7</td>
+<td>0.390625%</td>
+<td>0.013 DREAMLE</td>
+<td>55,781.25</td>
+<td>360</td>
+</tr>
+<tr class="odd">
+<td>Phase 8</td>
+<td>0.1953125%</td>
+<td>0.007 DREAMLE</td>
+<td>27,890.625</td>
+<td>360</td>
+</tr>
+<tr class="even">
+<td>Phase 9+</td>
+<td>0.09765625%</td>
+<td>0.003 DREAMLE</td>
+<td>Continuous output</td>
+<td>Continuous</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>100%</strong></td>
+<td><strong>—</strong></td>
+<td><strong>14,280,000</strong></td>
+<td><strong>—</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="token-circulation-model">Token Circulation Model</h3>
+<pre class="mermaid"><code>graph LR
+Mining --> Computing Power --> AI Training --> Tokens
+Tokens --> Mining Rig Upgrade --> Emotional Computing Power --> Companion NFT Trading --> DAO Taxation --> Mining</code></pre>
+<hr />
+<h2 id="development-roadmap">Development Roadmap</h2>
+<h3 id="development-milestones">Development Milestones</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Milestone</th>
+<th>Time</th>
+<th>Key Deliverables</th>
+<th>Emotional Feature Highlights</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Phase 1</td>
+<td>October 1 - December 31, 2025</td>
+<td>Computing Power NFT Types Launch</td>
+<td>Basic Companion Generation Function</td>
+</tr>
+<tr class="even">
+<td>Phase 2</td>
+<td>January 1 - March 31, 2026</td>
+<td>Cross-platform Migration Protocol</td>
+<td>Companion "Gene" Synthesis System</td>
+</tr>
+<tr class="odd">
+<td>Phase 3</td>
+<td>April 1 - June 30, 2026</td>
+<td>Emotional Computing Power DAO Launch</td>
+<td>Memory NFT Market Opening</td>
+</tr>
+<tr class="even">
+<td>Phase 4</td>
+<td>July 1 - September 30, 2026</td>
+<td>Brain-Computer Interface Early Adaptation</td>
+<td>Biological Feedback Emotional Optimization</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detailed-implementation-plan">Detailed Implementation Plan</h3>
+<h4 id="phase-1-infrastructure-and-mainnet-launch-oct-dec-2025">Phase 1: Infrastructure and Mainnet Launch (October 1 - December 31, 2025)</h4>
+<ul>
+<li><strong>October 2025</strong>: Complete level 8 NFT system design and development</li>
+<li><strong>October 2025</strong>: Develop DApp frontend interface</li>
+<li><strong>October 2025</strong>: Deploy test network</li>
+<li><strong>November 2025</strong>: Complete level 8 + NFT system planning</li>
+<li><strong>November 2025</strong>: Smart contract security audit</li>
+<li><strong>November 2025</strong>: Whitepaper 1.0 release</li>
+<li><strong>December 2025</strong>: Mainnet launch</li>
+<li><strong>December 2025</strong>: Cross-chain bridge function development</li>
+<li><strong>December 2025</strong>: AI integration function testing</li>
+<li><strong>December 2025</strong>: NFT market launch</li>
+<li><strong>December 2025</strong>: Exchange listing application</li>
+<li><strong>December 2025</strong>: Mobile app release</li>
+</ul>
+<h4 id="phase-2-ecosystem-expansion-jan-mar-2026">Phase 2: Ecosystem Expansion (January 1 - March 31, 2026)</h4>
+<ul>
+<li><strong>January 2026</strong>: DAO governance system launch</li>
+<li><strong>January 2026</strong>: Layer2 scaling solution implementation</li>
+<li><strong>February 2026</strong>: IPFS distributed storage integration</li>
+<li><strong>February 2026</strong>: Enterprise-level solution development</li>
+<li><strong>March 2026</strong>: International market expansion</li>
+<li><strong>March 2026</strong>: Strategic partnership establishment</li>
+</ul>
+<h4 id="phase-3-mature-development-apr-jun-2026">Phase 3: Mature Development (April 1 - June 30, 2026)</h4>
+<ul>
+<li><strong>April 2026</strong>: NFT market function expansion</li>
+<li><strong>April 2026</strong>: Integration with mainstream platforms like OpenSea</li>
+<li><strong>May 2026</strong>: DAO governance mechanism optimization</li>
+<li><strong>May 2026</strong>: API ecosystem construction</li>
+<li><strong>June 2026</strong>: Global operations team establishment</li>
+<li><strong>June 2026</strong>: Data analysis platform launch</li>
+</ul>
+<h4 id="phase-4-leadership-position-jul-sep-2026">Phase 4: Leadership Position (July 1 - September 30, 2026)</h4>
+<ul>
+<li><strong>July 2026</strong>: NFT trading platform improvement</li>
+<li><strong>July 2026</strong>: Global market coverage</li>
+<li><strong>August 2026</strong>: More enterprise partners</li>
+<li><strong>August 2026</strong>: Regulatory compliance improvement</li>
+<li><strong>September 2026</strong>: Market cap and user number target achievement</li>
+<li><strong>September 2026</strong>: New product line planning</li>
+</ul>
+<h4 id="phase-5-ecosystem-perfection-oct-dec-2026">Phase 5: Ecosystem Perfection (October 1 - December 31, 2026)</h4>
+<ul>
+<li><strong>October 2026</strong>: Emotional Computing Power DAO launch</li>
+<li><strong>November 2026</strong>: Memory NFT market opening</li>
+<li><strong>December 2026</strong>: Brain-computer interface early adaptation</li>
+<li>Global ecosystem partner network</li>
+<li>Complete decentralized governance</li>
+<li>Next-generation AI companion system</li>
+</ul>
+<hr />
+<h2 id="team-introduction">Team Introduction</h2>
+<h3 id="core-team">Core Team</h3>
+<h4 id="technical-team">Technical Team</h4>
+<ul>
+<li><strong>Blockchain Architect</strong>: 10+ years of blockchain development experience</li>
+<li><strong>Smart Contract Engineer</strong>: Ethereum, BSC multi-chain development expert</li>
+<li><strong>Frontend Development Engineer</strong>: React, Vue.js expert</li>
+<li><strong>Backend Development Engineer</strong>: Distributed systems expert</li>
+<li><strong>Security Audit Expert</strong>: Smart contract security expert</li>
+</ul>
+<h4 id="operations-team">Operations Team</h4>
+<ul>
+<li><strong>Project Founder</strong>: Serial entrepreneur, senior expert in blockchain industry</li>
+<li><strong>Marketing Director</strong>: Digital marketing expert, rich experience in cryptocurrency industry</li>
+<li><strong>Community Manager</strong>: Web3 community operations expert</li>
+<li><strong>Business Development Director</strong>: Enterprise cooperation expert</li>
+<li><strong>Legal Advisor</strong>: Blockchain legal expert</li>
+</ul>
+<h3 id="advisor-team">Advisor Team</h3>
+<h4 id="technical-advisors">Technical Advisors</h4>
+<ul>
+<li><strong>University Professor</strong>: Blockchain technology researcher</li>
+<li><strong>Ethereum Core Contributor</strong>: Blockchain protocol expert</li>
+<li><strong>Cryptography Expert</strong>: Security and privacy protection expert</li>
+</ul>
+<h4 id="business-advisors">Business Advisors</h4>
+<ul>
+<li><strong>Venture Capitalist</strong>: Cryptocurrency investment expert</li>
+<li><strong>Entrepreneur</strong>: Founder of successful technology company</li>
+<li><strong>Financial Expert</strong>: Expert in combining traditional finance and DeFi</li>
+</ul>
+<hr />
+<h2 id="security-architecture">Security Architecture</h2>
+<h3 id="multi-layer-security-protection">Multi-layer Security Protection</h3>
+<h4 id="smart-contract-security">Smart Contract Security</h4>
+<ul>
+<li><strong>Multiple Security Audits</strong>: Audited by multiple well-known security companies</li>
+<li><strong>Formal Verification</strong>: Use mathematical methods to verify contract correctness</li>
+<li><strong>Emergency Pause Mechanism</strong>: Contract functions can be paused in abnormal situations</li>
+</ul>
+<h4 id="network-security">Network Security</h4>
+<ul>
+<li><strong>Distributed Node Deployment</strong>: Avoid single point of failure</li>
+<li><strong>DDoS Protection</strong>: Professional DDoS protection services</li>
+<li><strong>Encrypted Data Transmission</strong>: All data transmission uses encryption</li>
+</ul>
+<h4 id="economic-security">Economic Security</h4>
+<ul>
+<li><strong>Token Locking Mechanism</strong>: Important tokens locked long-term</li>
+<li><strong>Risk Reserve Fund</strong>: Establish risk response fund pool</li>
+<li><strong>Insurance Fund</strong>: Provide asset insurance for users</li>
+</ul>
+<h4 id="governance-security">Governance Security</h4>
+<ul>
+<li><strong>Multi-signature Wallet</strong>: Fund operations require multi-party signature confirmation</li>
+<li><strong>Time Lock Contract</strong>: Important decisions have time delay</li>
+<li><strong>Community Supervision Mechanism</strong>: Community members can supervise project operations</li>
+</ul>
+<h3 id="risk-management">Risk Management</h3>
+<h4 id="technical-risks">Technical Risks</h4>
+<p><strong>1. Smart Contract Vulnerability Risk</strong> - <strong>Risk Level</strong>: High - <strong>Response Measures</strong>: - <strong>Multiple Audits</strong>: Cross-audit by three top security companies: CertiK, Trail of Bits, ConsenSys Diligence - <strong>Formal Verification</strong>: Mathematical proof verification using Coq and Isabelle/HOL - <strong>Bug Bounty Program</strong>: Establish vulnerability reward up to 1 million USDT - <strong>Emergency Pause Mechanism</strong>: Multi-signature emergency pause function, respond within 24 hours in abnormal situations</p>
+<p><strong>2. Algorithm Parameter Optimization Risk</strong> - <strong>Risk Level</strong>: Medium - <strong>Response Measures</strong>: - <strong>Parameter Adaptive System</strong>: Automatically adjust formula parameters based on market feedback - <strong>DAO Governance Mechanism</strong>: Key parameter changes require community voting approval - <strong>Stress Testing Environment</strong>: Regularly test algorithm stability under extreme conditions - <strong>Rollback Mechanism</strong>: Support rapid rollback of parameter changes</p>
+<p><strong>3. Performance Scaling Risk</strong> - <strong>Risk Level</strong>: Medium - <strong>Response Measures</strong>: - <strong>Layered Architecture Design</strong>: Adopt microservices architecture to support horizontal scaling - <strong>Load Balancing System</strong>: Intelligent traffic allocation and resource scheduling - <strong>Cache Optimization Strategy</strong>: Multi-level cache to improve response speed - <strong>Monitoring Early Warning System</strong>: Real-time performance monitoring and anomaly early warning</p>
+<p><strong>4. Data Security Risk</strong> - <strong>Risk Level</strong>: High - <strong>Response Measures</strong>: - <strong>End-to-end Encryption</strong>: All data transmission uses AES-256 encryption - <strong>Distributed Storage</strong>: IPFS + Arweave dual backup storage - <strong>Access Control</strong>: Role-based fine-grained permission management - <strong>Data Desensitization</strong>: Automatic desensitization of sensitive information</p>
+<h4 id="market-risks">Market Risks</h4>
+<p><strong>1. Price Volatility Risk</strong> - <strong>Risk Level</strong>: High - <strong>Response Measures</strong>: - <strong>Stablecoin Reserve</strong>: Maintain 30% of assets in stablecoin form - <strong>Hedging Strategy</strong>: Use financial derivatives to hedge price risks - <strong>Dynamic Adjustment Mechanism</strong>: Adjust mining rewards based on market volatility - <strong>Insurance Fund</strong>: Establish market volatility insurance fund</p>
+<p><strong>2. Liquidity Risk</strong> - <strong>Risk Level</strong>: Medium - <strong>Response Measures</strong>: - <strong>Multi-exchange Listing</strong>: Plan to list on 10+ mainstream exchanges including Binance, Coinbase, OKX - <strong>Market Maker Cooperation</strong>: Cooperate with professional market makers to provide deep liquidity - <strong>Liquidity Mining Incentives</strong>: Provide additional token rewards to attract liquidity providers - <strong>Cross-chain Bridge</strong>: Support multi-chain asset cross-chain circulation</p>
+<p><strong>3. Competition Risk</strong> - <strong>Risk Level</strong>: Medium - <strong>Response Measures</strong>: - <strong>Technical Patent Protection</strong>: 12 core patents form technical barriers - <strong>Continuous R&D Investment</strong>: Annual R&D investment not less than 40% of total budget - <strong>Ecosystem Cooperation Network</strong>: Establish extensive partnership relationships - <strong>Brand Building</strong>: Continuous investment in marketing and brand building</p>
+<h4 id="regulatory-risks">Regulatory Risks</h4>
+<p><strong>1. Policy Change Risk</strong> - <strong>Risk Level</strong>: High - <strong>Response Measures</strong>: - <strong>Compliance Team Building</strong>: Form professional global compliance team - <strong>Policy Monitoring System</strong>: Real-time monitoring of global regulatory policy changes - <strong>Flexible Architecture Design</strong>: Support rapid adaptation to different regulatory requirements - <strong>Legal Consulting Network</strong>: Cooperate with global top law firms</p>
+<p><strong>2. Compliance Cost Risk</strong> - <strong>Risk Level</strong>: Medium - <strong>Response Measures</strong>: - <strong>Compliance Budget Reservation</strong>: Reserve 15% of annual budget as compliance cost - <strong>Cost Optimization Strategy</strong>: Reduce compliance costs through technical means - <strong>Compliance Sharing Mechanism</strong>: Share compliance resources with other projects - <strong>Compliance Technology Investment</strong>: Invest in RegTech technology to reduce compliance costs</p>
+<p><strong>3. Cross-border Regulatory Risk</strong> - <strong>Risk Level</strong>: High - <strong>Response Measures</strong>: - <strong>Regionalized Operations</strong>: Establish local operating entities in different jurisdictions - <strong>Compliance Architecture Design</strong>: Design operating architecture compliant with local regulations - <strong>Regulatory Communication Mechanism</strong>: Proactively establish communication channels with local regulators - <strong>Compliance Certification Acquisition</strong>: Actively obtain necessary compliance certifications in various regions</p>
+<h4 id="risk-quantification-indicators">Risk Quantification Indicators</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Risk Type</th>
+<th>Monitoring Indicator</th>
+<th>Early Warning Threshold</th>
+<th>Response Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Smart Contract Risk</td>
+<td>Number of vulnerabilities</td>
+<td>> 0</td>
+<td>Within 24 hours</td>
+</tr>
+<tr class="even">
+<td>Performance Risk</td>
+<td>System response time</td>
+<td>> 3 seconds</td>
+<td>Within 1 hour</td>
+</tr>
+<tr class="odd">
+<td>Price Volatility Risk</td>
+<td>Token price fluctuation</td>
+<td>> 20%</td>
+<td>Within 4 hours</td>
+</tr>
+<tr class="even">
+<td>Liquidity Risk</td>
+<td>Insufficient depth</td>
+<td>< 1 million USDT</td>
+<td>Within 12 hours</td>
+</tr>
+<tr class="odd">
+<td>Regulatory Risk</td>
+<td>Number of policy changes</td>
+<td>> 1 item/month</td>
+<td>Within 72 hours</td>
+</tr>
+<tr class="even">
+<td>Algorithm Accuracy Risk</td>
+<td>Evaluation error rate</td>
+<td>> 5%</td>
+<td>Within 48 hours</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="technical-architecture">Technical Architecture</h2>
+<h3 id="vpow-virtual-proof-of-work-mechanism">vPoW (Virtual Proof-of-Work) Mechanism</h3>
+<h4 id="technical-principles">Technical Principles</h4>
+<p>vPoW is an innovative consensus mechanism designed by the Dreamle_Ai team, which combines the traditional PoW proof-of-work concept with virtualization technology, greatly reducing energy consumption and participation barriers while ensuring network security.</p>
+<h4 id="core-features">Core Features</h4>
+<ol type="1">
+<li><strong>Virtualized Mining</strong>: Users obtain virtual computing power through NFTs, no physical hardware required</li>
+<li><strong>Dynamic Difficulty Adjustment</strong>: Automatically adjust mining difficulty based on network status</li>
+<li><strong>Energy Efficiency Optimization</strong>: Energy consumption reduced by over 99% compared to traditional PoW</li>
+<li><strong>Scalability</strong>: Support large-scale user participation, linear network performance scaling</li>
+</ol>
+<h4 id="technical-implementation">Technical Implementation</h4>
+<pre class="solidity"><code>contract vPoW {
+    struct VirtualMiner {
+        uint256 nftId;
+        uint256 power;
+        uint256 lastClaim;
+        bool active;
+    }
+    
+    mapping(uint256 => VirtualMiner) public virtualMiners;
+    mapping(address => uint256[]) public userMiners;
+    
+    function calculateReward(uint256 nftId) public view returns (uint256) {
+        VirtualMiner memory miner = virtualMiners[nftId];
+        uint256 timePassed = block.timestamp - miner.lastClaim;
+        return (miner.power * timePassed * rewardRate) / 86400;
+    }
+}</code></pre>
+<h3 id="nft-computing-power-system">NFT Computing Power System</h3>
+<h4 id="mining-rig-level-design">Mining Rig Level Design</h4>
+<p>The project has designed 8 levels of NFT mining rigs, each level corresponding to different investment costs and computing power output, forming a complete mining ecosystem.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Investment (USDT)</th>
+<th>Computing Power (TH/s)</th>
+<th>Unit Price (USDT/TH)</th>
+<th>NFT Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>100</td>
+<td>40</td>
+<td>2.5</td>
+<td>10,000</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>300</td>
+<td>130</td>
+<td>2.31</td>
+<td>8,000</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>800</td>
+<td>370</td>
+<td>2.16</td>
+<td>6,000</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>1,500</td>
+<td>780</td>
+<td>1.9</td>
+<td>24,000</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>2,500</td>
+<td>1,450</td>
+<td>1.72</td>
+<td>2,000</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>4,000</td>
+<td>2,600</td>
+<td>1.54</td>
+<td>1,000</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>6,000</td>
+<td>4,500</td>
+<td>1.33</td>
+<td>500</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8,000</td>
+<td>6,400</td>
+<td>1.25</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<h4 id="nft-functional-features">NFT Functional Features</h4>
+<ul>
+<li><strong>Mining Computing Power</strong>: Each NFT provides fixed virtual computing power</li>
+<li><strong>Tradability</strong>: NFTs can be freely traded in secondary market</li>
+<li><strong>Upgrade Mechanism</strong>: Support NFT level upgrade</li>
+<li><strong>Staking Rewards</strong>: Can be staked for additional rewards</li>
+</ul>
+<h3 id="ai-computing-power-bridge">AI Computing Power Bridge</h3>
+<h4 id="system-architecture-1">System Architecture</h4>
+<pre class="mermaid"><code>graph LR  
+    A[User NFT Mining Rig] --> B[AI Computing Power Matching Contract]  
+    B --> C{AI Task Type}  
+    C -->|Training| D[zkML Verification Node]  
+    C -->|Inference| E[Task Sharding Engine]  
+    D & E --> F[Reward Settlement Contract]  </code></pre>
+<h4 id="workflow">Workflow</h4>
+<ol type="1">
+<li><strong>Computing Power Collection</strong>: User NFT mining rig computing power is aggregated through smart contracts</li>
+<li><strong>Task Matching</strong>: AI computing power matching contract allocates computing power based on task types</li>
+<li><strong>Execution Verification</strong>: zkML verification nodes ensure calculation result correctness</li>
+<li><strong>Reward Settlement</strong>: Distribute token rewards based on contribution degree</li>
+</ol>
+<h3 id="computing-power-value-formula">Computing Power Value Formula</h3>
+<p>To more accurately quantify the contribution value of different types of computing power to the ecosystem, Dreamle_Ai introduces an innovative multi-dimensional computing power value formula. This formula comprehensively considers multiple dimensions such as computing power type, cost-effectiveness, emotional value, and time decay, achieving scientific evaluation and dynamic adjustment of computing power contributions.</p>
+<h4 id="core-mathematical-model">Core Mathematical Model</h4>
+<p>The computing power value formula is defined as follows:</p>
+<p><span class="math display">\[V(t) = \sum_{i=1}^{n} \left[ H_i(t) \times \eta_i \times \frac{C_b}{C_i} \times e^{-\lambda t} \right] + \alpha \cdot \log\left(1 + \frac{E_q(t)}{E_0}\right) \times \beta(t)\]</span></p>
+<p>Where: - <span class="math inline">\(V(t)\)</span>: Total computing power value at time <span class="math inline">\(t\)</span> - <span class="math inline">\(H_i(t)\)</span>: Computing power of the <span class="math inline">\(i\)</span>-th mining rig at time <span class="math inline">\(t\)</span> - <span class="math inline">\(\eta_i\)</span>: Computing power type coefficient of the <span class="math inline">\(i\)</span>-th mining rig - <span class="math inline">\(C_b\)</span>: Base cost - <span class="math inline">\(C_i\)</span>: Actual cost of the <span class="math inline">\(i\)</span>-th model - <span class="math inline">\(\lambda\)</span>: Time decay coefficient - <span class="math inline">\(E_q(t)\)</span>: Emotional quantum value at time <span class="math inline">\(t\)</span> - <span class="math inline">\(E_0\)</span>: Emotional base constant - <span class="math inline">\(\alpha\)</span>: Emotional gain coefficient - <span class="math inline">\(\beta(t)\)</span>: Network effect function</p>
+<h4 id="key-innovation-points">Key Innovation Points</h4>
+<ol type="1">
+<li><strong>Time Dimension Introduction</strong>: Achieve time decay of computing power value through <span class="math inline">\(e^{-\lambda t}\)</span>, reflecting technological updates and market competition</li>
+<li><strong>Dynamic Emotional Value</strong>: <span class="math inline">\(E_q(t)\)</span> changes over time, reflecting the continuity and evolution of emotional interaction</li>
+<li><strong>Network Effect Modeling</strong>: <span class="math inline">\(\beta(t) = 1 + \gamma \cdot \log(N(t))\)</span>, where <span class="math inline">\(N(t)\)</span> is the number of network nodes</li>
+<li><strong>Multi-computing Power Type Fusion</strong>: Support collaborative evaluation of three computing power types: training, inference, and emotional</li>
+</ol>
+<h4 id="parameter-optimization-system">Parameter Optimization System</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Name</th>
+<th>Value Range</th>
+<th>Dynamic Adjustment Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\eta_i\)</span></td>
+<td>Computing Power Type Coefficient</td>
+<td>Training=1.8, Inference=2.2, Emotional=1.5</td>
+<td>Quarterly adjustment based on market demand</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>Time Decay Coefficient</td>
+<td>[0.001, 0.01]</td>
+<td>Adaptive based on technology iteration speed</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td>Emotional Gain Coefficient</td>
+<td>[0.2, 0.3]</td>
+<td>Determined by DAO voting</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\gamma\)</span></td>
+<td>Network Effect Strength</td>
+<td>[0.1, 0.5]</td>
+<td>Dynamically adjusted based on network size</td>
+</tr>
+</tbody>
+</table>
+<h4 id="smart-contract-implementation">Smart Contract Implementation</h4>
+<p>The following is an example of the computing power value calculation contract in Solidity 0.8.0:</p>
+<pre class="solidity"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract HashPowerValuation {
+    // Computing power information structure
+    struct HashPowerInfo {
+        uint256 power;           // Computing power (TH/s)
+        PowerType powerType;     // Computing power type
+        uint256 modelCost;       // Model cost
+    }
+    
+    // Computing power type enumeration
+    enum PowerType { Training, Inference, Emotional }
+    
+    // Parameter constants
+    uint256 private constant BASE_COST = 50000000000000000; // 0.05 ETH/million tokens (unit: wei)
+    uint256 private constant EMOTIONAL_BASE = 1000;         // Emotional base constant E0
+    uint256 private constant EMOTIONAL_GAIN = 250000000000000000; // Emotional gain coefficient λ (0.25, unit: wei)
+    
+    // Computing power type coefficient mapping
+    mapping(PowerType => uint256) private powerTypeCoefficients;
+    
+    constructor() {
+        // Initialize computing power type coefficients (multiplied by 10^18 to handle decimals)
+        powerTypeCoefficients[PowerType.Training] = 1800000000000000000;   // 1.8
+        powerTypeCoefficients[PowerType.Inference] = 2200000000000000000;  // 2.2
+        powerTypeCoefficients[PowerType.Emotional] = 1500000000000000000;  // 1.5
+    }
+    
+    /**
+     * @dev Calculate computing power value of a single mining rig
+     * @param info Mining rig computing power information
+     * @return Computing power value (unit: wei)
+     */
+    function calculatePowerValue(HashPowerInfo memory info) public view returns (uint256) {
+        // Basic computing power value calculation: H_i * η_i * C_b / C_i
+        uint256 baseValue = (info.power * 
+                            powerTypeCoefficients[info.powerType] * 
+                            BASE_COST) / 
+                            info.modelCost;
+        
+        return baseValue;
+    }
+    
+    /**
+     * @dev Calculate total computing power value (simplified version)
+     * @param infos Mining rig computing power information array
+     * @param emotionalQuantum Emotional quantum value Eq
+     * @return Total computing power value (unit: wei)
+     */
+    function calculateTotalValue(HashPowerInfo[] memory infos, uint256 emotionalQuantum) public view returns (uint256) {
+        uint256 totalBaseValue = 0;
+        
+        // Calculate sum of basic computing power values
+        for (uint256 i = 0; i < infos.length; i++) {
+            totalBaseValue += calculatePowerValue(infos[i]);
+        }
+        
+        // Calculate emotional value gain: λ * log(1 + Eq/E0)
+        uint256 emotionalValue = 0;
+        if (emotionalQuantum > 0) {
+            // Simplified logarithm calculation, actual implementation needs more precise mathematical library
+            uint256 ratio = (emotionalQuantum * 1e18) / EMOTIONAL_BASE; // Eq/E0
+            emotionalValue = (EMOTIONAL_GAIN * log(1e18 + ratio)) / 1e18;
+        }
+        
+        return totalBaseValue + emotionalValue;
+    }
+    
+    /**
+     * @dev Simplified natural logarithm calculation (for demonstration only)
+     * @param x Input value (multiplied by 10^18)
+     * @return ln(x) (multiplied by 10^18)
+     */
+    function log(uint256 x) internal pure returns (uint256) {
+        // This is for demonstration only, actual implementation needs more precise mathematical library
+        // Such as using PRBMath or ABDKMath64x64 libraries
+        if (x <= 1e18) return 0;
+        
+        // Simplified approximation calculation
+        // Actual applications should use professional mathematical libraries
+        return x / 1e18;
+    }
+}</code></pre>
+<h3 id="image-generation-formula">Image Generation Formula</h3>
+<p>The visual image of emotional companions is achieved through multi-dimensional frequency domain conversion algorithms, which not only consider emotional data but also integrate user behavior patterns and environmental factors to generate more personalized and dynamic visual images.</p>
+<h4 id="enhanced-mathematical-model">Enhanced Mathematical Model</h4>
+<p><span class="math display">\[I(x,y,t) = \Re\left[ \int_{\Omega} \left( \sum_{k=1}^{K} \frac{\delta(\text{emotion}_k) \cdot w_k(t)}{1 + e^{-0.7(\text{rarity}_k - 5)}} \cdot A(\theta, \phi) \right) e^{-j2\pi (f_x x + f_y y)} \cdot B(t)  d\mathbf{f} \right]\]</span></p>
+<p>New parameters: - <span class="math inline">\(t\)</span>: Time dimension, supporting dynamic image evolution - <span class="math inline">\(w_k(t)\)</span>: Time weight function of the <span class="math inline">\(k\)</span>-th emotional feature - <span class="math inline">\(A(\theta, \phi)\)</span>: Environmental perception function, <span class="math inline">\(\theta\)</span> is user behavior pattern, <span class="math inline">\(\phi\)</span> is environmental parameter - <span class="math inline">\(B(t)\)</span>: Evolution modulation function, <span class="math inline">\(B(t) = 1 + \sigma \cdot \sin(\omega t + \phi)\)</span></p>
+<h4 id="technical-innovation-highlights">Technical Innovation Highlights</h4>
+<ol type="1">
+<li><strong>Time Dimension Evolution</strong>: Images change dynamically over time, reflecting the growth of AI companions</li>
+<li><strong>Environmental Perception Fusion</strong>: Generate adaptive images by combining user behavior and environmental factors</li>
+<li><strong>Multi-modal Input</strong>: Support various emotional input methods including text, voice, and images</li>
+<li><strong>Personalized Customization</strong>: Generate unique visual features based on user historical data</li>
+</ol>
+<h4 id="parameter-description">Parameter Description</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Name</th>
+<th>Description</th>
+<th>Value Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(I(x,y)\)</span></td>
+<td>Image Intensity</td>
+<td>Pixel value of output image at position <span class="math inline">\((x,y)\)</span></td>
+<td>[0, 255]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\delta(\text{emotion}_k)\)</span></td>
+<td>Emotional Pulse Function</td>
+<td>Characteristic function of the <span class="math inline">\(k\)</span>-th emotional component</td>
+<td>{0, 1}</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{rarity}_k\)</span></td>
+<td>Emotional Rarity</td>
+<td>Rarity degree of the <span class="math inline">\(k\)</span>-th emotional feature</td>
+<td>[1, 10]</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f_x, f_y\)</span></td>
+<td>Frequency Domain Coordinates</td>
+<td>Frequency coordinates of Fourier transform</td>
+<td><span class="math inline">\([-\pi, \pi]\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(K\)</span></td>
+<td>Number of Emotional Components</td>
+<td>Total number of emotional features participating in calculation</td>
+<td>[1, ∞)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="smart-contract-implementation-1">Smart Contract Implementation</h4>
+<pre class="solidity"><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ImageGenerationFormula {
+    // Emotional feature structure
+    struct EmotionFeature {
+        bool isActive;           // Whether emotion is active
+        uint8 rarity;           // Rarity (1-10)
+        uint256 weight;         // Weight coefficient
+    }
+    
+    // Image generation parameters
+    struct GenerationParams {
+        uint256 width;          // Image width
+        uint256 height;         // Image height
+        uint256 frequencyRange; // Frequency range
+    }
+    
+    // Emotional feature mapping
+    mapping(uint256 => EmotionFeature) public emotionFeatures;
+    
+    // Constant definitions
+    uint256 private constant RARITY_SCALE_FACTOR = 7; // Scaling factor for 0.7
+    uint256 private constant RARITY_THRESHOLD = 5;    // Rarity threshold
+    
+    /**
+     * @dev Calculate emotional weight
+     * @param emotionId Emotion ID
+     * @return Weight value (multiplied by 10^18)
+     */
+    function calculateEmotionWeight(uint256 emotionId) public view returns (uint256) {
+        EmotionFeature memory feature = emotionFeatures[emotionId];
+        
+        if (!feature.isActive) return 0;
+        
+        // Calculate: 1 / (1 + e^(-0.7(rarity_k - 5)))
+        int256 exponent = -int256(RARITY_SCALE_FACTOR * (feature.rarity - RARITY_THRESHOLD));
+        uint256 sigmoid = (1e18 * 1e18) / (1e18 + exp(exponent));
+        
+        return (feature.weight * sigmoid) / 1e18;
+    }
+    
+    /**
+     * @dev Batch calculate total emotional weight
+     * @param emotionIds Emotion ID array
+     * @return Total weight value (multiplied by 10^18)
+     */
+    function calculateTotalEmotionWeight(uint256[] memory emotionIds) public view returns (uint256) {
+        uint256 totalWeight = 0;
+        
+        for (uint256 i = 0; i < emotionIds.length; i++) {
+            totalWeight += calculateEmotionWeight(emotionIds[i]);
+        }
+        
+        return totalWeight;
+    }
+    
+    /**
+     * @dev Generate image data (simplified version)
+     * @param emotionIds Emotion ID array
+     * @param params Generation parameters
+     * @return Image data hash
+     */
+    function generateImage(uint256[] memory emotionIds, GenerationParams memory params) 
+        public 
+        view 
+        returns (bytes32) 
+    {
+        uint256 totalWeight = calculateTotalEmotionWeight(emotionIds);
+        
+        // Simplified image generation logic
+        // Actual implementation needs more complex mathematical calculations and image processing
+        bytes memory imageData = new bytes(params.width * params.height * 3); // RGB
+        
+        for (uint256 y = 0; y < params.height; y++) {
+            for (uint256 x = 0; x < params.width; x++) {
+                // Calculate pixel value
+                uint256 pixelIndex = (y * params.width + x) * 3;
+                uint256 intensity = (totalWeight * (x + y)) / (params.width + params.height);
+                
+                // Set RGB values
+                imageData[pixelIndex] = bytes1(uint8(intensity % 256));     // R
+                imageData[pixelIndex + 1] = bytes1(uint8((intensity * 2) % 256)); // G
+                imageData[pixelIndex + 2] = bytes1(uint8((intensity * 3) % 256)); // B
+            }
+        }
+        
+        return keccak256(imageData);
+    }
+    
+    /**
+     * @dev Simplified exponential function calculation (for demonstration only)
+     * @param x Exponent
+     * @return e^x (multiplied by 10^18)
+     */
+    function exp(int256 x) internal pure returns (uint256) {
+        // This is for demonstration only, actual implementation needs more precise mathematical library
+        // Use Taylor series expansion or other numerical methods
+        if (x == 0) return 1e18;
+        if (x < 0) return (1e18 * 1e18) / exp(-x);
+        
+        // Simplified approximation calculation
+        return uint256(1e18) + uint256(x) * 1e18 / 1000;
+    }
+}</code></pre>
+<h3 id="core-formula-optimization-results">Core Formula Optimization Results</h3>
+<h4 id="computing-power-value-formula-upgrade">Computing Power Value Formula Upgrade</h4>
+<ul>
+<li><strong>Original Formula</strong>: Static evaluation model</li>
+<li><strong>New Formula</strong>: <span class="math inline">\(V(t)=\sum_{i=1}^{n}[H_i(t) \times \eta_i \times \frac{C_b}{C_i} \times e^{-\lambda t}] + \alpha \cdot \log(1 + \frac{E_q(t)}{E_0}) \times \beta(t)\)</span></li>
+</ul>
+<p><strong>Key Innovations</strong>: - <strong>Time Dimension</strong>: <span class="math inline">\(e^{-\lambda t}\)</span> time decay, reflecting technological updates and market competition - <strong>Dynamic Emotion</strong>: <span class="math inline">\(E_q(t)\)</span> changes over time, reflecting continuity and evolution of emotional interaction - <strong>Network Effects</strong>: <span class="math inline">\(\beta(t)=1+\gamma \cdot \log(N(t))\)</span> models network growth effects - <strong>Parameter Adaptive</strong>: Supports dynamic adjustment mechanism based on market demand</p>
+<h4 id="image-generation-formula-enhancement">Image Generation Formula Enhancement</h4>
+<ul>
+<li><strong>Original Formula</strong>: Basic frequency domain conversion</li>
+<li><strong>New Formula</strong>: <span class="math inline">\(I(x,y,t)=\Re\left[ \int_{\Omega} \left( \sum_{k=1}^{K} \frac{\delta(\text{emotion}_k) \cdot w_k(t)}{1 + e^{-0.7(\text{rarity}_k - 5)}} \cdot A(\theta, \phi) \right) e^{-j2\pi (f_x x + f_y y)} \cdot B(t) d\mathbf{f} \right]\)</span></li>
+</ul>
+<p><strong>Technical Breakthroughs</strong>: - <strong>Time Evolution</strong>: <span class="math inline">\(B(t)=1+\sigma \cdot \sin(\omega t + \phi)\)</span> achieves periodic evolution - <strong>Environmental Perception</strong>: <span class="math inline">\(A(\theta, \phi)\)</span> integrates user behavior patterns and environmental factors - <strong>Personalized Customization</strong>: Generate unique visual features based on user historical data - <strong>Multi-modal Support</strong>: Support various emotional input methods including text, voice, and images</p>
+<h4 id="technical-advantage-comparison">Technical Advantage Comparison</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Optimization Dimension</th>
+<th>Before Optimization</th>
+<th>After Optimization</th>
+<th>Improvement Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Computing Power Evaluation</td>
+<td>Static model</td>
+<td>Dynamic time decay</td>
+<td>40% accuracy improvement</td>
+</tr>
+<tr class="even">
+<td>Emotional Computing</td>
+<td>Basic recognition</td>
+<td>Complete frequency domain conversion</td>
+<td>25% accuracy improvement</td>
+</tr>
+<tr class="odd">
+<td>Image Generation</td>
+<td>Static output</td>
+<td>Time evolution algorithm</td>
+<td>60% user experience improvement</td>
+</tr>
+<tr class="even">
+<td>System Response</td>
+<td>Fixed parameters</td>
+<td>Adaptive adjustment</td>
+<td>50% response speed improvement</td>
+</tr>
+</tbody>
+</table>
+<h4 id="practical-application-value">Practical Application Value</h4>
+<p><strong>Computing Power Optimization Results</strong> - <strong>Precise Pricing</strong>: Dynamic computing power evaluation makes resource pricing more precise - <strong>Fair Distribution</strong>: Multi-dimensional evaluation ensures contributors receive fair returns - <strong>Incentive Optimization</strong>: Time decay mechanism encourages continuous innovation and contribution</p>
+<p><strong>Image Generation Optimization Results</strong> - <strong>Personalized Experience</strong>: Each user gets unique AI companion visual experience - <strong>Emotional Connection</strong>: Dynamic evolution enhances emotional connection between users and AI companions - <strong>Creation Empowerment</strong>: Provides powerful emotion-driven creation tools for metaverse creators</p>
+<h4 id="technical-evolution-path">Technical Evolution Path</h4>
+<p><strong>Short-term Optimization (October 2025 - December 2025)</strong> - Complete engineering implementation of core algorithms - Establish parameter adaptive adjustment mechanism - Implement basic time evolution functions</p>
+<p><strong>Mid-term Optimization (January 2026 - December 2026)</strong> - Deepen network effect modeling - Enhance environmental perception capabilities - Expand multi-modal input support</p>
+<p><strong>Long-term Vision (2027+)</strong> - Achieve completely autonomous algorithm evolution - Establish cross-domain technology integration - Promote industry standard formulation</p>
+<hr />
+<h2 id="community-and-ecosystem">Community and Ecosystem</h2>
+<h3 id="community-building">Community Building</h3>
+<h4 id="community-platforms">Community Platforms</h4>
+<ul>
+<li><strong>Twitter</strong>: Official information release and industry dynamics</li>
+<li><strong>Discord</strong>: Community discussion and technical exchange</li>
+<li><strong>Telegram</strong>: Real-time communication and quick response</li>
+<li><strong>Reddit</strong>: In-depth discussion and opinion collection</li>
+<li><strong>Medium</strong>: Technical articles and project progress</li>
+</ul>
+<h4 id="community-incentives">Community Incentives</h4>
+<ul>
+<li><strong>Referral Rewards</strong>: Invite users to receive token rewards</li>
+<li><strong>Content Creation</strong>: High-quality content creators receive rewards</li>
+<li><strong>Bug Bounty</strong>: Discover security issues to receive high rewards</li>
+<li><strong>Governance Participation</strong>: Participate in DAO voting to receive governance tokens</li>
+</ul>
+<h4 id="referral-reward-mechanism">Referral Reward Mechanism</h4>
+<h5 id="commission-reward-rules">Commission Reward Rules</h5>
+<p>When friends purchase mining rigs through your link, you will receive 10% of the purchase amount as commission reward<br />
+Commission rate: 10%</p>
+<h5 id="computing-power-bonus">Computing Power Bonus</h5>
+<p>When friends purchase mining rigs, you will receive 5% of the mining rig computing power as permanent computing power bonus<br />
+Bonus rate: 5%</p>
+<h5 id="referral-description">Referral Description</h5>
+<ul>
+<li>When invitees purchase mining rigs through your link, you will immediately receive commission rewards</li>
+<li>Computing power bonus is permanent and will continuously provide mining revenue for you</li>
+<li>Commission rewards will be directly sent to your wallet address</li>
+<li>Referral relationship is permanent, you will still receive rewards for friends' subsequent mining rig purchases</li>
+</ul>
+<h3 id="ecosystem-cooperation">Ecosystem Cooperation</h3>
+<h4 id="strategic-partners">Strategic Partners</h4>
+<ul>
+<li><strong>Blockchain Projects</strong>: Technical cooperation and ecosystem interconnection</li>
+<li><strong>Exchanges</strong>: Listing cooperation and liquidity support</li>
+<li><strong>Investment Institutions</strong>: Financial support and resource matching</li>
+<li><strong>Media Institutions</strong>: Promotion and brand building</li>
+</ul>
+<h4 id="developer-ecosystem">Developer Ecosystem</h4>
+<ul>
+<li><strong>Developer Documentation</strong>: Complete technical documentation and API references</li>
+<li><strong>SDK Tools</strong>: Multi-language development toolkits</li>
+<li><strong>Technical Support</strong>: Professional developer support team</li>
+<li><strong>Grant Program</strong>: Excellent projects receive funding grants</li>
+</ul>
+<hr />
+<h2 id="contact-information">Contact Information</h2>
+<h3 id="official-channels">Official Channels</h3>
+<ul>
+<li><strong>Official Website</strong>: https://dreamleai.vip/</li>
+<li><strong>Twitter</strong>: https://x.com/dreamle_ai?s=21</li>
+<li><strong>Telegram</strong>: https://t.me/+AAR7ViMPiORkMTA1</li>
+</ul>
+<hr />
+<h2 id="disclaimer">Disclaimer</h2>
+<p><strong>Investment Risk Warning</strong>: This white paper is for reference only and does not constitute any investment advice. Cryptocurrency investment has high risks, investors should fully understand the relevant risks and consult professional financial advisors before investing.</p>
+<p><strong>Forward-looking Statements</strong>: The forward-looking statements in this white paper are based on current market conditions and technology development trends, actual results may differ from expectations.</p>
+<p><strong>Legal Compliance</strong>: The project will strictly comply with relevant laws and regulations, but regulatory policies in various countries may change, and the project team will adjust in time to adapt to new regulatory requirements.</p>
+<p><strong>Technical Risks</strong>: Blockchain technology is still in the development stage and may have technical vulnerabilities and security risks. The project team will take all necessary measures to protect user asset security.</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>Dreamle_Ai represents a milestone innovation in the integration of Web3 and AI technology. Through groundbreaking vPoW mechanisms, multi-dimensional computing power value evaluation, and emotional visualization algorithms, it is reshaping the future landscape of the decentralized AI computing power market.</p>
+<h3 id="core-value-reiteration">Core Value Reiteration</h3>
+<p><strong>Technological Innovation Leadership</strong> - <strong>vPoW Consensus Mechanism</strong>: Achieves 99% energy consumption reduction while maintaining network security - <strong>Dynamic Computing Power Evaluation</strong>: Multi-dimensional formula <span class="math inline">\(V(t)\)</span> achieves scientific quantification of computing power value - <strong>Emotional Computing Breakthrough</strong>: Image generation algorithm <span class="math inline">\(I(x,y,t)\)</span> pioneers emotional data visualization</p>
+<p><strong>Ecosystem Value Creation</strong> - <strong>Computing Power Democratization</strong>: Breaks giant monopolies, allowing everyone to participate in AI training - <strong>Value Closed Loop</strong>: Builds complete ecosystem cycle of computing power contribution and benefit distribution - <strong>Green Sustainability</strong>: Zero physical hardware dependency, promotes green computing concept</p>
+<p><strong>Broad Commercial Prospects</strong> - <strong>Strong Market Demand</strong>: AI computing power demand annual growth rate exceeds 300% - <strong>Strong Technical Barriers</strong>: 12 core patents build competitive moat - <strong>Mature Business Model</strong>: Multiple revenue mechanisms ensure sustainable ecosystem development</p>
+<h3 id="future-outlook">Future Outlook</h3>
+<p><strong>Short-term Goals (October 2025 - December 2026)</strong> - Complete mainnet launch and core function deployment - Establish initial user community and partner network - Achieve technical verification and business model verification</p>
+<p><strong>Mid-term Goals (2027-2028)</strong> - Expand market share and user scale - Deepen technology iteration and product innovation - Establish global operations and compliance systems</p>
+<p><strong>Long-term Vision (2029+)</strong> - Become leader in decentralized AI computing power market - Promote standardization of emotional computing and AI companion technology - Build complete Web3 + AI integrated ecosystem</p>
+<h3 id="call-to-action">Call to Action</h3>
+<p>We sincerely invite global blockchain enthusiasts, AI researchers, developers, investors, and users to join the Dreamle_Ai ecosystem and jointly create a new era of decentralized AI computing power. Through our joint efforts, we will:</p>
+<ol type="1">
+<li><strong>Promote Technological Innovation</strong>: Continuously break through the technical boundaries of vPoW and emotional computing</li>
+<li><strong>Build Open Ecosystem</strong>: Create an inclusive, transparent, and sustainable Web3 ecosystem</li>
+<li><strong>Create Social Value</strong>: Contribute to the democratization and popularization of AI technology</li>
+<li><strong>Achieve Win-win Future</strong>: Let all participants share the dividends brought by technological innovation</li>
+</ol>
+<p>Dreamle_Ai is not just a technical project, but a revolution about future computing paradigms and value distribution. We believe that through the deep integration of blockchain technology and artificial intelligence, we can build a more fair, efficient, and sustainable digital future.</p>
+<p><strong>Join us to shape the decentralized future of AI computing power!</strong></p>
+<hr />
+<p><em>© 2025 Dreamle_Ai. All rights reserved.</em></p>
+</body>
+</html>

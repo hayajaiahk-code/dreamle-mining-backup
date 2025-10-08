@@ -1,0 +1,1422 @@
+/* ==================== 矿机退货功能 - 重新设计 ==================== */
+
+/* 页面标题区域 */
+.return-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.return-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #00ff88;
+    margin: 0 0 1rem 0;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.return-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* 主要内容布局 */
+.return-main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+/* 左侧面板 */
+.return-left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 右侧面板 */
+.return-right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 退货政策卡片 - 新设计 */
+.return-policy-new {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.policy-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.policy-icon-new {
+    font-size: 2rem;
+}
+
+.policy-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #00ff88;
+    margin: 0;
+}
+
+.policy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.policy-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+}
+
+.policy-check {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.policy-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* 退款计算器 - 新设计 */
+.return-calculator-new {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.calculator-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.calculator-icon-new {
+    font-size: 2rem;
+}
+
+.calculator-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffc107;
+    margin: 0;
+}
+
+.calculator-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.calculator-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.input-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.miner-select {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.miner-select:focus {
+    outline: none;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.miner-select option {
+    background: #1e293b;
+    color: white;
+}
+
+/* 价格结果显示 */
+.price-results {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-item:last-child {
+    border-bottom: none;
+}
+
+.price-item.highlight-item {
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.price-label-new {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.price-value-new {
+    color: #00ff88;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.price-value-highlight {
+    color: #ffc107;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+/* 计算器按钮 */
+.calculator-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.calc-btn {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.calc-btn.primary {
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    color: white;
+}
+
+.calc-btn.secondary {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+}
+
+.calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 退货流程 - 新设计 */
+.return-process-new {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(102, 126, 234, 0.05));
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.process-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.process-icon-new {
+    font-size: 2rem;
+}
+
+.process-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #667eea;
+    margin: 0;
+}
+
+.process-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.process-step:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateX(5px);
+}
+
+.step-number-new {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.step-info {
+    flex: 1;
+}
+
+.step-title {
+    color: #667eea;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.step-desc {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 我的矿机部分 - 新设计 */
+.my-miners-new {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 3rem;
+    backdrop-filter: blur(10px);
+}
+
+.miners-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.miners-header .miners-icon-new {
+    font-size: 2rem;
+}
+
+.miners-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #00ff88;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.refresh-miners-btn {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.refresh-miners-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+/* 矿机容器 */
+.miners-container-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* 加载状态 */
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 15px;
+    border: 1px dashed rgba(0, 255, 136, 0.3);
+}
+
+.loading-spinner-new {
+    width: 3rem;
+    height: 3rem;
+    border: 3px solid rgba(0, 255, 136, 0.3);
+    border-top: 3px solid #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem auto;
+}
+
+.loading-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 矿机卡片 - 新设计 */
+.miner-card-new {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.miner-card-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #00ff88, #0066ff);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.miner-card-new.returnable {
+    border-color: rgba(0, 255, 136, 0.5);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+}
+
+.miner-card-new.returnable::before {
+    opacity: 1;
+}
+
+.miner-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.miner-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.miner-level-new {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.return-status-new {
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.return-status-new.available {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+}
+
+.return-status-new.expired {
+    background: linear-gradient(135deg, rgba(255, 68, 68, 0.2), rgba(255, 68, 68, 0.1));
+    color: #ff4444;
+    border: 1px solid rgba(255, 68, 68, 0.5);
+}
+
+.miner-info-new {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-row-new {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.info-row-new:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-left-color: #00ff88;
+}
+
+.info-label-new {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.info-value-new {
+    color: #00ff88;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.info-value-new.highlight {
+    color: #ffc107;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+.return-btn-new {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.return-btn-new.available {
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.return-btn-new.available:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+}
+
+.return-btn-new.disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
+/* 无矿机状态 */
+.no-miners-new {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 20px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+.no-miners-new h4 {
+    color: #00ff88;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.no-miners-new p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.no-miners-new a {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.no-miners-new a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+/* ==================== 邀请地址验证样式 ==================== */
+
+/* 管理员特权显示 */
+.admin-privilege {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1rem 0;
+    backdrop-filter: blur(10px);
+}
+
+.admin-icon {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+.admin-text {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.admin-address {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* 验证输入框样式 */
+.verification-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
+}
+
+.verification-input:focus {
+    outline: none;
+    border-color: #00ff88;
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+}
+
+.verification-input.valid {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.verification-input.invalid {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+.verification-input.admin {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* 验证状态显示 */
+.verification-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    min-height: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.verification-status.success {
+    color: #00ff88;
+}
+
+.verification-status.error {
+    color: #ff4444;
+}
+
+.verification-status.admin {
+    color: #ffd700;
+}
+
+/* 购买按钮状态 */
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:disabled {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.btn-primary.verified {
+    background: linear-gradient(135deg, #00ff88, #0066ff) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+}
+
+.btn-primary.admin-verified {
+    background: linear-gradient(135deg, #ffd700, #ff8c00) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3) !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+}
+
+.btn-primary.verified:hover,
+.btn-primary.admin-verified:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 25px rgba(0, 255, 136, 0.4) !important;
+}
+
+.btn-primary.admin-verified:hover {
+    box-shadow: 0 5px 25px rgba(255, 215, 0, 0.4) !important;
+}
+
+/* 验证输入组 */
+.verification-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+/* 购买验证区域 */
+.purchase-verification {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== 功能区域切换样式 ==================== */
+
+/* 功能区域基础样式 */
+.function-section {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    min-height: 500px;
+    padding: 2rem 0;
+}
+
+/* 激活状态的功能区域 */
+.function-section.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 确保仪表盘默认显示 */
+.function-section#dashboard {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 功能标签样式 */
+.function-tab {
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+.function-tab:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: rgba(0, 255, 136, 0.5);
+    transform: translateY(-2px);
+}
+
+.function-tab.active {
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    border-color: #00ff88;
+    color: white;
+    font-weight: 600;
+}
+
+/* 导航下拉菜单链接样式 */
+.dropdown-link {
+    transition: all 0.3s ease;
+}
+
+.dropdown-link:hover {
+    color: #00ff88 !important;
+    background: rgba(0, 255, 136, 0.1) !important;
+}
+
+/* 确保所有功能区域的容器样式 */
+.function-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 功能区域标题样式 */
+.function-section .section-title {
+    text-align: center;
+    color: #00ff88;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ==================== 响应式设计 ==================== */
+
+/* 平板设备 */
+@media (max-width: 1024px) {
+    .return-main-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .return-main-title {
+        font-size: 2rem;
+    }
+
+    .miners-container-new {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* 手机设备 */
+@media (max-width: 768px) {
+    .return-header {
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .return-main-title {
+        font-size: 1.8rem;
+    }
+
+    .return-subtitle {
+        font-size: 1rem;
+    }
+
+    .return-policy-new,
+    .return-calculator-new,
+    .return-process-new {
+        padding: 1.5rem;
+    }
+
+    .policy-header,
+    .calculator-header,
+    .process-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .policy-title,
+    .calculator-title,
+    .process-title {
+        font-size: 1.2rem;
+    }
+
+    .miners-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .miners-title {
+        font-size: 1.4rem;
+    }
+
+    .miners-container-new {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .miner-card-new {
+        padding: 1.5rem;
+    }
+
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .step-number-new {
+        align-self: center;
+    }
+}
+
+/* 小屏手机 */
+@media (max-width: 480px) {
+    .return-main-title {
+        font-size: 1.5rem;
+    }
+
+    .return-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .return-policy-new,
+    .return-calculator-new,
+    .return-process-new,
+    .my-miners-new {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .policy-item {
+        padding: 0.5rem 0;
+    }
+
+    .policy-text {
+        font-size: 0.9rem;
+    }
+
+    .calculator-actions {
+        gap: 0.5rem;
+    }
+
+    .calc-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .miners-title {
+        font-size: 1.2rem;
+    }
+
+    .refresh-miners-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+.return-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.return-policy-card, .price-calculator-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.policy-icon, .calculator-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.policy-list {
+    list-style: none;
+    padding: 0;
+}
+
+.policy-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.policy-list li:last-child {
+    border-bottom: none;
+}
+
+.calculator-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.price-display {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.price-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.price-value {
+    font-weight: 600;
+    color: #fff;
+}
+
+.price-value.highlight {
+    color: #00ff88;
+    font-size: 1.1rem;
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    border: none;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+}
+
+.return-process {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.step-item {
+    text-align: center;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #00ff88, #00cc6a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    margin: 0 auto 1rem;
+}
+
+.step-content h4 {
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.step-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.my-miners-section {
+    margin: 3rem 0;
+    clear: both;
+}
+
+.my-miners-section h3 {
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    color: #00ff88 !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: 0 !important;
+    padding: 1rem 0 !important;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.5px !important;
+    position: relative !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* 退货流程标题样式 */
+.return-process h3 {
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+    color: #00ff88 !important;
+    margin: 2rem 0 1.5rem 0 !important;
+    padding: 0.8rem 0 !important;
+    border-bottom: 2px solid rgba(0, 255, 136, 0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0.3px !important;
+    position: relative !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* 价格计算器标题样式 */
+.price-calculator-card h3 {
+    font-size: 1.3rem !important;
+    font-weight: bold !important;
+    color: #00ff88 !important;
+    margin: 0 0 1rem 0 !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+    position: relative !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* 价格显示区域样式 */
+.price-display {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.price-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.price-value {
+    color: #00ff88;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.price-value.highlight {
+    color: #ffc107;
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+}
+
+/* 计算按钮样式 */
+.calculate-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #00ff88, #0066ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.calculate-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.miners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.miner-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.miner-card.returnable {
+    border-color: rgba(0, 255, 136, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+.miner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.miner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.miner-level {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.return-status {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.return-status.available {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.return-status.expired {
+    background: rgba(255, 100, 100, 0.2);
+    color: #ff6464;
+    border: 1px solid rgba(255, 100, 100, 0.3);
+}
+
+.miner-info {
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span:first-child {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.info-row span:last-child {
+    color: #fff;
+    font-weight: 500;
+}
+
+.countdown {
+    color: #00ff88 !important;
+    font-weight: 600 !important;
+}
+
+.refund-highlight {
+    color: #00ff88 !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+.return-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.return-btn:not(.disabled) {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: #fff;
+}
+
+.return-btn:not(.disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+}
+
+.return-btn.disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
+.return-notice {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.notice-icon {
+    font-size: 2rem;
+    color: #ffc107;
+}
+
+.notice-content h4 {
+    color: #ffc107;
+    margin-bottom: 1rem;
+}
+
+.notice-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.notice-content li {
+    padding: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.notice-content li:before {
+    content: "•";
+    color: #ffc107;
+    position: absolute;
+    left: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .return-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .miners-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .return-notice {
+        flex-direction: column;
+        text-align: center;
+    }
+}

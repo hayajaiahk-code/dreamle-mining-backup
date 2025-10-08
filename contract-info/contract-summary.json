@@ -1,0 +1,12 @@
+{
+  "contractName": "DreamleUnifiedSystemV18_Optimized",
+  "totalItems": 86,
+  "functions": {
+    "total": 70,
+    "read": 49,
+    "write": 21
+  },
+  "events": 15,
+  "bytecodeSize": 53932,
+  "timestamp": "2025-09-30T01:32:06.912Z"
+}

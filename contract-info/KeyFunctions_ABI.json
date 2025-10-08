@@ -1,0 +1,175 @@
+{
+  "getUserMiningData": {
+    "type": "function",
+    "name": "getUserMiningData",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [
+      {
+        "type": "address",
+        "name": "user"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "totalHashPower"
+      },
+      {
+        "type": "uint256",
+        "name": "ownHashPower"
+      },
+      {
+        "type": "uint256",
+        "name": "referralHashPower"
+      },
+      {
+        "type": "uint256",
+        "name": "totalClaimed"
+      },
+      {
+        "type": "uint256",
+        "name": "totalMined"
+      },
+      {
+        "type": "uint16",
+        "name": "minerCount"
+      },
+      {
+        "type": "uint32",
+        "name": "lastUpdateTime"
+      },
+      {
+        "type": "bool",
+        "name": "isActive"
+      },
+      {
+        "type": "uint256",
+        "name": "pendingRewards"
+      },
+      {
+        "type": "uint32",
+        "name": "lockEndTime"
+      },
+      {
+        "type": "uint16",
+        "name": "validMinerCount"
+      },
+      {
+        "type": "uint256",
+        "name": "validHashPower"
+      }
+    ]
+  },
+  "getUserMiners": {
+    "type": "function",
+    "name": "getUserMiners",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [
+      {
+        "type": "address",
+        "name": "user"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint256[]",
+        "name": ""
+      }
+    ]
+  },
+  "getContractInfo": {
+    "type": "function",
+    "name": "getContractInfo",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "string",
+        "name": "version"
+      },
+      {
+        "type": "uint256",
+        "name": "totalMiners"
+      },
+      {
+        "type": "uint256",
+        "name": "totalNetworkHash"
+      },
+      {
+        "type": "uint256",
+        "name": "activeMiners"
+      },
+      {
+        "type": "address",
+        "name": "admin"
+      }
+    ]
+  },
+  "getNetworkStats": {
+    "type": "function",
+    "name": "getNetworkStats",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "_totalNetworkHashPower"
+      },
+      {
+        "type": "uint256",
+        "name": "_activeMinersCount"
+      },
+      {
+        "type": "uint256",
+        "name": "_totalRewardsPaid"
+      }
+    ]
+  },
+  "getPoolBalances": {
+    "type": "function",
+    "name": "getPoolBalances",
+    "constant": true,
+    "stateMutability": "view",
+    "payable": false,
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "usdtBalance"
+      },
+      {
+        "type": "uint256",
+        "name": "drmBalance"
+      }
+    ]
+  },
+  "claimRewards": {
+    "type": "function",
+    "name": "claimRewards",
+    "constant": false,
+    "payable": false,
+    "inputs": [],
+    "outputs": []
+  },
+  "renewMiner": {
+    "type": "function",
+    "name": "renewMiner",
+    "constant": false,
+    "payable": false,
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "tokenId"
+      }
+    ],
+    "outputs": []
+  }
+}

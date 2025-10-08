@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多RPC节点自动切换测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+            font-size: 28px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card h2 {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00ff88, #0066ff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-left: 3px solid #00ff88;
+            padding-left: 10px;
+        }
+        
+        .log-entry.error {
+            border-left-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .log-entry.warning {
+            border-left-color: #ffd93d;
+            color: #ffd93d;
+        }
+        
+        .log-entry.success {
+            border-left-color: #00ff88;
+            color: #00ff88;
+        }
+        
+        .rpc-list {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .rpc-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rpc-url {
+            font-size: 12px;
+            color: #888;
+            word-break: break-all;
+            flex: 1;
+        }
+        
+        .rpc-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-testing {
+            background: rgba(255, 217, 61, 0.2);
+            color: #ffd93d;
+        }
+        
+        .status-success {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .status-error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .status-blacklisted {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 多RPC节点自动切换测试</h1>
+        
+        <div class="card">
+            <h2>📊 RPC节点列表</h2>
+            <div id="rpc-list" class="rpc-list"></div>
+        </div>
+        
+        <div class="card">
+            <h2>🧪 测试功能</h2>
+            <button class="btn" onclick="testAllRPCs()">测试所有RPC节点</button>
+            <button class="btn" onclick="testBestRPC()">获取最佳RPC节点</button>
+            <button class="btn" onclick="testAutoSwitch()">模拟自动切换</button>
+            <button class="btn" onclick="clearBlacklist()">清除黑名单</button>
+        </div>
+        
+        <div class="card">
+            <h2>📝 测试日志</h2>
+            <div id="log" class="log"></div>
+        </div>
+    </div>
+    
+    <!-- 加载配置和Web3 -->
+    <script src="libs/web3.min.js"></script>
+    <script src="config/contracts.js"></script>
+    <script src="js/web3-config.js"></script>
+    
+    <script>
+        // 日志函数
+        function addLog(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        // 显示RPC列表
+        function displayRPCList() {
+            const listDiv = document.getElementById('rpc-list');
+            const networkConfig = window.NETWORK_CONFIG?.BSC_MAINNET;
+            
+            if (!networkConfig || !networkConfig.rpcUrls) {
+                listDiv.innerHTML = '<p style="color: #ff6b6b;">❌ 无法加载RPC列表</p>';
+                return;
+            }
+            
+            listDiv.innerHTML = '';
+            networkConfig.rpcUrls.forEach((url, index) => {
+                const item = document.createElement('div');
+                item.className = 'rpc-item';
+                item.innerHTML = `
+                    <div class="rpc-url">${index + 1}. ${url}</div>
+                    <div class="rpc-status" id="status-${index}">未测试</div>
+                `;
+                listDiv.appendChild(item);
+            });
+        }
+        
+        // 更新RPC状态
+        function updateRPCStatus(index, status, time = null) {
+            const statusDiv = document.getElementById(`status-${index}`);
+            if (!statusDiv) return;
+            
+            statusDiv.className = `rpc-status status-${status}`;
+            
+            if (status === 'testing') {
+                statusDiv.textContent = '测试中...';
+            } else if (status === 'success') {
+                statusDiv.textContent = `✅ ${time}ms`;
+            } else if (status === 'error') {
+                statusDiv.textContent = '❌ 失败';
+            } else if (status === 'blacklisted') {
+                statusDiv.textContent = '🚫 黑名单';
+            }
+        }
+        
+        // 测试所有RPC节点
+        async function testAllRPCs() {
+            addLog('🔍 开始测试所有RPC节点...', 'info');
+            
+            const networkConfig = window.NETWORK_CONFIG?.BSC_MAINNET;
+            if (!networkConfig || !networkConfig.rpcUrls) {
+                addLog('❌ 无法获取RPC列表', 'error');
+                return;
+            }
+            
+            const rpcUrls = networkConfig.rpcUrls;
+            
+            for (let i = 0; i < rpcUrls.length; i++) {
+                const url = rpcUrls[i];
+                updateRPCStatus(i, 'testing');
+                addLog(`📡 测试节点 ${i + 1}: ${url.substring(0, 50)}...`, 'info');
+                
+                const result = await window.testRPCConnection(url, 5000);
+                
+                if (result.success) {
+                    updateRPCStatus(i, 'success', result.responseTime);
+                    addLog(`✅ 节点 ${i + 1} 成功: ${result.responseTime}ms`, 'success');
+                } else {
+                    updateRPCStatus(i, 'error');
+                    addLog(`❌ 节点 ${i + 1} 失败: ${result.error}`, 'error');
+                }
+            }
+            
+            addLog('✅ 所有节点测试完成', 'success');
+        }
+        
+        // 获取最佳RPC
+        async function testBestRPC() {
+            addLog('🚀 获取最佳RPC节点...', 'info');
+            
+            try {
+                const bestRPC = await window.getBestRPC(true); // 强制刷新
+                addLog(`✅ 最佳RPC: ${bestRPC}`, 'success');
+            } catch (error) {
+                addLog(`❌ 获取失败: ${error.message}`, 'error');
+            }
+        }
+        
+        // 模拟自动切换
+        async function testAutoSwitch() {
+            addLog('🔄 模拟RPC自动切换...', 'info');
+            
+            const networkConfig = window.NETWORK_CONFIG?.BSC_MAINNET;
+            if (!networkConfig || !networkConfig.rpcUrls) {
+                addLog('❌ 无法获取RPC列表', 'error');
+                return;
+            }
+            
+            const currentRPC = networkConfig.rpcUrls[0];
+            addLog(`📡 当前RPC: ${currentRPC}`, 'info');
+            addLog(`⚠️ 模拟当前RPC失败...`, 'warning');
+            
+            // 记录失败
+            window.config.recordRPCFailure(currentRPC);
+            window.config.recordRPCFailure(currentRPC);
+            window.config.recordRPCFailure(currentRPC);
+            
+            addLog(`🔄 尝试切换到下一个可用节点...`, 'info');
+            
+            const nextRPC = await window.switchToNextRPC(currentRPC);
+            
+            if (nextRPC) {
+                addLog(`✅ 成功切换到: ${nextRPC}`, 'success');
+            } else {
+                addLog(`❌ 切换失败，无可用节点`, 'error');
+            }
+        }
+        
+        // 清除黑名单
+        function clearBlacklist() {
+            addLog('🧹 清除RPC黑名单...', 'info');
+            // 重置所有状态
+            displayRPCList();
+            addLog('✅ 黑名单已清除', 'success');
+        }
+        
+        // 页面加载时显示RPC列表
+        window.addEventListener('load', function() {
+            displayRPCList();
+            addLog('✅ 页面加载完成', 'success');
+            addLog(`📊 共有 ${window.NETWORK_CONFIG?.BSC_MAINNET?.rpcUrls?.length || 0} 个RPC节点`, 'info');
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+{
+  "name": "Dreamle AI Miner #3 - Rare",
+  "description": "Level 3 AI Computing Power Miner - High-performance computing for complex AI models. This Rare-tier miner provides 370 hash power for intensive AI training.",
+  "image": "https://www.dreamlewebai.com/images/miners/3.webp",
+  "external_url": "https://www.dreamlewebai.com/platform.html",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 3
+    },
+    {
+      "trait_type": "Hash Power",
+      "value": 370
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Price",
+      "value": "800 USDT"
+    },
+    {
+      "trait_type": "Max Supply",
+      "value": 6000
+    },
+    {
+      "trait_type": "Mining Duration",
+      "value": "365 Days"
+    },
+    {
+      "trait_type": "Category",
+      "value": "AI Computing Miner"
+    }
+  ]
+}
+

@@ -1,0 +1,466 @@
+/**
+ * 管理员功能模块
+ * 包含特殊推荐人管理、流动性管理、提取等功能
+ * 
+ * 日期: 2025-09-30
+ */
+
+(function() {
+    'use strict';
+    
+    console.log('🔧 加载管理员功能模块...');
+
+    // 管理员地址
+    const ADMIN_ADDRESS = '0xfC3b7735Dae4C7AB3Ab85Ffa9987661e795B74b7';
+
+    /**
+     * 检查是否为管理员
+     */
+    window.isAdminUser = function() {
+        if (!window.userAccount) return false;
+        return window.userAccount.toLowerCase() === ADMIN_ADDRESS.toLowerCase();
+    };
+
+    // ==================== 特殊推荐人管理 ====================
+
+    /**
+     * 添加特殊推荐人
+     * @param {string} referrerAddress - 推荐人地址
+     */
+    window.addSpecialReferrer = async function(referrerAddress) {
+        console.log(`➕ 准备添加特殊推荐人: ${referrerAddress}`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        if (!window.isAdminUser()) {
+            window.showMessage('❌ 只有管理员可以执行此操作', 'error');
+            return;
+        }
+
+        try {
+            // 验证地址格式
+            if (!window.web3.utils.isAddress(referrerAddress)) {
+                throw new Error('无效的地址格式');
+            }
+
+            const confirmed = confirm(
+                `确认添加特殊推荐人？\n\n` +
+                `地址: ${referrerAddress}\n\n` +
+                `特殊推荐人将享有额外的奖励`
+            );
+
+            if (!confirmed) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 优先使用API方法
+            if (window.addSpecialReferrerViaAPI) {
+                try {
+                    console.log('🌐 使用API添加特殊推荐人');
+                    await window.addSpecialReferrerViaAPI(referrerAddress);
+                    
+                    window.showMessage(`✅ 特殊推荐人添加成功！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API添加失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在添加特殊推荐人...', 'info');
+
+            const gasEstimate = await window.unifiedContract.methods.addSpecialReferrer(referrerAddress).estimateGas({
+                from: window.userAccount
+            });
+
+            const gasLimit = window.safeGasLimit ? window.safeGasLimit(gasEstimate, 1.2) : Math.floor(gasEstimate * 1.2);
+
+            const result = await window.unifiedContract.methods.addSpecialReferrer(referrerAddress).send({
+                from: window.userAccount,
+                gas: gasLimit
+            });
+
+            console.log(`✅ 特殊推荐人添加成功:`, result);
+            window.showMessage(`✅ 特殊推荐人添加成功！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 添加失败:', error);
+            window.showMessage(`❌ 添加失败: ${error.message}`, 'error');
+        }
+    };
+
+    /**
+     * 移除特殊推荐人
+     * @param {string} referrerAddress - 推荐人地址
+     */
+    window.removeSpecialReferrer = async function(referrerAddress) {
+        console.log(`➖ 准备移除特殊推荐人: ${referrerAddress}`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        if (!window.isAdminUser()) {
+            window.showMessage('❌ 只有管理员可以执行此操作', 'error');
+            return;
+        }
+
+        try {
+            // 验证地址格式
+            if (!window.web3.utils.isAddress(referrerAddress)) {
+                throw new Error('无效的地址格式');
+            }
+
+            const confirmed = confirm(
+                `确认移除特殊推荐人？\n\n` +
+                `地址: ${referrerAddress}\n\n` +
+                `移除后该地址将失去特殊推荐人权限`
+            );
+
+            if (!confirmed) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 优先使用API方法
+            if (window.removeSpecialReferrerViaAPI) {
+                try {
+                    console.log('🌐 使用API移除特殊推荐人');
+                    await window.removeSpecialReferrerViaAPI(referrerAddress);
+                    
+                    window.showMessage(`✅ 特殊推荐人移除成功！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API移除失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在移除特殊推荐人...', 'info');
+
+            const gasEstimate = await window.unifiedContract.methods.removeSpecialReferrer(referrerAddress).estimateGas({
+                from: window.userAccount
+            });
+
+            const gasLimit = window.safeGasLimit ? window.safeGasLimit(gasEstimate, 1.2) : Math.floor(gasEstimate * 1.2);
+
+            const result = await window.unifiedContract.methods.removeSpecialReferrer(referrerAddress).send({
+                from: window.userAccount,
+                gas: gasLimit
+            });
+
+            console.log(`✅ 特殊推荐人移除成功:`, result);
+            window.showMessage(`✅ 特殊推荐人移除成功！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 移除失败:', error);
+            window.showMessage(`❌ 移除失败: ${error.message}`, 'error');
+        }
+    };
+
+    // ==================== 流动性管理 ====================
+
+    /**
+     * 注入流动性
+     * @param {string} usdtAmount - USDT数量（wei）
+     * @param {string} drmAmount - DRM数量（wei）
+     */
+    window.adminInjectLiquidity = async function(usdtAmount, drmAmount) {
+        console.log(`💧 准备注入流动性: USDT=${usdtAmount}, DRM=${drmAmount}`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        if (!window.isAdminUser()) {
+            window.showMessage('❌ 只有管理员可以执行此操作', 'error');
+            return;
+        }
+
+        try {
+            const usdtInEther = window.web3.utils.fromWei(usdtAmount, 'ether');
+            const drmInEther = window.web3.utils.fromWei(drmAmount, 'ether');
+
+            const confirmed = confirm(
+                `确认注入流动性？\n\n` +
+                `USDT: ${usdtInEther}\n` +
+                `DRM: ${drmInEther}\n\n` +
+                `⚠️ 请确保您有足够的代币余额并已授权`
+            );
+
+            if (!confirmed) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 优先使用API方法
+            if (window.adminInjectLiquidityViaAPI) {
+                try {
+                    console.log('🌐 使用API注入流动性');
+                    await window.adminInjectLiquidityViaAPI(usdtAmount, drmAmount);
+                    
+                    window.showMessage(`✅ 流动性注入成功！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API注入失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在注入流动性...', 'info');
+
+            const gasEstimate = await window.unifiedContract.methods.adminInjectLiquidity(usdtAmount, drmAmount).estimateGas({
+                from: window.userAccount
+            });
+
+            const gasLimit = window.safeGasLimit ? window.safeGasLimit(gasEstimate, 1.2) : Math.floor(gasEstimate * 1.2);
+
+            const result = await window.unifiedContract.methods.adminInjectLiquidity(usdtAmount, drmAmount).send({
+                from: window.userAccount,
+                gas: gasLimit
+            });
+
+            console.log(`✅ 流动性注入成功:`, result);
+            window.showMessage(`✅ 流动性注入成功！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 注入失败:', error);
+            window.showMessage(`❌ 注入失败: ${error.message}`, 'error');
+        }
+    };
+
+    /**
+     * 管理员提取
+     * @param {string} tokenAddress - 代币地址
+     * @param {string} amount - 提取数量（wei）
+     */
+    window.adminWithdraw = async function(tokenAddress, amount) {
+        console.log(`💸 准备提取代币: token=${tokenAddress}, amount=${amount}`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        if (!window.isAdminUser()) {
+            window.showMessage('❌ 只有管理员可以执行此操作', 'error');
+            return;
+        }
+
+        try {
+            // 验证地址格式
+            if (!window.web3.utils.isAddress(tokenAddress)) {
+                throw new Error('无效的代币地址格式');
+            }
+
+            const amountInEther = window.web3.utils.fromWei(amount, 'ether');
+
+            const confirmed = confirm(
+                `确认提取代币？\n\n` +
+                `代币地址: ${tokenAddress}\n` +
+                `数量: ${amountInEther}\n\n` +
+                `⚠️ 此操作不可撤销`
+            );
+
+            if (!confirmed) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 优先使用API方法
+            if (window.adminWithdrawViaAPI) {
+                try {
+                    console.log('🌐 使用API提取代币');
+                    await window.adminWithdrawViaAPI(tokenAddress, amount);
+                    
+                    window.showMessage(`✅ 代币提取成功！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API提取失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在提取代币...', 'info');
+
+            const gasEstimate = await window.unifiedContract.methods.adminWithdraw(tokenAddress, amount).estimateGas({
+                from: window.userAccount
+            });
+
+            const gasLimit = window.safeGasLimit ? window.safeGasLimit(gasEstimate, 1.2) : Math.floor(gasEstimate * 1.2);
+
+            const result = await window.unifiedContract.methods.adminWithdraw(tokenAddress, amount).send({
+                from: window.userAccount,
+                gas: gasLimit
+            });
+
+            console.log(`✅ 代币提取成功:`, result);
+            window.showMessage(`✅ 代币提取成功！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 提取失败:', error);
+            window.showMessage(`❌ 提取失败: ${error.message}`, 'error');
+        }
+    };
+
+    // ==================== 系统管理 ====================
+
+    /**
+     * 紧急暂停
+     */
+    window.emergencyPause = async function() {
+        console.log(`🔴 准备紧急暂停合约`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        if (!window.isAdminUser()) {
+            window.showMessage('❌ 只有管理员可以执行此操作', 'error');
+            return;
+        }
+
+        try {
+            const confirmed = confirm(
+                `⚠️ 确认紧急暂停合约？\n\n` +
+                `此操作将暂停所有合约功能\n` +
+                `包括购买、转让、领取等\n\n` +
+                `请谨慎操作！`
+            );
+
+            if (!confirmed) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 二次确认
+            const doubleConfirm = confirm('再次确认：您确定要紧急暂停合约吗？');
+            if (!doubleConfirm) {
+                window.showMessage('已取消操作', 'info');
+                return;
+            }
+
+            // 优先使用API方法
+            if (window.emergencyPauseViaAPI) {
+                try {
+                    console.log('🌐 使用API紧急暂停');
+                    await window.emergencyPauseViaAPI();
+                    
+                    window.showMessage(`✅ 合约已紧急暂停！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API暂停失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在紧急暂停合约...', 'info');
+
+            const result = await window.unifiedContract.methods.emergencyPause().send({
+                from: window.userAccount
+            });
+
+            console.log(`✅ 合约已紧急暂停:`, result);
+            window.showMessage(`✅ 合约已紧急暂停！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 暂停失败:', error);
+            window.showMessage(`❌ 暂停失败: ${error.message}`, 'error');
+        }
+    };
+
+    /**
+     * 更新过期矿机
+     * @param {string} userAddress - 用户地址
+     */
+    window.updateExpiredMiners = async function(userAddress) {
+        console.log(`🔄 准备更新过期矿机: ${userAddress}`);
+
+        if (!window.isConnected || !window.userAccount) {
+            window.showMessage('请先连接钱包', 'warning');
+            return;
+        }
+
+        try {
+            // 验证地址格式
+            if (!window.web3.utils.isAddress(userAddress)) {
+                throw new Error('无效的地址格式');
+            }
+
+            // 优先使用API方法
+            if (window.updateExpiredMinersViaAPI) {
+                try {
+                    console.log('🌐 使用API更新过期矿机');
+                    await window.updateExpiredMinersViaAPI(userAddress);
+                    
+                    window.showMessage(`✅ 过期矿机更新成功！`, 'success');
+                    return;
+                } catch (error) {
+                    console.error('❌ API更新失败，尝试使用原始方法:', error);
+                }
+            }
+
+            // 原始方法（回退）
+            if (!window.unifiedContract) {
+                throw new Error('合约未初始化');
+            }
+
+            window.showMessage('正在更新过期矿机...', 'info');
+
+            const gasEstimate = await window.unifiedContract.methods.updateExpiredMiners(userAddress).estimateGas({
+                from: window.userAccount
+            });
+
+            const gasLimit = window.safeGasLimit ? window.safeGasLimit(gasEstimate, 1.2) : Math.floor(gasEstimate * 1.2);
+
+            const result = await window.unifiedContract.methods.updateExpiredMiners(userAddress).send({
+                from: window.userAccount,
+                gas: gasLimit
+            });
+
+            console.log(`✅ 过期矿机更新成功:`, result);
+            window.showMessage(`✅ 过期矿机更新成功！`, 'success');
+
+        } catch (error) {
+            console.error('❌ 更新失败:', error);
+            window.showMessage(`❌ 更新失败: ${error.message}`, 'error');
+        }
+    };
+
+    console.log('✅ 管理员功能模块加载完成');
+    console.log('   - addSpecialReferrer() - 添加特殊推荐人');
+    console.log('   - removeSpecialReferrer() - 移除特殊推荐人');
+    console.log('   - adminInjectLiquidity() - 注入流动性');
+    console.log('   - adminWithdraw() - 管理员提取');
+    console.log('   - emergencyPause() - 紧急暂停');
+    console.log('   - updateExpiredMiners() - 更新过期矿机');
+
+})();
+

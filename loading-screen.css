@@ -1,0 +1,309 @@
+/* 高级加载界面样式 - Dreamle Mining Platform */
+
+/* 加载覆盖层 */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+.loading-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* 3D背景粒子效果 */
+.loading-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(0, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: float 6s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0px);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+    }
+}
+
+/* 主加载容器 */
+.loading-container {
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+/* Logo动画 */
+.loading-logo {
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff88);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* 3D加载环 */
+.loading-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 40px;
+}
+
+.ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    animation: rotate 2s linear infinite;
+}
+
+.ring:nth-child(1) {
+    border-top: 3px solid #00ffff;
+    animation-duration: 2s;
+}
+
+.ring:nth-child(2) {
+    border-right: 3px solid #ff00ff;
+    animation-duration: 3s;
+    animation-direction: reverse;
+}
+
+.ring:nth-child(3) {
+    border-bottom: 3px solid #00ff88;
+    animation-duration: 4s;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 内部发光核心 */
+.loading-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #00ffff, transparent);
+    border-radius: 50%;
+    animation: coreGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes coreGlow {
+    0% { 
+        box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% { 
+        box-shadow: 0 0 30px #ff00ff, 0 0 60px #ff00ff, 0 0 90px #ff00ff;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* 加载文本 */
+.loading-text {
+    font-size: 18px;
+    color: #00ffff;
+    margin-bottom: 20px;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 10px #00ffff; }
+    100% { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+}
+
+/* 进度条 */
+.loading-progress {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 20px auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #ff00ff, #00ff88);
+    background-size: 200% 100%;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+    animation: progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* 状态信息 */
+.loading-status {
+    font-size: 14px;
+    color: #cccccc;
+    margin-top: 15px;
+    min-height: 20px;
+    opacity: 0.8;
+}
+
+/* 系统检查列表 */
+.system-checks {
+    margin-top: 30px;
+    text-align: left;
+    max-width: 400px;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 14px;
+    color: #cccccc;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.3s ease;
+}
+
+.check-item.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.check-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.check-icon.loading {
+    background: #ffc107;
+    animation: spin 1s linear infinite;
+}
+
+.check-icon.success {
+    background: #28a745;
+    color: white;
+}
+
+.check-icon.error {
+    background: #dc3545;
+    color: white;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .loading-logo {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    
+    .loading-ring {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 30px;
+    }
+    
+    .loading-core {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .loading-progress {
+        width: 250px;
+    }
+    
+    .loading-text {
+        font-size: 16px;
+    }
+    
+    .system-checks {
+        max-width: 300px;
+    }
+}
+
+/* 错误状态 */
+.loading-error {
+    color: #dc3545;
+    margin-top: 20px;
+}
+
+.retry-button {
+    background: linear-gradient(135deg, #00ffff, #ff00ff);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.retry-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+}

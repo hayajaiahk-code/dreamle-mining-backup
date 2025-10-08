@@ -1,0 +1,37 @@
+{
+  "name": "Dreamle AI Miner #8 - Celestial",
+  "description": "Level 8 AI Computing Power Miner - Ultimate computing supremacy for the future of artificial intelligence. This Celestial-tier miner provides 6400 hash power for limitless AI possibilities.",
+  "image": "https://www.dreamlewebai.com/images/miners/8.webp",
+  "external_url": "https://www.dreamlewebai.com/platform.html",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 8
+    },
+    {
+      "trait_type": "Hash Power",
+      "value": 6400
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Celestial"
+    },
+    {
+      "trait_type": "Price",
+      "value": "8000 USDT"
+    },
+    {
+      "trait_type": "Max Supply",
+      "value": 100
+    },
+    {
+      "trait_type": "Mining Duration",
+      "value": "365 Days"
+    },
+    {
+      "trait_type": "Category",
+      "value": "AI Computing Miner"
+    }
+  ]
+}
+

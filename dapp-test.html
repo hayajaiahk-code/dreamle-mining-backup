@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DApp钱包检测测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ff88;
+            font-size: 24px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card h2 {
+            color: #00d4ff;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .value {
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .success {
+            color: #00ff88;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .warning {
+            color: #ffd93d;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00ff88, #0066ff);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: #000;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-success {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        
+        .status-error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 DApp钱包检测测试</h1>
+        
+        <div class="card">
+            <h2>📱 钱包检测结果</h2>
+            <div class="info-row">
+                <span class="label">检测到的钱包：</span>
+                <span class="value" id="wallet-type">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">钱包中文名：</span>
+                <span class="value" id="wallet-name-cn">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">初始化状态：</span>
+                <span class="value" id="init-status">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">移动端设备：</span>
+                <span class="value" id="is-mobile">检测中...</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>⚙️ Provider信息</h2>
+            <div class="info-row">
+                <span class="label">window.ethereum：</span>
+                <span class="value" id="has-ethereum">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">window.okxwallet：</span>
+                <span class="value" id="has-okx">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">window.BinanceChain：</span>
+                <span class="value" id="has-binance">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">isOkxWallet：</span>
+                <span class="value" id="is-okx-wallet">检测中...</span>
+            </div>
+            <div class="info-row">
+                <span class="label">isMetaMask：</span>
+                <span class="value" id="is-metamask">检测中...</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>⛽ Gas配置</h2>
+            <div class="info-row">
+                <span class="label">Gas Limit：</span>
+                <span class="value" id="gas-limit">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Gas Price：</span>
+                <span class="value" id="gas-price">-</span>
+            </div>
+            <div class="info-row">
+                <span class="label">超时设置：</span>
+                <span class="value" id="timeout">-</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🌐 User Agent</h2>
+            <div class="code" id="user-agent"></div>
+        </div>
+        
+        <div class="card">
+            <h2>🧪 功能测试</h2>
+            <button class="btn" onclick="testConnect()">测试连接钱包</button>
+            <div id="connect-result" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+    
+    <!-- 本地化的Web3库 -->
+    <script src="libs/web3.min.js"></script>
+    
+    <!-- DApp初始化脚本 -->
+    <script src="js/dapp-init.js"></script>
+    
+    <script>
+        // 页面加载完成后显示检测结果
+        window.addEventListener('load', function() {
+            setTimeout(displayResults, 500);
+        });
+        
+        function displayResults() {
+            // 钱包检测结果
+            if (window.dappInit) {
+                document.getElementById('wallet-type').innerHTML = 
+                    `<span class="success">${window.dappInit.currentDApp}</span>`;
+                document.getElementById('wallet-name-cn').innerHTML = 
+                    `<span class="success">${window.dappInit.walletNameCN}</span>`;
+                document.getElementById('init-status').innerHTML = 
+                    window.dappInit.isInitialized ? 
+                    '<span class="status-badge status-success">✅ 成功</span>' : 
+                    '<span class="status-badge status-error">❌ 失败</span>';
+                document.getElementById('is-mobile').innerHTML = 
+                    window.dappInit.env.isMobile ? 
+                    '<span class="success">是</span>' : 
+                    '<span class="value">否</span>';
+                
+                // Gas配置
+                const gasConfig = window.dappInit.getGasConfig();
+                document.getElementById('gas-limit').textContent = gasConfig.gas.toLocaleString();
+                document.getElementById('gas-price').textContent = 
+                    `${gasConfig.gasPrice} (${(parseInt(gasConfig.gasPrice) / 1e9).toFixed(1)} Gwei)`;
+                document.getElementById('timeout').textContent = 
+                    `${gasConfig.timeout / 1000}秒`;
+            } else {
+                document.getElementById('wallet-type').innerHTML = 
+                    '<span class="error">未检测到</span>';
+                document.getElementById('wallet-name-cn').innerHTML = 
+                    '<span class="error">未知</span>';
+                document.getElementById('init-status').innerHTML = 
+                    '<span class="status-badge status-error">❌ 失败</span>';
+            }
+            
+            // Provider信息
+            document.getElementById('has-ethereum').innerHTML = 
+                window.ethereum ? '<span class="success">✅ 存在</span>' : '<span class="error">❌ 不存在</span>';
+            document.getElementById('has-okx').innerHTML = 
+                window.okxwallet ? '<span class="success">✅ 存在</span>' : '<span class="value">不存在</span>';
+            document.getElementById('has-binance').innerHTML = 
+                window.BinanceChain ? '<span class="success">✅ 存在</span>' : '<span class="value">不存在</span>';
+            document.getElementById('is-okx-wallet').innerHTML = 
+                (window.ethereum && window.ethereum.isOkxWallet) ? 
+                '<span class="success">✅ 是</span>' : '<span class="value">否</span>';
+            document.getElementById('is-metamask').innerHTML = 
+                (window.ethereum && window.ethereum.isMetaMask) ? 
+                '<span class="warning">⚠️ 是</span>' : '<span class="value">否</span>';
+            
+            // User Agent
+            document.getElementById('user-agent').textContent = navigator.userAgent;
+        }
+        
+        // 测试连接
+        async function testConnect() {
+            const resultDiv = document.getElementById('connect-result');
+            resultDiv.innerHTML = '<div style="color: #ffd93d;">⏳ 正在连接钱包...</div>';
+            
+            try {
+                if (!window.ethereum) {
+                    throw new Error('未检测到钱包');
+                }
+                
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+                
+                resultDiv.innerHTML = `
+                    <div style="color: #00ff88; margin-top: 10px;">
+                        ✅ 连接成功！<br>
+                        <div style="margin-top: 10px; font-size: 12px; word-break: break-all;">
+                            地址：${accounts[0]}
+                        </div>
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div style="color: #ff6b6b; margin-top: 10px;">
+                        ❌ 连接失败<br>
+                        <div style="margin-top: 10px; font-size: 12px;">
+                            ${error.message}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
+

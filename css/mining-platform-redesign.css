@@ -1,0 +1,650 @@
+/* 挖矿平台重新设计样式 - Mining Platform Redesign Styles */
+
+/* ==========================================================================
+   挖矿平台导航栏重新设计 - 与主页保持一致
+   ========================================================================== */
+
+/* 覆盖原有的top-nav样式 */
+.top-nav {
+    display: none !important;
+}
+
+/* 挖矿平台专用导航栏样式 */
+.navbar .logo .home-btn {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.5rem !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    margin-right: 1rem !important;
+}
+
+.navbar .logo .home-btn:hover {
+    background: rgba(0, 255, 136, 0.1) !important;
+    border-color: rgba(0, 255, 136, 0.3) !important;
+    color: #00ff88 !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 网络状态信息 */
+.network-status-info {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+}
+
+.network-status {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.status-dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #00ff88 !important;
+    animation: pulse 2s infinite !important;
+}
+
+.status-dot.disconnected {
+    background: #ff4444 !important;
+}
+
+.status-dot.connecting {
+    background: #ffaa00 !important;
+}
+
+/* 钱包信息区域 */
+.wallet-info-compact {
+    display: flex !important;
+    align-items: center !important;
+    margin-right: 1rem !important;
+}
+
+.wallet-address {
+    font-size: 0.85rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-family: 'Courier New', monospace !important;
+    max-width: 200px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.wallet-address.connected {
+    color: #00ff88 !important;
+    border-color: rgba(0, 255, 136, 0.3) !important;
+    background: rgba(0, 255, 136, 0.1) !important;
+}
+
+/* 移动端导航菜单 */
+.mobile-nav-menu {
+    display: none !important;
+    position: fixed !important;
+    top: 80px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(10, 10, 15, 0.98) !important;
+    backdrop-filter: blur(30px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 1rem !important;
+    z-index: 99999 !important;
+}
+
+.mobile-nav-menu.open {
+    display: block !important;
+}
+
+.mobile-network-status {
+    margin-bottom: 1rem !important;
+}
+
+.mobile-wallet-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+}
+
+.mobile-wallet-info .wallet-address {
+    max-width: none !important;
+    text-align: center !important;
+}
+
+.mobile-wallet-info .btn-connect-wallet {
+    width: 100% !important;
+    justify-content: center !important;
+}
+
+/* ==========================================================================
+   主要内容区域重新设计
+   ========================================================================== */
+
+/* 主容器间距调整 */
+.main-container {
+    margin-top: 80px !important; /* 为新导航栏留出空间 */
+    padding: 2rem !important;
+    min-height: calc(100vh - 80px) !important;
+}
+
+/* 标签导航重新设计 */
+.tab-nav {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 0.5rem !important;
+    margin-bottom: 2rem !important;
+    display: flex !important;
+    gap: 0.5rem !important;
+    overflow-x: auto !important;
+}
+
+.tab-nav .tab-btn {
+    padding: 0.75rem 1.5rem !important;
+    border: none !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    white-space: nowrap !important;
+}
+
+.tab-nav .tab-btn:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important;
+}
+
+.tab-nav .tab-btn.active {
+    background: linear-gradient(135deg, #00ff88, #0066ff) !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+}
+
+/* 内容面板重新设计 */
+.tab-content {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    padding: 2rem !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+/* 卡片组件重新设计 */
+.card, .miner-card, .balance-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    backdrop-filter: blur(20px) !important;
+    transition: all 0.3s ease !important;
+}
+
+.card:hover, .miner-card:hover, .balance-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(0, 255, 136, 0.3) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 按钮重新设计 */
+.btn-primary {
+    background: linear-gradient(135deg, #00ff88, #0066ff) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(0, 255, 136, 0.3) !important;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.5rem !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   响应式设计
+   ========================================================================== */
+
+/* 平板设备 */
+@media (max-width: 1024px) {
+    .network-status-info {
+        display: none !important;
+    }
+    
+    .main-container {
+        padding: 1.5rem !important;
+    }
+    
+    .tab-nav {
+        padding: 0.25rem !important;
+    }
+    
+    .tab-content {
+        padding: 1.5rem !important;
+    }
+}
+
+/* 移动端 */
+@media (max-width: 768px) {
+    .navbar .nav-actions {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+    
+    .mobile-nav-menu {
+        top: 70px !important;
+    }
+    
+    .main-container {
+        margin-top: 70px !important;
+        padding: 1rem !important;
+        min-height: calc(100vh - 70px) !important;
+    }
+    
+    .tab-nav {
+        flex-direction: column !important;
+        gap: 0.25rem !important;
+    }
+    
+    .tab-nav .tab-btn {
+        text-align: center !important;
+        padding: 1rem !important;
+    }
+    
+    .tab-content {
+        padding: 1rem !important;
+    }
+    
+    .wallet-address {
+        font-size: 0.8rem !important;
+        max-width: none !important;
+    }
+}
+
+/* 小屏手机 */
+@media (max-width: 480px) {
+    .mobile-nav-menu {
+        top: 65px !important;
+    }
+    
+    .main-container {
+        margin-top: 65px !important;
+        padding: 0.75rem !important;
+        min-height: calc(100vh - 65px) !important;
+    }
+    
+    .navbar .logo .logo-subtitle {
+        display: none !important;
+    }
+    
+    .tab-content {
+        padding: 0.75rem !important;
+    }
+}
+
+/* ==========================================================================
+   PWA模式优化 - 完整的渐进式网页应用支持
+   ========================================================================== */
+
+/* PWA模式基础样式 */
+.pwa-mode .navbar {
+    top: env(safe-area-inset-top) !important;
+    height: calc(80px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+}
+
+.pwa-mode body {
+    padding-top: calc(80px + env(safe-area-inset-top)) !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+.pwa-mode .main-container {
+    margin-top: 0 !important;
+    padding-top: 2rem !important;
+    min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+}
+
+.pwa-mode .mobile-nav-menu {
+    top: calc(80px + env(safe-area-inset-top)) !important;
+}
+
+/* PWA移动端适配 */
+@media (max-width: 768px) {
+    .pwa-mode .navbar {
+        height: calc(70px + env(safe-area-inset-top)) !important;
+    }
+
+    .pwa-mode body {
+        padding-top: calc(70px + env(safe-area-inset-top)) !important;
+    }
+
+    .pwa-mode .mobile-nav-menu {
+        top: calc(70px + env(safe-area-inset-top)) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pwa-mode .navbar {
+        height: calc(65px + env(safe-area-inset-top)) !important;
+    }
+
+    .pwa-mode body {
+        padding-top: calc(65px + env(safe-area-inset-top)) !important;
+    }
+
+    .pwa-mode .mobile-nav-menu {
+        top: calc(65px + env(safe-area-inset-top)) !important;
+    }
+}
+
+/* PWA安装提示样式 */
+.pwa-install-prompt {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    background: linear-gradient(135deg, #00ff88, #0066ff) !important;
+    color: #000000 !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 255, 136, 0.3) !important;
+    z-index: 100000 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    transform: translateY(100px) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.pwa-install-prompt.show {
+    transform: translateY(0) !important;
+}
+
+.pwa-install-prompt .install-icon {
+    font-size: 1.5rem !important;
+    flex-shrink: 0 !important;
+}
+
+.pwa-install-prompt .install-content {
+    flex: 1 !important;
+}
+
+.pwa-install-prompt .install-title {
+    font-weight: 600 !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.pwa-install-prompt .install-description {
+    font-size: 0.9rem !important;
+    opacity: 0.8 !important;
+}
+
+.pwa-install-prompt .install-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+.pwa-install-prompt .btn-install {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    color: #000000 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.pwa-install-prompt .btn-install:hover {
+    background: rgba(0, 0, 0, 0.3) !important;
+}
+
+.pwa-install-prompt .btn-dismiss {
+    background: transparent !important;
+    border: 1px solid rgba(0, 0, 0, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    color: #000000 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.pwa-install-prompt .btn-dismiss:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* PWA更新提示样式 */
+.pwa-update-prompt {
+    position: fixed !important;
+    top: calc(80px + 20px) !important;
+    right: 20px !important;
+    background: rgba(10, 10, 15, 0.95) !important;
+    border: 1px solid rgba(0, 255, 136, 0.3) !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+    backdrop-filter: blur(20px) !important;
+    z-index: 100000 !important;
+    max-width: 300px !important;
+    transform: translateX(350px) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.pwa-update-prompt.show {
+    transform: translateX(0) !important;
+}
+
+.pwa-update-prompt .update-title {
+    color: #00ff88 !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.pwa-update-prompt .update-description {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.9rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.pwa-update-prompt .update-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+.pwa-update-prompt .btn-update {
+    background: linear-gradient(135deg, #00ff88, #0066ff) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    color: #000000 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    flex: 1 !important;
+}
+
+.pwa-update-prompt .btn-update:hover {
+    transform: translateY(-1px) !important;
+}
+
+.pwa-update-prompt .btn-later {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.pwa-update-prompt .btn-later:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* PWA离线指示器 */
+.pwa-offline-indicator {
+    position: fixed !important;
+    top: calc(80px + 10px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-100px) !important;
+    background: rgba(255, 68, 68, 0.95) !important;
+    color: #ffffff !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 20px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    z-index: 100000 !important;
+    transition: transform 0.3s ease !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.pwa-offline-indicator.show {
+    transform: translateX(-50%) translateY(0) !important;
+}
+
+.pwa-offline-indicator .offline-icon {
+    margin-right: 0.5rem !important;
+}
+
+/* PWA在线指示器 */
+.pwa-online-indicator {
+    position: fixed !important;
+    top: calc(80px + 10px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-100px) !important;
+    background: rgba(0, 255, 136, 0.95) !important;
+    color: #000000 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 20px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    z-index: 100000 !important;
+    transition: transform 0.3s ease !important;
+    backdrop-filter: blur(20px) !important;
+}
+
+.pwa-online-indicator.show {
+    transform: translateX(-50%) translateY(0) !important;
+}
+
+.pwa-online-indicator .online-icon {
+    margin-right: 0.5rem !important;
+}
+
+/* PWA移动端适配 */
+@media (max-width: 768px) {
+    .pwa-update-prompt {
+        top: calc(70px + 20px) !important;
+        left: 20px !important;
+        right: 20px !important;
+        max-width: none !important;
+        transform: translateY(-150px) !important;
+    }
+
+    .pwa-update-prompt.show {
+        transform: translateY(0) !important;
+    }
+
+    .pwa-offline-indicator,
+    .pwa-online-indicator {
+        top: calc(70px + 10px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pwa-update-prompt {
+        top: calc(65px + 20px) !important;
+    }
+
+    .pwa-offline-indicator,
+    .pwa-online-indicator {
+        top: calc(65px + 10px) !important;
+        left: 20px !important;
+        right: 20px !important;
+        transform: translateY(-100px) !important;
+    }
+
+    .pwa-offline-indicator.show,
+    .pwa-online-indicator.show {
+        transform: translateY(0) !important;
+    }
+}
+
+/* ==========================================================================
+   动画效果
+   ========================================================================== */
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobile-nav-menu.open {
+    animation: slideDown 0.3s ease !important;
+}
+
+/* 页面加载动画 */
+.main-container {
+    animation: fadeInUp 0.6s ease !important;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

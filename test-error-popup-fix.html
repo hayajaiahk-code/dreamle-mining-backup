@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试错误弹窗修复</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .test-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .log {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #007acc;
+            padding-left: 10px;
+        }
+        
+        .log-entry.success {
+            border-left-color: #4ec9b0;
+        }
+        
+        .log-entry.error {
+            border-left-color: #f48771;
+        }
+        
+        .log-entry.warning {
+            border-left-color: #dcdcaa;
+        }
+        
+        .counter {
+            display: inline-block;
+            background: #007acc;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 错误弹窗修复测试</h1>
+        <p style="color: #666; margin-top: 10px;">测试防抖机制和自动清理功能</p>
+        
+        <!-- 状态显示 -->
+        <div id="status" class="status success">
+            ✅ 系统就绪，等待测试...
+        </div>
+        
+        <!-- 测试 1: 防抖机制 -->
+        <div class="test-section">
+            <h2>📊 测试 1: 防抖机制</h2>
+            <p>点击按钮多次触发相同错误，应该只弹出 1 次</p>
+            <button onclick="testDebounce()">触发相同错误 5 次</button>
+            <button onclick="testDifferentErrors()">触发不同错误</button>
+            <div>
+                <strong>弹窗计数:</strong>
+                <span class="counter" id="alertCount">0</span>
+            </div>
+        </div>
+        
+        <!-- 测试 2: 自动清理 -->
+        <div class="test-section">
+            <h2>🧹 测试 2: 自动清理存储</h2>
+            <p>检查 localStorage 是否在页面加载时被清空</p>
+            <button onclick="checkStorage()">检查存储状态</button>
+            <button onclick="addTestData()">添加测试数据</button>
+            <button onclick="location.reload()">刷新页面（测试清理）</button>
+        </div>
+        
+        <!-- 测试 3: showMessage 函数 -->
+        <div class="test-section">
+            <h2>💬 测试 3: showMessage 函数</h2>
+            <p>测试 showMessage 函数的防抖功能</p>
+            <button onclick="testShowMessage()">调用 showMessage 5 次</button>
+            <button onclick="testShowNotification()">测试通知系统</button>
+        </div>
+        
+        <!-- 日志显示 -->
+        <div class="test-section">
+            <h2>📝 测试日志</h2>
+            <div id="log" class="log">
+                <div class="log-entry">等待测试...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载修复后的脚本 -->
+    <script src="js/auto-clear-storage.js"></script>
+    <script src="js/core-functions.js"></script>
+    
+    <script>
+        let alertCount = 0;
+        
+        // 拦截 alert 来计数
+        const originalAlert = window.alert;
+        window.alert = function(message) {
+            alertCount++;
+            document.getElementById('alertCount').textContent = alertCount;
+            addLog(`🔔 Alert #${alertCount}: ${message}`, 'warning');
+            originalAlert.call(window, message);
+        };
+        
+        // 添加日志
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        // 更新状态
+        function updateStatus(message, isSuccess = true) {
+            const status = document.getElementById('status');
+            status.className = `status ${isSuccess ? 'success' : 'error'}`;
+            status.textContent = message;
+        }
+        
+        // 测试 1: 防抖机制
+        function testDebounce() {
+            addLog('🧪 开始测试防抖机制...', 'info');
+            alertCount = 0;
+            document.getElementById('alertCount').textContent = '0';
+            
+            const errorMessage = 'Test error message';
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    addLog(`触发错误 #${i + 1}`, 'info');
+                    if (typeof showMessage === 'function') {
+                        showMessage(errorMessage, 'error');
+                    } else {
+                        alert(errorMessage);
+                    }
+                }, i * 100);
+            }
+            
+            setTimeout(() => {
+                if (alertCount === 1) {
+                    updateStatus('✅ 测试通过！只弹出了 1 次错误', true);
+                    addLog('✅ 防抖机制工作正常', 'success');
+                } else {
+                    updateStatus(`❌ 测试失败！弹出了 ${alertCount} 次错误`, false);
+                    addLog(`❌ 防抖机制未生效，弹出了 ${alertCount} 次`, 'error');
+                }
+            }, 1000);
+        }
+        
+        // 测试不同错误
+        function testDifferentErrors() {
+            addLog('🧪 测试不同错误消息...', 'info');
+            alertCount = 0;
+            document.getElementById('alertCount').textContent = '0';
+            
+            const errors = [
+                'Error 1: Connection failed',
+                'Error 2: Insufficient balance',
+                'Error 3: User rejected'
+            ];
+            
+            errors.forEach((error, i) => {
+                setTimeout(() => {
+                    addLog(`触发错误: ${error}`, 'info');
+                    if (typeof showMessage === 'function') {
+                        showMessage(error, 'error');
+                    } else {
+                        alert(error);
+                    }
+                }, i * 500);
+            });
+            
+            setTimeout(() => {
+                if (alertCount === 3) {
+                    updateStatus('✅ 测试通过！3 个不同错误都显示了', true);
+                    addLog('✅ 不同错误正常显示', 'success');
+                } else {
+                    updateStatus(`⚠️ 显示了 ${alertCount} 个错误（预期 3 个）`, false);
+                    addLog(`⚠️ 显示了 ${alertCount} 个错误`, 'warning');
+                }
+            }, 2000);
+        }
+        
+        // 测试 2: 检查存储
+        function checkStorage() {
+            addLog('🔍 检查存储状态...', 'info');
+            
+            const localStorageCount = localStorage.length;
+            const sessionStorageCount = sessionStorage.length;
+            
+            addLog(`localStorage 项目数: ${localStorageCount}`, 'info');
+            addLog(`sessionStorage 项目数: ${sessionStorageCount}`, 'info');
+            
+            if (localStorageCount === 0 && sessionStorageCount === 0) {
+                updateStatus('✅ 存储已清空！自动清理功能正常', true);
+                addLog('✅ 自动清理功能工作正常', 'success');
+            } else {
+                updateStatus(`⚠️ 存储未完全清空 (localStorage: ${localStorageCount}, sessionStorage: ${sessionStorageCount})`, false);
+                addLog('⚠️ 存储未完全清空', 'warning');
+            }
+            
+            // 检查自动清理模块
+            if (window.autoClearStorage) {
+                addLog('✅ autoClearStorage 模块已加载', 'success');
+                addLog(`   - 启用状态: ${window.autoClearStorage.enabled}`, 'info');
+            } else {
+                addLog('❌ autoClearStorage 模块未加载', 'error');
+            }
+        }
+        
+        // 添加测试数据
+        function addTestData() {
+            localStorage.setItem('test_key_1', 'test_value_1');
+            localStorage.setItem('test_key_2', 'test_value_2');
+            sessionStorage.setItem('session_test', 'session_value');
+            
+            addLog('✅ 已添加测试数据到存储', 'success');
+            addLog('   - localStorage: test_key_1, test_key_2', 'info');
+            addLog('   - sessionStorage: session_test', 'info');
+            addLog('💡 刷新页面测试自动清理功能', 'info');
+            
+            updateStatus('✅ 测试数据已添加，请刷新页面测试清理功能', true);
+        }
+        
+        // 测试 3: showMessage
+        function testShowMessage() {
+            addLog('🧪 测试 showMessage 函数...', 'info');
+            
+            if (typeof showMessage !== 'function') {
+                addLog('❌ showMessage 函数未定义', 'error');
+                updateStatus('❌ showMessage 函数未加载', false);
+                return;
+            }
+            
+            // 检查是否有防抖机制
+            const hasDebounce = showMessage.toString().includes('lastMessageCache');
+            
+            if (hasDebounce) {
+                addLog('✅ showMessage 包含防抖机制', 'success');
+                updateStatus('✅ showMessage 函数已正确加载防抖机制', true);
+            } else {
+                addLog('❌ showMessage 不包含防抖机制', 'error');
+                updateStatus('❌ showMessage 函数未包含防抖机制', false);
+            }
+            
+            // 测试调用
+            alertCount = 0;
+            document.getElementById('alertCount').textContent = '0';
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    showMessage('Test message', 'error');
+                }, i * 100);
+            }
+        }
+        
+        // 测试通知系统
+        function testShowNotification() {
+            addLog('🧪 测试通知系统...', 'info');
+            
+            if (typeof showNotification === 'function') {
+                showNotification('这是一个测试通知', 'success');
+                addLog('✅ showNotification 函数可用', 'success');
+                updateStatus('✅ 通知系统正常工作', true);
+            } else {
+                addLog('⚠️ showNotification 函数未定义', 'warning');
+                updateStatus('⚠️ 通知系统未加载，将使用 alert', false);
+            }
+        }
+        
+        // 页面加载时的检查
+        window.addEventListener('load', () => {
+            addLog('🚀 页面加载完成', 'success');
+            
+            // 检查自动清理
+            if (window.autoClearStorage) {
+                addLog('✅ 自动清理模块已加载', 'success');
+            } else {
+                addLog('❌ 自动清理模块未加载', 'error');
+            }
+            
+            // 检查 showMessage
+            if (typeof showMessage === 'function') {
+                addLog('✅ showMessage 函数已加载', 'success');
+                
+                const hasDebounce = showMessage.toString().includes('lastMessageCache');
+                if (hasDebounce) {
+                    addLog('✅ 防抖机制已启用', 'success');
+                } else {
+                    addLog('❌ 防抖机制未启用', 'error');
+                }
+            } else {
+                addLog('❌ showMessage 函数未加载', 'error');
+            }
+            
+            // 检查存储
+            checkStorage();
+        });
+    </script>
+</body>
+</html>
+

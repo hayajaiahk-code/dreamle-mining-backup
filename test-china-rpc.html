@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国用户 RPC 测试 - 欧意/币安钱包</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .wallet-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .value {
+            color: #333;
+            font-family: monospace;
+        }
+
+        button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .status-good { color: #28a745; font-weight: 600; }
+        .status-fair { color: #ffc107; font-weight: 600; }
+        .status-poor { color: #dc3545; font-weight: 600; }
+
+        .progress {
+            width: 100%;
+            height: 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .recommendation {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .recommendation h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>🌏 中国用户 RPC 连接测试</h1>
+            <p class="subtitle">专为欧意钱包和币安钱包优化</p>
+
+            <div class="wallet-info">
+                <h3>📱 当前钱包信息</h3>
+                <div class="info-row">
+                    <span class="label">钱包类型:</span>
+                    <span class="value" id="walletType">检测中...</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">钱包名称:</span>
+                    <span class="value" id="walletName">检测中...</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">地理位置:</span>
+                    <span class="value" id="location">检测中...</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">网络环境:</span>
+                    <span class="value" id="network">检测中...</span>
+                </div>
+            </div>
+
+            <button onclick="startTest()">🚀 开始测试所有 RPC</button>
+            <button onclick="testBestRPC()">⚡ 测试最佳 RPC</button>
+            <button onclick="testOKXOptimized()">🟢 测试欧意优化节点</button>
+            <button onclick="testBinanceOptimized()">🟡 测试币安优化节点</button>
+
+            <div class="progress" id="progressBar" style="display: none;">
+                <div class="progress-bar" id="progressBarInner">0%</div>
+            </div>
+
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // RPC 节点配置（与 config/contracts.js 一致）
+        const RPC_NODES = [
+            { name: 'drpc.org (主力)', url: 'https://lb.drpc.org/bsc/AqlGpHrYB01Fo1dFtBRULdHcTuavm9wR8L7hwg8TMB_n', priority: 1 },
+            { name: 'BSC 官方 1', url: 'https://bsc-dataseed1.binance.org', priority: 2 },
+            { name: 'BSC 官方 2', url: 'https://bsc-dataseed2.binance.org', priority: 2 },
+            { name: 'PublicNode', url: 'https://bsc-rpc.publicnode.com', priority: 3 },
+            { name: '1RPC', url: 'https://1rpc.io/bnb', priority: 4 },
+            { name: 'NodeReal', url: 'https://bsc-mainnet.nodereal.io/v1/1659dfb40aa24bbb8153a677b98064d7', priority: 5 },
+            { name: 'BSC 官方 3', url: 'https://bsc-dataseed3.binance.org', priority: 6 },
+            { name: 'BSC 官方 4', url: 'https://bsc-dataseed4.binance.org', priority: 6 }
+        ];
+
+        // 检测钱包类型
+        function detectWallet() {
+            if (window.BinanceChain) {
+                return { type: 'Binance', name: '币安钱包', icon: '🟡' };
+            } else if (window.okxwallet || window.okex) {
+                return { type: 'OKX', name: '欧意钱包', icon: '🟢' };
+            } else if (window.ethereum) {
+                return { type: 'Other', name: '其他钱包', icon: '💼' };
+            } else {
+                return { type: 'None', name: '未检测到钱包', icon: '❌' };
+            }
+        }
+
+        // 检测地理位置（简单判断）
+        async function detectLocation() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                return {
+                    country: data.country_name || '未知',
+                    city: data.city || '未知',
+                    isp: data.org || '未知'
+                };
+            } catch (error) {
+                return { country: '检测失败', city: '', isp: '' };
+            }
+        }
+
+        // 测试单个 RPC
+        async function testRPC(rpc, timeout = 5000) {
+            const startTime = performance.now();
+            
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+                const response = await fetch(rpc.url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'eth_chainId',
+                        params: [],
+                        id: 1
+                    }),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+                const latency = Math.round(performance.now() - startTime);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.result === '0x38') {
+                        return { success: true, latency, error: null };
+                    } else {
+                        return { success: false, latency, error: '错误的链ID' };
+                    }
+                } else {
+                    return { success: false, latency, error: `HTTP ${response.status}` };
+                }
+            } catch (error) {
+                const latency = Math.round(performance.now() - startTime);
+                return { 
+                    success: false, 
+                    latency, 
+                    error: error.name === 'AbortError' ? '超时' : error.message 
+                };
+            }
+        }
+
+        // 开始测试
+        async function startTest() {
+            const resultsDiv = document.getElementById('results');
+            const progressBar = document.getElementById('progressBar');
+            const progressBarInner = document.getElementById('progressBarInner');
+
+            progressBar.style.display = 'block';
+            resultsDiv.innerHTML = '<h3>🔍 正在测试所有 RPC 节点...</h3>';
+
+            const results = [];
+            
+            for (let i = 0; i < RPC_NODES.length; i++) {
+                const rpc = RPC_NODES[i];
+                const progress = Math.round(((i + 1) / RPC_NODES.length) * 100);
+                progressBarInner.style.width = progress + '%';
+                progressBarInner.textContent = `测试中... ${i + 1}/${RPC_NODES.length}`;
+
+                const result = await testRPC(rpc);
+                results.push({ ...rpc, ...result });
+            }
+
+            progressBar.style.display = 'none';
+            displayResults(results);
+        }
+
+        // 显示结果
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+            
+            // 排序：成功的在前，按延迟排序
+            results.sort((a, b) => {
+                if (a.success && !b.success) return -1;
+                if (!a.success && b.success) return 1;
+                return a.latency - b.latency;
+            });
+
+            let html = '<h3>📊 测试结果</h3>';
+            html += '<table><thead><tr><th>节点</th><th>延迟</th><th>状态</th><th>优先级</th></tr></thead><tbody>';
+
+            results.forEach(result => {
+                const statusClass = result.success ? 
+                    (result.latency < 200 ? 'status-good' : result.latency < 500 ? 'status-fair' : 'status-poor') : 
+                    'status-poor';
+                
+                const statusText = result.success ? 
+                    `${result.latency}ms` : 
+                    result.error;
+
+                const statusIcon = result.success ? '✅' : '❌';
+
+                html += `<tr>
+                    <td>${result.name}</td>
+                    <td class="${statusClass}">${statusText}</td>
+                    <td>${statusIcon}</td>
+                    <td>P${result.priority}</td>
+                </tr>`;
+            });
+
+            html += '</tbody></table>';
+
+            // 推荐
+            const bestRPC = results.find(r => r.success);
+            if (bestRPC) {
+                const wallet = detectWallet();
+                html += '<div class="recommendation">';
+                html += '<h3>💡 推荐配置</h3>';
+                html += `<p><strong>您的钱包:</strong> ${wallet.icon} ${wallet.name}</p>`;
+                html += `<p><strong>最佳节点:</strong> ${bestRPC.name} (${bestRPC.latency}ms)</p>`;
+                
+                if (wallet.type === 'OKX') {
+                    html += '<p><strong>欧意钱包优化建议:</strong> 使用 BSC 官方节点或 drpc.org</p>';
+                } else if (wallet.type === 'Binance') {
+                    html += '<p><strong>币安钱包优化建议:</strong> 使用 BSC 官方节点</p>';
+                }
+                
+                html += '</div>';
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // 测试最佳 RPC
+        async function testBestRPC() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<h3>⚡ 正在测试最佳 RPC...</h3>';
+
+            const result = await testRPC(RPC_NODES[0]);
+            
+            let html = '<h3>⚡ 最佳 RPC 测试结果</h3>';
+            html += `<div class="wallet-info">`;
+            html += `<div class="info-row"><span class="label">节点:</span><span class="value">${RPC_NODES[0].name}</span></div>`;
+            html += `<div class="info-row"><span class="label">URL:</span><span class="value">${RPC_NODES[0].url}</span></div>`;
+            html += `<div class="info-row"><span class="label">延迟:</span><span class="value ${result.success ? 'status-good' : 'status-poor'}">${result.success ? result.latency + 'ms' : result.error}</span></div>`;
+            html += `<div class="info-row"><span class="label">状态:</span><span class="value">${result.success ? '✅ 可用' : '❌ 不可用'}</span></div>`;
+            html += `</div>`;
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // 测试欧意优化节点
+        async function testOKXOptimized() {
+            const okxNodes = RPC_NODES.filter(r => r.name.includes('BSC 官方') || r.name.includes('drpc'));
+            await testSpecificNodes(okxNodes, '🟢 欧意钱包优化节点');
+        }
+
+        // 测试币安优化节点
+        async function testBinanceOptimized() {
+            const binanceNodes = RPC_NODES.filter(r => r.name.includes('BSC 官方'));
+            await testSpecificNodes(binanceNodes, '🟡 币安钱包优化节点');
+        }
+
+        // 测试特定节点
+        async function testSpecificNodes(nodes, title) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `<h3>${title}</h3><p>正在测试...</p>`;
+
+            const results = [];
+            for (const node of nodes) {
+                const result = await testRPC(node);
+                results.push({ ...node, ...result });
+            }
+
+            displayResults(results);
+        }
+
+        // 页面加载时初始化
+        window.addEventListener('load', async () => {
+            const wallet = detectWallet();
+            document.getElementById('walletType').textContent = wallet.type;
+            document.getElementById('walletName').textContent = wallet.icon + ' ' + wallet.name;
+
+            const location = await detectLocation();
+            document.getElementById('location').textContent = `${location.country} ${location.city}`;
+            document.getElementById('network').textContent = location.isp;
+
+            // 自动开始测试
+            setTimeout(startTest, 1000);
+        });
+    </script>
+</body>
+</html>
+

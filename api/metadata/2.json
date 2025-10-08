@@ -1,0 +1,37 @@
+{
+  "name": "Dreamle AI Miner #2 - Uncommon",
+  "description": "Level 2 AI Computing Power Miner - Enhanced computing capabilities for AI training tasks. This Uncommon-tier miner provides 130 hash power for advanced AI computations.",
+  "image": "https://www.dreamlewebai.com/images/miners/2.webp",
+  "external_url": "https://www.dreamlewebai.com/platform.html",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 2
+    },
+    {
+      "trait_type": "Hash Power",
+      "value": 130
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Price",
+      "value": "300 USDT"
+    },
+    {
+      "trait_type": "Max Supply",
+      "value": 8000
+    },
+    {
+      "trait_type": "Mining Duration",
+      "value": "365 Days"
+    },
+    {
+      "trait_type": "Category",
+      "value": "AI Computing Miner"
+    }
+  ]
+}
+

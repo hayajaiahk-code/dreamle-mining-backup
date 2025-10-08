@@ -1,0 +1,37 @@
+{
+  "name": "Dreamle AI Miner #7 - Divine",
+  "description": "Level 7 AI Computing Power Miner - Transcendent computing capabilities for next-generation AI systems. This Divine-tier miner provides 4500 hash power for unprecedented AI achievements.",
+  "image": "https://www.dreamlewebai.com/images/miners/7.webp",
+  "external_url": "https://www.dreamlewebai.com/platform.html",
+  "attributes": [
+    {
+      "trait_type": "Level",
+      "value": 7
+    },
+    {
+      "trait_type": "Hash Power",
+      "value": 4500
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Divine"
+    },
+    {
+      "trait_type": "Price",
+      "value": "6000 USDT"
+    },
+    {
+      "trait_type": "Max Supply",
+      "value": 500
+    },
+    {
+      "trait_type": "Mining Duration",
+      "value": "365 Days"
+    },
+    {
+      "trait_type": "Category",
+      "value": "AI Computing Miner"
+    }
+  ]
+}
+

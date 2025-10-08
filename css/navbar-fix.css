@@ -1,0 +1,281 @@
+/* 导航栏布局修复样式 - Navbar Layout Fix Styles */
+
+/* ==========================================================================
+   导航栏固定定位和层级修复
+   ========================================================================== */
+
+/* 确保导航栏始终在最顶层且正确定位 */
+.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 100000 !important;
+    height: 80px !important;
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(10, 10, 15, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 导航栏容器 */
+.nav-container {
+    position: relative !important;
+    z-index: 100001 !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 2rem !important;
+    height: 100% !important;
+}
+
+/* ==========================================================================
+   主要内容区域间距调整
+   ========================================================================== */
+
+/* 为body添加顶部间距，避免内容被导航栏遮挡 */
+body {
+    padding-top: 80px !important;
+}
+
+/* 确保所有主要内容区域都有正确的间距 */
+.hero-section,
+.main-content,
+.content-wrapper,
+section:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* ==========================================================================
+   移动端适配
+   ========================================================================== */
+
+/* 平板设备 */
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 0 1.5rem !important;
+    }
+}
+
+/* 移动端 - 768px及以下 */
+@media (max-width: 768px) {
+    .navbar {
+        height: 70px !important;
+    }
+    
+    .nav-container {
+        padding: 0 1rem !important;
+    }
+    
+    body {
+        padding-top: 70px !important;
+    }
+    
+    /* 移动菜单位置调整 */
+    .nav-menu {
+        top: 70px !important;
+    }
+    
+    /* 移动端Hero区域调整 */
+    .hero-section {
+        min-height: calc(100vh - 70px) !important;
+    }
+}
+
+/* 小屏手机 - 480px及以下 */
+@media (max-width: 480px) {
+    .navbar {
+        height: 65px !important;
+    }
+    
+    .nav-container {
+        padding: 0 1rem !important;
+    }
+    
+    body {
+        padding-top: 65px !important;
+    }
+    
+    /* 移动菜单位置调整 */
+    .nav-menu {
+        top: 65px !important;
+    }
+    
+    /* 小屏Hero区域调整 */
+    .hero-section {
+        min-height: calc(100vh - 65px) !important;
+    }
+}
+
+/* ==========================================================================
+   PWA模式适配
+   ========================================================================== */
+
+/* PWA模式下的安全区域处理 */
+.pwa-mode .navbar {
+    top: env(safe-area-inset-top) !important;
+    height: calc(80px + env(safe-area-inset-top)) !important;
+}
+
+.pwa-mode body {
+    padding-top: calc(80px + env(safe-area-inset-top)) !important;
+}
+
+/* PWA移动端适配 */
+@media (max-width: 768px) {
+    .pwa-mode .navbar {
+        height: calc(70px + env(safe-area-inset-top)) !important;
+    }
+    
+    .pwa-mode body {
+        padding-top: calc(70px + env(safe-area-inset-top)) !important;
+    }
+    
+    .pwa-mode .nav-menu {
+        top: calc(70px + env(safe-area-inset-top)) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .pwa-mode .navbar {
+        height: calc(65px + env(safe-area-inset-top)) !important;
+    }
+    
+    .pwa-mode body {
+        padding-top: calc(65px + env(safe-area-inset-top)) !important;
+    }
+    
+    .pwa-mode .nav-menu {
+        top: calc(65px + env(safe-area-inset-top)) !important;
+    }
+}
+
+/* ==========================================================================
+   特殊情况处理
+   ========================================================================== */
+
+/* 确保通知不被导航栏遮挡 */
+.notification {
+    top: calc(80px + 20px) !important;
+}
+
+@media (max-width: 768px) {
+    .notification {
+        top: calc(70px + 20px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .notification {
+        top: calc(65px + 20px) !important;
+    }
+}
+
+/* 确保模态框不被导航栏遮挡 */
+.modal-content,
+.experience-selector-modal,
+.pwa-install-modal {
+    margin-top: 40px !important;
+}
+
+/* ==========================================================================
+   iOS Safari特殊处理
+   ========================================================================== */
+
+/* iOS Safari地址栏处理 */
+@supports (-webkit-touch-callout: none) {
+    .navbar {
+        position: fixed !important;
+        top: 0 !important;
+    }
+    
+    /* iOS PWA模式 */
+    @media (display-mode: standalone) {
+        .navbar {
+            top: env(safe-area-inset-top) !important;
+            height: calc(80px + env(safe-area-inset-top)) !important;
+        }
+        
+        body {
+            padding-top: calc(80px + env(safe-area-inset-top)) !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   Android Chrome特殊处理
+   ========================================================================== */
+
+/* Android Chrome地址栏处理 */
+@media screen and (max-width: 768px) {
+    @supports (height: 100dvh) {
+        .hero-section {
+            min-height: calc(100dvh - 70px) !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   高对比度和可访问性
+   ========================================================================== */
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+    .navbar {
+        background: rgba(0, 0, 0, 0.95) !important;
+        border-bottom: 2px solid #ffffff !important;
+    }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+    .navbar {
+        transition: none !important;
+    }
+    
+    .nav-container {
+        transition: none !important;
+    }
+}
+
+/* ==========================================================================
+   调试辅助（开发时使用）
+   ========================================================================== */
+
+/* 开发调试时可以取消注释以下样式来可视化导航栏区域 */
+/*
+.navbar {
+    background: rgba(255, 0, 0, 0.3) !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(0, 255, 0, 0.2);
+    z-index: 99999;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    body::before {
+        height: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    body::before {
+        height: 65px;
+    }
+}
+*/

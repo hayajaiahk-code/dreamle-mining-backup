@@ -1,0 +1,414 @@
+{
+  "timestamp": "2025-09-30T01:34:16.617Z",
+  "summary": {
+    "totalButtons": 8,
+    "implementedFunctions": 11,
+    "notImplementedFunctions": 6,
+    "totalEvents": 15
+  },
+  "implemented": [
+    {
+      "button": "💰 Buy with USDT",
+      "onclick": "purchaseUsdtBtn.addEventListener",
+      "function": "purchaseMinerWithUSDT",
+      "apiAction": "purchaseMiner",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "💎 Buy with DRM",
+      "onclick": "purchaseDrmBtn.addEventListener",
+      "function": "purchaseMinerWithDRM",
+      "apiAction": "purchaseMiner",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "🔓 Authorize USDT",
+      "onclick": "authorizeUsdtBtn.addEventListener",
+      "function": "approve (USDT)",
+      "apiAction": "authorizeUSDT",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "🔓 Authorize DRM",
+      "onclick": "authorizeBtn.addEventListener",
+      "function": "approve (DRM)",
+      "apiAction": "authorizeDRM",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "🚀 One-Click Purchase",
+      "onclick": "oneClickPurchaseBtn.addEventListener",
+      "function": "approve + purchaseMinerWithUSDT",
+      "apiAction": "oneClickPurchase",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "💰 Claim Rewards",
+      "onclick": "claimRewardsBtn.addEventListener",
+      "function": "claimRewards",
+      "apiAction": "claimRewards",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "🔄 Exchange USDT → DRM",
+      "onclick": "executeExchange()",
+      "function": "exchangeUsdtToDrm",
+      "apiAction": "exchangeUsdtToDrm",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "🔄 Exchange DRM → USDT",
+      "onclick": "executeExchange()",
+      "function": "exchangeDrmToUsdt",
+      "apiAction": "exchangeDrmToUsdt",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "📤 Transfer Miner",
+      "onclick": "transferMiner()",
+      "function": "transferFrom",
+      "apiAction": "transferMiner",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "⏰ Renew Miner",
+      "onclick": "renewMiner()",
+      "function": "renewMiner",
+      "apiAction": "renewMiner",
+      "status": "✅ 已实现"
+    },
+    {
+      "button": "⏰ Batch Renew Miners",
+      "onclick": "showBatchRenewDialog()",
+      "function": "renewMultipleMiners",
+      "apiAction": "renewMultipleMiners",
+      "status": "✅ 已实现"
+    }
+  ],
+  "notImplemented": [
+    {
+      "button": "➕ Add Special Referrer",
+      "function": "addSpecialReferrer",
+      "apiAction": "addSpecialReferrer",
+      "priority": "🟡 中",
+      "status": "⏳ 待实现"
+    },
+    {
+      "button": "➖ Remove Special Referrer",
+      "function": "removeSpecialReferrer",
+      "apiAction": "removeSpecialReferrer",
+      "priority": "🟡 中",
+      "status": "⏳ 待实现"
+    },
+    {
+      "button": "💧 Inject Liquidity",
+      "function": "adminInjectLiquidity",
+      "apiAction": "adminInjectLiquidity",
+      "priority": "🟡 中",
+      "status": "⏳ 待实现"
+    },
+    {
+      "button": "💸 Admin Withdraw",
+      "function": "adminWithdraw",
+      "apiAction": "adminWithdraw",
+      "priority": "🟡 中",
+      "status": "⏳ 待实现"
+    },
+    {
+      "button": "🔴 Emergency Pause",
+      "function": "emergencyPause",
+      "apiAction": "emergencyPause",
+      "priority": "🟢 低",
+      "status": "⏳ 待实现"
+    },
+    {
+      "button": "🔄 Update Expired Miners",
+      "function": "updateExpiredMiners",
+      "apiAction": "updateExpiredMiners",
+      "priority": "🟢 低",
+      "status": "⏳ 待实现"
+    }
+  ],
+  "events": [
+    {
+      "name": "Approval",
+      "params": [
+        {
+          "name": "owner",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "approved",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "ApprovalForAll",
+      "params": [
+        {
+          "name": "owner",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "operator",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "approved",
+          "type": "bool",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "BaseURIUpdated",
+      "params": [
+        {
+          "name": "newBaseURI",
+          "type": "string",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "HashPowerRewardPaid",
+      "params": [
+        {
+          "name": "referrer",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "hashPower",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "buyer",
+          "type": "address",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "MinerExpired",
+      "params": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": true
+        },
+        {
+          "name": "level",
+          "type": "uint8",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "MinerPurchased",
+      "params": [
+        {
+          "name": "buyer",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "level",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "referrer",
+          "type": "address",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "MinerRenewed",
+      "params": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": true
+        },
+        {
+          "name": "newExpiryTime",
+          "type": "uint256",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "MinerTransferred",
+      "params": [
+        {
+          "name": "from",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": true
+        },
+        {
+          "name": "level",
+          "type": "uint8",
+          "indexed": false
+        },
+        {
+          "name": "hashPower",
+          "type": "uint256",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "OwnershipTransferred",
+      "params": [
+        {
+          "name": "previousOwner",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "newOwner",
+          "type": "address",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "RewardClaimed",
+      "params": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "SpecialReferrerAdded",
+      "params": [
+        {
+          "name": "referrer",
+          "type": "address",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "SpecialReferrerRemoved",
+      "params": [
+        {
+          "name": "referrer",
+          "type": "address",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "TokensExchanged",
+      "params": [
+        {
+          "name": "user",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "direction",
+          "type": "string",
+          "indexed": false
+        },
+        {
+          "name": "inputAmount",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "outputAmount",
+          "type": "uint256",
+          "indexed": false
+        }
+      ]
+    },
+    {
+      "name": "Transfer",
+      "params": [
+        {
+          "name": "from",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "to",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "tokenId",
+          "type": "uint256",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "name": "UsdtRewardPaid",
+      "params": [
+        {
+          "name": "referrer",
+          "type": "address",
+          "indexed": true
+        },
+        {
+          "name": "amount",
+          "type": "uint256",
+          "indexed": false
+        },
+        {
+          "name": "isSpecialReferrer",
+          "type": "bool",
+          "indexed": false
+        }
+      ]
+    }
+  ]
+}
