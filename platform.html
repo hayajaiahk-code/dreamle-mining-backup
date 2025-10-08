@@ -1885,6 +1885,16 @@
             border-color: rgba(0, 255, 136, 0.6);
         }
 
+        .fab-action.clear-cache {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 87, 34, 0.2));
+            border-color: rgba(255, 152, 0, 0.4);
+        }
+
+        .fab-action.clear-cache:hover {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.3), rgba(255, 87, 34, 0.3));
+            border-color: rgba(255, 152, 0, 0.6);
+        }
+
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -3351,6 +3361,12 @@
                                     <path d="M11 16V6"/>
                                 </svg>
                                 <span>Connect Wallet</span>
+                            </div>
+                            <div class="fab-action clear-cache" id="fabClearCache">
+                                <svg class="fab-action-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19.36 2.72l1.42 1.42-5.72 5.71c1.07 1.54 1.22 3.39.32 4.59L9.06 8.12c1.2-.9 3.05-.75 4.59.32l5.71-5.72M5.93 17.57c-2.01-2.01-3.24-4.41-3.58-6.65l4.88-2.09 7.44 7.44-2.09 4.88c-2.24-.34-4.64-1.57-6.65-3.58z"/>
+                                </svg>
+                                <span>🔄 Clear Cache</span>
                             </div>
                             <div class="fab-action" id="fabHome">
                                 <svg class="fab-action-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -5090,29 +5106,147 @@
             // Export to global scope for console use
             window.PRICE_UTILS = PRICE_UTILS;
 
-            // Clear cache button event
+            // 🔄 强力清除缓存函数（支持移动端 DApp 和网页）
+            async function clearAllCacheThoroughly() {
+                console.log('🧹 开始彻底清除所有缓存...');
+
+                const results = {
+                    localStorage: false,
+                    sessionStorage: false,
+                    cookies: false,
+                    cacheStorage: false,
+                    serviceWorker: false,
+                    indexedDB: false
+                };
+
+                try {
+                    // 1. 清除 LocalStorage
+                    try {
+                        localStorage.clear();
+                        results.localStorage = true;
+                        console.log('✅ LocalStorage 已清除');
+                    } catch (e) {
+                        console.warn('⚠️ LocalStorage 清除失败:', e);
+                    }
+
+                    // 2. 清除 SessionStorage
+                    try {
+                        sessionStorage.clear();
+                        results.sessionStorage = true;
+                        console.log('✅ SessionStorage 已清除');
+                    } catch (e) {
+                        console.warn('⚠️ SessionStorage 清除失败:', e);
+                    }
+
+                    // 3. 清除 Cookies（移动端 DApp 重要）
+                    try {
+                        const cookies = document.cookie.split(';');
+                        for (let cookie of cookies) {
+                            const eqPos = cookie.indexOf('=');
+                            const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+                            // 设置过期时间为过去，删除 cookie
+                            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+                            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=' + window.location.hostname;
+                        }
+                        results.cookies = true;
+                        console.log('✅ Cookies 已清除');
+                    } catch (e) {
+                        console.warn('⚠️ Cookies 清除失败:', e);
+                    }
+
+                    // 4. 清除 Cache Storage（Service Worker 缓存）
+                    try {
+                        if ('caches' in window) {
+                            const cacheNames = await caches.keys();
+                            await Promise.all(
+                                cacheNames.map(cacheName => {
+                                    console.log(`🗑️ 删除缓存: ${cacheName}`);
+                                    return caches.delete(cacheName);
+                                })
+                            );
+                            results.cacheStorage = true;
+                            console.log('✅ Cache Storage 已清除');
+                        }
+                    } catch (e) {
+                        console.warn('⚠️ Cache Storage 清除失败:', e);
+                    }
+
+                    // 5. 注销 Service Worker（移动端 DApp 可能使用）
+                    try {
+                        if ('serviceWorker' in navigator) {
+                            const registrations = await navigator.serviceWorker.getRegistrations();
+                            for (let registration of registrations) {
+                                await registration.unregister();
+                                console.log('🗑️ Service Worker 已注销');
+                            }
+                            results.serviceWorker = true;
+                            console.log('✅ Service Worker 已清除');
+                        }
+                    } catch (e) {
+                        console.warn('⚠️ Service Worker 清除失败:', e);
+                    }
+
+                    // 6. 清除 IndexedDB（币安、欧意钱包可能使用）
+                    try {
+                        if ('indexedDB' in window) {
+                            const databases = await indexedDB.databases();
+                            for (let db of databases) {
+                                if (db.name) {
+                                    indexedDB.deleteDatabase(db.name);
+                                    console.log(`🗑️ 删除数据库: ${db.name}`);
+                                }
+                            }
+                            results.indexedDB = true;
+                            console.log('✅ IndexedDB 已清除');
+                        }
+                    } catch (e) {
+                        console.warn('⚠️ IndexedDB 清除失败:', e);
+                    }
+
+                    // 7. 清除 Web3 相关缓存（钱包特定）
+                    try {
+                        // 清除可能的 Web3 缓存键
+                        const web3Keys = ['WEB3_CONNECT_CACHED_PROVIDER', 'walletconnect', 'WALLETCONNECT_DEEPLINK_CHOICE'];
+                        web3Keys.forEach(key => {
+                            try {
+                                localStorage.removeItem(key);
+                                sessionStorage.removeItem(key);
+                            } catch (e) {}
+                        });
+                        console.log('✅ Web3 缓存已清除');
+                    } catch (e) {
+                        console.warn('⚠️ Web3 缓存清除失败:', e);
+                    }
+
+                    console.log('✅ 缓存清除完成:', results);
+                    return results;
+
+                } catch (error) {
+                    console.error('❌ 清除缓存过程出错:', error);
+                    throw error;
+                }
+            }
+
+            // 导出到全局作用域
+            window.clearAllCacheThoroughly = clearAllCacheThoroughly;
+
+            // Clear cache button event (desktop)
             const clearCacheBtn = document.getElementById('clearCacheBtn');
             if (clearCacheBtn) {
                 clearCacheBtn.addEventListener('click', async function() {
-                    console.log('🔄 Clear cache button clicked');
+                    console.log('🔄 Clear cache button clicked (desktop)');
 
                     try {
-                        // Cache cleanup functionality removed (PWA disabled)
-
-                        // Clear localStorage
-                        if (typeof Storage !== 'undefined') {
-                            localStorage.clear();
-                            console.log('✅ LocalStorage cleared');
-                        }
+                        await clearAllCacheThoroughly();
 
                         // Display success message
                         if (typeof window.showMessage === 'function') {
-                            window.showMessage('Cache cleared, page will refresh', 'success');
+                            window.showMessage('✅ 缓存已彻底清除，页面即将刷新...', 'success');
                         } else {
-                            alert('Cache cleared, page will refresh');
+                            alert('✅ 缓存已彻底清除，页面即将刷新...');
                         }
 
-                        // Delayed page refresh
+                        // Delayed page refresh with force reload
                         setTimeout(() => {
                             window.location.reload(true);
                         }, 1500);
@@ -5120,9 +5254,9 @@
                     } catch (error) {
                         console.error('❌ Clear cache failed:', error);
                         if (typeof window.showMessage === 'function') {
-                            window.showMessage('Failed to clear cache: ' + error.message, 'error');
+                            window.showMessage('❌ 清除缓存失败: ' + error.message, 'error');
                         } else {
-                            alert('Failed to clear cache: ' + error.message);
+                            alert('❌ 清除缓存失败: ' + error.message);
                         }
                     }
                 });
@@ -5727,6 +5861,13 @@
                                 <span>Connect Wallet</span>
                             </div>
 
+                            <div class="fab-action clear-cache" id="fabClearCache">
+                                <svg class="fab-action-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19.36 2.72l1.42 1.42-5.72 5.71c1.07 1.54 1.22 3.39.32 4.59L9.06 8.12c1.2-.9 3.05-.75 4.59.32l5.71-5.72M5.93 17.57c-2.01-2.01-3.24-4.41-3.58-6.65l4.88-2.09 7.44 7.44-2.09 4.88c-2.24-.34-4.64-1.57-6.65-3.58z"/>
+                                </svg>
+                                <span>🔄 Clear Cache</span>
+                            </div>
+
                             <div class="fab-action" id="fabHome">
                                 <svg class="fab-action-icon" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -5806,6 +5947,58 @@
                         }
                     }
                 });
+
+                // Clear Cache action (FAB)
+                const clearCacheAction = document.getElementById('fabClearCache');
+                if (clearCacheAction) {
+                    clearCacheAction.addEventListener('click', async function(e) {
+                        e.stopPropagation();
+                        console.log('🧹 FAB Clear Cache clicked');
+
+                        // 显示确认对话框
+                        const confirmed = confirm('🔄 确定要清除所有缓存吗？\n\n这将清除：\n✅ LocalStorage\n✅ SessionStorage\n✅ Cookies\n✅ Cache Storage\n✅ Service Worker\n✅ IndexedDB\n✅ Web3 缓存\n\n页面将自动刷新。');
+
+                        if (!confirmed) {
+                            console.log('❌ 用户取消清除缓存');
+                            return;
+                        }
+
+                        try {
+                            // 显示加载提示
+                            if (typeof window.showMessage === 'function') {
+                                window.showMessage('🧹 正在清除缓存...', 'info');
+                            }
+
+                            // 调用彻底清除缓存函数
+                            const results = await window.clearAllCacheThoroughly();
+
+                            console.log('✅ 缓存清除结果:', results);
+
+                            // 显示成功消息
+                            if (typeof window.showMessage === 'function') {
+                                window.showMessage('✅ 缓存已彻底清除！页面即将刷新...', 'success');
+                            } else {
+                                alert('✅ 缓存已彻底清除！页面即将刷新...');
+                            }
+
+                            // 延迟刷新页面（强制重新加载）
+                            setTimeout(() => {
+                                // 使用多种方法确保彻底刷新
+                                window.location.href = window.location.href + '?t=' + Date.now();
+                            }, 1500);
+
+                        } catch (error) {
+                            console.error('❌ FAB 清除缓存失败:', error);
+                            if (typeof window.showMessage === 'function') {
+                                window.showMessage('❌ 清除缓存失败: ' + error.message, 'error');
+                            } else {
+                                alert('❌ 清除缓存失败: ' + error.message);
+                            }
+                        }
+                    });
+                } else {
+                    console.warn('⚠️ FAB Clear Cache button not found');
+                }
 
                 // Home action
                 homeAction.addEventListener('click', function(e) {
