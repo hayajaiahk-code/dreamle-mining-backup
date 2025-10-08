@@ -4714,34 +4714,63 @@ async function getMinerInfo(minerId) {
 
             // 尝试从合约获取矿机的实际级别
             const minerData = await unifiedContract.methods.miners(minerId).call();
-            const level = parseInt(minerData.level.toString());
+
+            // 🔧 修复：确保正确解析 level 字段
+            // 某些合约可能返回 BigNumber 或字符串
+            let level;
+            if (minerData.level) {
+                level = parseInt(minerData.level.toString());
+            } else if (minerData[1]) {
+                // 如果返回的是数组格式，level 可能在索引 1
+                level = parseInt(minerData[1].toString());
+            } else {
+                console.error(`❌ 无法从合约数据中提取 level 字段:`, minerData);
+                throw new Error('Cannot extract level from miner data');
+            }
 
             console.log(`✅ 矿机 #${minerId} 合约数据:`, {
                 level: level,
-                purchaseTime: minerData.purchaseTime.toString(),
-                expiryTime: minerData.expiryTime.toString(),
-                referrer: minerData.referrer,
+                levelRaw: minerData.level ? minerData.level.toString() : 'N/A',
+                purchaseTime: minerData.purchaseTime ? minerData.purchaseTime.toString() : 'N/A',
+                expiryTime: minerData.expiryTime ? minerData.expiryTime.toString() : 'N/A',
+                referrer: minerData.referrer || 'N/A',
                 isTransferred: minerData.isTransferred,
                 isExpired: minerData.isExpired
             });
 
             // 验证级别是否合理
-            if (level < 1 || level > 8) {
-                console.error(`❌ 矿机 #${minerId} 级别异常: ${level}`);
+            if (isNaN(level) || level < 1 || level > 8) {
+                console.error(`❌ 矿机 #${minerId} 级别异常: ${level} (原始值: ${minerData.level})`);
                 throw new Error(`Invalid miner level: ${level}`);
             }
 
             // V16合约包含完整的矿机信息
-            const purchaseTime = parseInt(minerData.purchaseTime.toString());
-            const expiryTime = parseInt(minerData.expiryTime.toString());
-            const isExpired = minerData.isExpired;
+            const purchaseTime = minerData.purchaseTime ? parseInt(minerData.purchaseTime.toString()) : 0;
+            const expiryTime = minerData.expiryTime ? parseInt(minerData.expiryTime.toString()) : 0;
+            const isExpired = minerData.isExpired || false;
 
+            // 🔧 关键修复：确保 level 被正确传递
             const minerInfo = getMinerInfoByLevel(level);
             minerInfo.isExpired = isExpired;
             minerInfo.expiryTime = expiryTime;
             minerInfo.purchaseTime = purchaseTime;
 
-            console.log(`✅ 矿机 #${minerId} 信息处理完成:`, minerInfo);
+            // 🔧 额外验证：确保 minerInfo 中的 level 和 levelBadge 正确
+            if (minerInfo.level !== level) {
+                console.warn(`⚠️ 矿机 #${minerId} level 不匹配: minerInfo.level=${minerInfo.level}, expected=${level}`);
+                minerInfo.level = level;
+                minerInfo.levelBadge = `LV.${level}`;
+            }
+
+            console.log(`✅ 矿机 #${minerId} 信息处理完成:`, {
+                minerId: minerId,
+                level: minerInfo.level,
+                levelBadge: minerInfo.levelBadge,
+                hashpower: minerInfo.hashpower,
+                rarity: minerInfo.rarity,
+                isExpired: minerInfo.isExpired
+            });
+
             return minerInfo;
         } else {
             console.error(`❌ 合约未初始化，无法获取矿机 #${minerId} 信息`);
@@ -4750,6 +4779,7 @@ async function getMinerInfo(minerId) {
     } catch (error) {
         console.error(`❌ 获取矿机 #${minerId} 级别失败:`, error);
         console.error('错误详情:', error.message);
+        console.error('错误堆栈:', error.stack);
 
         // 不要默认返回1级，而是抛出错误让调用者处理
         throw error;
