@@ -5106,9 +5106,9 @@
             // Export to global scope for console use
             window.PRICE_UTILS = PRICE_UTILS;
 
-            // 🔄 强力清除缓存函数（支持移动端 DApp 和网页）
+            // 🔄 Thorough cache clearing function (supports mobile DApp and web browsers)
             async function clearAllCacheThoroughly() {
-                console.log('🧹 开始彻底清除所有缓存...');
+                console.log('🧹 Starting thorough cache clearing...');
 
                 const results = {
                     localStorage: false,
@@ -5120,92 +5120,92 @@
                 };
 
                 try {
-                    // 1. 清除 LocalStorage
+                    // 1. Clear LocalStorage
                     try {
                         localStorage.clear();
                         results.localStorage = true;
-                        console.log('✅ LocalStorage 已清除');
+                        console.log('✅ LocalStorage cleared');
                     } catch (e) {
-                        console.warn('⚠️ LocalStorage 清除失败:', e);
+                        console.warn('⚠️ LocalStorage clearing failed:', e);
                     }
 
-                    // 2. 清除 SessionStorage
+                    // 2. Clear SessionStorage
                     try {
                         sessionStorage.clear();
                         results.sessionStorage = true;
-                        console.log('✅ SessionStorage 已清除');
+                        console.log('✅ SessionStorage cleared');
                     } catch (e) {
-                        console.warn('⚠️ SessionStorage 清除失败:', e);
+                        console.warn('⚠️ SessionStorage clearing failed:', e);
                     }
 
-                    // 3. 清除 Cookies（移动端 DApp 重要）
+                    // 3. Clear Cookies (important for mobile DApp)
                     try {
                         const cookies = document.cookie.split(';');
                         for (let cookie of cookies) {
                             const eqPos = cookie.indexOf('=');
                             const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
-                            // 设置过期时间为过去，删除 cookie
+                            // Set expiration to past to delete cookie
                             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
                             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=' + window.location.hostname;
                         }
                         results.cookies = true;
-                        console.log('✅ Cookies 已清除');
+                        console.log('✅ Cookies cleared');
                     } catch (e) {
-                        console.warn('⚠️ Cookies 清除失败:', e);
+                        console.warn('⚠️ Cookies clearing failed:', e);
                     }
 
-                    // 4. 清除 Cache Storage（Service Worker 缓存）
+                    // 4. Clear Cache Storage (Service Worker cache)
                     try {
                         if ('caches' in window) {
                             const cacheNames = await caches.keys();
                             await Promise.all(
                                 cacheNames.map(cacheName => {
-                                    console.log(`🗑️ 删除缓存: ${cacheName}`);
+                                    console.log(`🗑️ Deleting cache: ${cacheName}`);
                                     return caches.delete(cacheName);
                                 })
                             );
                             results.cacheStorage = true;
-                            console.log('✅ Cache Storage 已清除');
+                            console.log('✅ Cache Storage cleared');
                         }
                     } catch (e) {
-                        console.warn('⚠️ Cache Storage 清除失败:', e);
+                        console.warn('⚠️ Cache Storage clearing failed:', e);
                     }
 
-                    // 5. 注销 Service Worker（移动端 DApp 可能使用）
+                    // 5. Unregister Service Worker (may be used by mobile DApp)
                     try {
                         if ('serviceWorker' in navigator) {
                             const registrations = await navigator.serviceWorker.getRegistrations();
                             for (let registration of registrations) {
                                 await registration.unregister();
-                                console.log('🗑️ Service Worker 已注销');
+                                console.log('🗑️ Service Worker unregistered');
                             }
                             results.serviceWorker = true;
-                            console.log('✅ Service Worker 已清除');
+                            console.log('✅ Service Worker cleared');
                         }
                     } catch (e) {
-                        console.warn('⚠️ Service Worker 清除失败:', e);
+                        console.warn('⚠️ Service Worker clearing failed:', e);
                     }
 
-                    // 6. 清除 IndexedDB（币安、欧意钱包可能使用）
+                    // 6. Clear IndexedDB (may be used by Binance, OKX wallets)
                     try {
                         if ('indexedDB' in window) {
                             const databases = await indexedDB.databases();
                             for (let db of databases) {
                                 if (db.name) {
                                     indexedDB.deleteDatabase(db.name);
-                                    console.log(`🗑️ 删除数据库: ${db.name}`);
+                                    console.log(`🗑️ Deleting database: ${db.name}`);
                                 }
                             }
                             results.indexedDB = true;
-                            console.log('✅ IndexedDB 已清除');
+                            console.log('✅ IndexedDB cleared');
                         }
                     } catch (e) {
-                        console.warn('⚠️ IndexedDB 清除失败:', e);
+                        console.warn('⚠️ IndexedDB clearing failed:', e);
                     }
 
-                    // 7. 清除 Web3 相关缓存（钱包特定）
+                    // 7. Clear Web3 related cache (wallet specific)
                     try {
-                        // 清除可能的 Web3 缓存键
+                        // Clear possible Web3 cache keys
                         const web3Keys = ['WEB3_CONNECT_CACHED_PROVIDER', 'walletconnect', 'WALLETCONNECT_DEEPLINK_CHOICE'];
                         web3Keys.forEach(key => {
                             try {
@@ -5213,21 +5213,21 @@
                                 sessionStorage.removeItem(key);
                             } catch (e) {}
                         });
-                        console.log('✅ Web3 缓存已清除');
+                        console.log('✅ Web3 cache cleared');
                     } catch (e) {
-                        console.warn('⚠️ Web3 缓存清除失败:', e);
+                        console.warn('⚠️ Web3 cache clearing failed:', e);
                     }
 
-                    console.log('✅ 缓存清除完成:', results);
+                    console.log('✅ Cache clearing completed:', results);
                     return results;
 
                 } catch (error) {
-                    console.error('❌ 清除缓存过程出错:', error);
+                    console.error('❌ Cache clearing process error:', error);
                     throw error;
                 }
             }
 
-            // 导出到全局作用域
+            // Export to global scope
             window.clearAllCacheThoroughly = clearAllCacheThoroughly;
 
             // Clear cache button event (desktop)
@@ -5241,9 +5241,9 @@
 
                         // Display success message
                         if (typeof window.showMessage === 'function') {
-                            window.showMessage('✅ 缓存已彻底清除，页面即将刷新...', 'success');
+                            window.showMessage('✅ Cache cleared! Page will refresh...', 'success');
                         } else {
-                            alert('✅ 缓存已彻底清除，页面即将刷新...');
+                            alert('✅ Cache cleared! Page will refresh...');
                         }
 
                         // Delayed page refresh with force reload
@@ -5254,9 +5254,9 @@
                     } catch (error) {
                         console.error('❌ Clear cache failed:', error);
                         if (typeof window.showMessage === 'function') {
-                            window.showMessage('❌ 清除缓存失败: ' + error.message, 'error');
+                            window.showMessage('❌ Cache clearing failed: ' + error.message, 'error');
                         } else {
-                            alert('❌ 清除缓存失败: ' + error.message);
+                            alert('❌ Cache clearing failed: ' + error.message);
                         }
                     }
                 });
@@ -5955,44 +5955,44 @@
                         e.stopPropagation();
                         console.log('🧹 FAB Clear Cache clicked');
 
-                        // 显示确认对话框
-                        const confirmed = confirm('🔄 确定要清除所有缓存吗？\n\n这将清除：\n✅ LocalStorage\n✅ SessionStorage\n✅ Cookies\n✅ Cache Storage\n✅ Service Worker\n✅ IndexedDB\n✅ Web3 缓存\n\n页面将自动刷新。');
+                        // Show confirmation dialog
+                        const confirmed = confirm('🔄 Clear all cache?\n\nThis will clear:\n✅ LocalStorage\n✅ SessionStorage\n✅ Cookies\n✅ Cache Storage\n✅ Service Worker\n✅ IndexedDB\n✅ Web3 Cache\n\nPage will refresh automatically.');
 
                         if (!confirmed) {
-                            console.log('❌ 用户取消清除缓存');
+                            console.log('❌ User cancelled cache clearing');
                             return;
                         }
 
                         try {
-                            // 显示加载提示
+                            // Show loading message
                             if (typeof window.showMessage === 'function') {
-                                window.showMessage('🧹 正在清除缓存...', 'info');
+                                window.showMessage('🧹 Clearing cache...', 'info');
                             }
 
-                            // 调用彻底清除缓存函数
+                            // Call thorough cache clearing function
                             const results = await window.clearAllCacheThoroughly();
 
-                            console.log('✅ 缓存清除结果:', results);
+                            console.log('✅ Cache clearing results:', results);
 
-                            // 显示成功消息
+                            // Show success message
                             if (typeof window.showMessage === 'function') {
-                                window.showMessage('✅ 缓存已彻底清除！页面即将刷新...', 'success');
+                                window.showMessage('✅ Cache cleared! Page will refresh...', 'success');
                             } else {
-                                alert('✅ 缓存已彻底清除！页面即将刷新...');
+                                alert('✅ Cache cleared! Page will refresh...');
                             }
 
-                            // 延迟刷新页面（强制重新加载）
+                            // Delayed page refresh (force reload)
                             setTimeout(() => {
-                                // 使用多种方法确保彻底刷新
+                                // Use multiple methods to ensure thorough refresh
                                 window.location.href = window.location.href + '?t=' + Date.now();
                             }, 1500);
 
                         } catch (error) {
-                            console.error('❌ FAB 清除缓存失败:', error);
+                            console.error('❌ FAB cache clearing failed:', error);
                             if (typeof window.showMessage === 'function') {
-                                window.showMessage('❌ 清除缓存失败: ' + error.message, 'error');
+                                window.showMessage('❌ Cache clearing failed: ' + error.message, 'error');
                             } else {
-                                alert('❌ 清除缓存失败: ' + error.message);
+                                alert('❌ Cache clearing failed: ' + error.message);
                             }
                         }
                     });
