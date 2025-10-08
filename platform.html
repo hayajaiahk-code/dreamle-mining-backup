@@ -6606,6 +6606,85 @@
         });
 
     </script>
+    <!-- Referral auto-fill and lock (mobile wallet friendly) -->
+    <script>
+        (function() {
+            'use strict';
+
+            function isValidEthAddress(address) {
+                return /^0x[a-fA-F0-9]{40}$/.test(address || '');
+            }
+
+            function getRefFromUrl() {
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const ref = params.get('ref');
+                    return isValidEthAddress(ref) ? ref : null;
+                } catch (e) { return null; }
+            }
+
+            function getRefFromStorage() {
+                const v = localStorage.getItem('dreamle_referrer');
+                return isValidEthAddress(v) ? v : null;
+            }
+
+            function saveRef(address) {
+                try {
+                    localStorage.setItem('dreamle_referrer', address);
+                    localStorage.setItem('dreamle_referrer_timestamp', Date.now().toString());
+                } catch (_) {}
+            }
+
+            function fillAndLockReferrer(address) {
+                const input = document.getElementById('referrerInput');
+                if (!input) return false;
+                if (input.value !== address) input.value = address;
+                input.readOnly = true;
+                input.setAttribute('aria-readonly', 'true');
+                input.style.background = 'rgba(0,0,0,0.2)';
+                input.style.cursor = 'not-allowed';
+
+                // Add a small lock hint once
+                if (!document.getElementById('referrerLockHint')) {
+                    const hint = document.createElement('div');
+                    hint.id = 'referrerLockHint';
+                    hint.style.fontSize = '12px';
+                    hint.style.opacity = '0.8';
+                    hint.style.marginTop = '4px';
+                    hint.textContent = '🔒 Referrer locked';
+                    if (input.parentElement) input.parentElement.appendChild(hint);
+                }
+                console.log('✅ Referrer auto-filled and locked:', address);
+                return true;
+            }
+
+            function setupReferralAutofill() {
+                const urlRef = getRefFromUrl();
+                const storedRef = getRefFromStorage();
+                const ref = urlRef || storedRef;
+                if (ref) {
+                    saveRef(ref);
+                    if (fillAndLockReferrer(ref)) return true;
+                }
+                return false;
+            }
+
+            // Initial attempts (robust for mobile wallets)
+            const retries = [100, 300, 800, 1500, 3000, 5000, 8000, 12000];
+            retries.forEach(ms => setTimeout(setupReferralAutofill, ms));
+
+            // Also try on DOMContentLoaded
+            document.addEventListener('DOMContentLoaded', setupReferralAutofill);
+
+            // Observe DOM in case the input is rendered later
+            const observer = new MutationObserver(() => {
+                const hasSet = setupReferralAutofill();
+                if (hasSet) observer.disconnect();
+            });
+            observer.observe(document.documentElement, { childList: true, subtree: true });
+        })();
+    </script>
+
 
     <!-- Auto-load admin data -->
     <script src="js/auto-load-admin-data.js?v=20251009"></script>
