@@ -2166,6 +2166,9 @@ async function initializeBasicDisplay() {
     if (!isConnected) {
         updateBalanceDisplay('0.0000', '0.0000', '0.0000');
         console.log('📊 显示默认余额（未连接钱包）');
+
+        // 🔒 安全修复：未登录时清空所有用户相关数据显示
+        clearUserDataDisplay();
     }
 
     // 获取并显示池余额（不需要钱包连接）
@@ -2179,19 +2182,93 @@ async function initializeBasicDisplay() {
         console.warn('⚠️ 获取池余额失败:', error);
     }
 
-    // 显示网络统计（不需要钱包连接）
-    try {
-        // 参数顺序: totalHashPower, activeMiners, totalRewards
-        updateNetworkStatsDisplay([95660, 6, 241.17]); // 使用默认统计数据
-        console.log('✅ 网络统计显示更新完成');
-    } catch (error) {
-        console.warn('⚠️ 更新网络统计失败:', error);
+    // 🔒 安全修复：移除未登录时显示网络统计的逻辑
+    // 网络统计应该只在用户登录后显示
+    if (!isConnected) {
+        console.log('ℹ️ 未连接钱包，跳过网络统计显示');
     }
+}
+
+// 🔒 清空用户数据显示（安全功能）
+function clearUserDataDisplay() {
+    console.log('🔒 清空用户数据显示（未登录状态）');
+
+    // 清空挖矿统计数据
+    const miningDataElements = {
+        'totalHashpower': '0',
+        'validHashpower': '0',
+        'pendingDRM': '0.0000',
+        'totalClaimedDRM': '0.0000',
+        'minerCount': '0'
+    };
+
+    Object.entries(miningDataElements).forEach(([id, defaultValue]) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = defaultValue;
+        }
+    });
+
+    // 清空矿机列表显示
+    const minersGridElement = document.getElementById('minersGrid');
+    if (minersGridElement) {
+        minersGridElement.innerHTML = `
+            <div class="stat-card" style="grid-column: span 3; text-align: center; padding: 40px;">
+                <div class="stat-value" style="color: #888;">🔒 Please Connect Wallet</div>
+                <div class="stat-label">Connect your wallet to view your miners</div>
+            </div>
+        `;
+    }
+
+    // 清空推荐数据显示
+    const referralDataElements = {
+        'directReferrals': '0',
+        'totalReferrals': '0',
+        'usdtRewards': '0.00',
+        'drmRewards': '0.00'
+    };
+
+    Object.entries(referralDataElements).forEach(([id, defaultValue]) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = defaultValue;
+        }
+    });
+
+    // 清空推荐用户列表
+    const referralDetailsContainer = document.getElementById('referralDetailsContainer');
+    if (referralDetailsContainer) {
+        referralDetailsContainer.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #888;">
+                <div style="font-size: 48px; margin-bottom: 15px;">🔒</div>
+                <div style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Please Connect Wallet</div>
+                <div style="font-size: 14px;">Connect your wallet to view referral details</div>
+            </div>
+        `;
+    }
+
+    // 清空网络统计显示
+    const networkStatsElements = {
+        'networkHashpower': '0',
+        'activeMiners': '0',
+        'totalRewards': '0.00'
+    };
+
+    Object.entries(networkStatsElements).forEach(([id, defaultValue]) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = defaultValue;
+        }
+    });
+
+    console.log('✅ 用户数据显示已清空');
 }
 
 // 加载用户数据
 async function loadUserData() {
     if (!isConnected || !userAccount || !web3) {
+        // 🔒 安全检查：如果未连接，清空所有用户数据
+        clearUserDataDisplay();
         return;
     }
 
@@ -2682,6 +2759,9 @@ function disconnectWallet() {
     if (window.web3Backup) {
         window.web3Backup = null;
     }
+
+    // 🔒 安全修复：断开钱包时清空所有用户数据显示
+    clearUserDataDisplay();
 
     updateWalletUI();
     showMessage('钱包已断开', 'info');
@@ -5980,6 +6060,7 @@ window.oneClickPurchase = oneClickPurchase;
 window.loadUserData = loadUserData;
 window.loadUserMiners = loadUserData; // 别名，确保兼容性
 window.initializeBasicDisplay = initializeBasicDisplay;
+window.clearUserDataDisplay = clearUserDataDisplay; // 🔒 安全功能
 window.refreshMiners = refreshMiners;
 window.transferMiner = transferMiner;
 window.viewMinerDetails = viewMinerDetails;
