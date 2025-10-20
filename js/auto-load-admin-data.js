@@ -28,24 +28,36 @@ async function waitForWeb3() {
 
 // 加载管理员数据
 async function loadAdminData() {
+    // 🔒 安全修复：只有连接钱包后才加载数据
+    if (!window.isConnected || !window.userAccount) {
+        console.log('🔒 未连接钱包，禁止加载管理员数据（安全保护）');
+        return;
+    }
+
+    // 🔒 额外检查：只有管理员本人连接钱包才能看到数据
+    if (window.userAccount.toLowerCase() !== window.AUTO_LOAD_ADMIN_ADDRESS.toLowerCase()) {
+        console.log('🔒 非管理员账户，禁止加载管理员数据');
+        return;
+    }
+
     try {
         console.log('🔍 开始加载管理员数据...');
-        
+
         // 等待Web3准备就绪
         const ready = await waitForWeb3();
         if (!ready) {
             console.error('❌ Web3未准备就绪');
             return;
         }
-        
+
         // 创建合约实例
         const unifiedContract = new window.web3.eth.Contract(
             window.UNIFIED_SYSTEM_V19_ABI,
             window.CONTRACT_ADDRESSES.UNIFIED_SYSTEM
         );
-        
+
         console.log('✅ 合约实例已创建');
-        
+
         // 获取挖矿数据
         console.log('📡 正在获取管理员挖矿数据...');
         const miningData = await unifiedContract.methods.getUserMiningData(window.AUTO_LOAD_ADMIN_ADDRESS).call();

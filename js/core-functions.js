@@ -2193,12 +2193,12 @@ async function initializeBasicDisplay() {
 function clearUserDataDisplay() {
     console.log('🔒 清空用户数据显示（未登录状态）');
 
-    // 清空挖矿统计数据
+    // 清空挖矿统计数据（使用正确的 ID）
     const miningDataElements = {
         'totalHashpower': '0',
         'validHashpower': '0',
-        'pendingDRM': '0.0000',
-        'totalClaimedDRM': '0.0000',
+        'pendingRewards': '0.0000',  // ✅ 修正：使用正确的 ID
+        'totalClaimed': '0.0000',     // ✅ 修正：使用正确的 ID
         'minerCount': '0'
     };
 
@@ -2206,6 +2206,9 @@ function clearUserDataDisplay() {
         const element = document.getElementById(id);
         if (element) {
             element.textContent = defaultValue;
+            console.log(`  ✅ 已清空 #${id} = ${defaultValue}`);
+        } else {
+            console.warn(`  ⚠️ 元素未找到: #${id}`);
         }
     });
 
@@ -4609,18 +4612,40 @@ async function transferMiner(minerId) {
             }
         }
 
-        // 原始方法（回退）
+        // 原始方法（回退）- 使用已连接钱包的合约实例
         if (!unifiedContract) {
-            throw new Error('合约未初始化');
+            throw new Error('合约未初始化，请刷新页面重试');
         }
 
-        // 调用合约的转让函数 (假设使用标准的ERC721转让)
-        const gasEstimate = await unifiedContract.methods.transferFrom(userAccount, recipientAddress, minerId).estimateGas({
-            from: userAccount
+        if (!window.ethereum) {
+            throw new Error('请先连接钱包');
+        }
+
+        console.log('📝 准备转让矿机:', {
+            from: userAccount,
+            to: recipientAddress,
+            tokenId: minerId,
+            contractAddress: unifiedContract.options.address
         });
 
-        // 使用安全的gas处理函数
-        const gasLimit = safeGasLimit(gasEstimate, 1.2);
+        // 调用合约的转让函数 (使用标准的ERC721转让)
+        let gasLimit;
+        try {
+            const gasEstimate = await unifiedContract.methods.transferFrom(userAccount, recipientAddress, minerId).estimateGas({
+                from: userAccount
+            });
+
+            // 使用安全的gas处理函数
+            gasLimit = safeGasLimit(gasEstimate, 1.2);
+
+            console.log('⛽ Gas 估算:', {
+                estimate: gasEstimate.toString(),
+                limit: gasLimit.toString()
+            });
+        } catch (gasError) {
+            console.warn('⚠️ Gas估算失败，使用默认值:', gasError);
+            gasLimit = 100000; // 使用默认gas限制
+        }
 
         const result = await unifiedContract.methods.transferFrom(userAccount, recipientAddress, minerId).send({
             from: userAccount,
@@ -4944,6 +4969,27 @@ async function showAllMiners() {
         // 使用修复版的getUserMiners函数
         const userMiners = await getUserMinersFixed(userAccount);
 
+        // 显示加载提示
+        showMessage('正在加载矿机详细信息...', 'info');
+
+        // 🔧 修复：异步获取所有矿机信息
+        const minerDataList = await Promise.all(
+            userMiners.map(async (tokenId) => {
+                const minerId = tokenId.toString();
+                try {
+                    const minerInfo = await getMinerInfo(minerId);
+                    return { minerId, minerInfo };
+                } catch (error) {
+                    console.error(`❌ 获取矿机 #${minerId} 信息失败:`, error);
+                    // 降级为默认 LV.1
+                    return {
+                        minerId,
+                        minerInfo: getMinerInfoByLevel(1)
+                    };
+                }
+            })
+        );
+
         // 创建一个弹窗显示所有矿机
         let allMinersHTML = `
             <div style="max-height: 400px; overflow-y: auto; padding: 10px;">
@@ -4951,9 +4997,7 @@ async function showAllMiners() {
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
         `;
 
-        userMiners.forEach((tokenId) => {
-            const minerId = tokenId.toString();
-            const minerInfo = getMinerInfo(minerId);
+        minerDataList.forEach(({ minerId, minerInfo }) => {
 
             allMinersHTML += `
                 <div style="border: 2px solid ${minerInfo.rarityColor}; padding: 10px; border-radius: 12px; text-align: center; background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%); position: relative;">
@@ -4973,8 +5017,8 @@ async function showAllMiners() {
 
                     <!-- 矿机信息 -->
                     <div style="font-weight: bold; color: ${minerInfo.rarityColor}; margin-bottom: 4px;">🤖 #${minerId}</div>
-                    <div style="font-size: 10px; color: ${minerInfo.rarityColor}; font-weight: bold; margin-bottom: 2px;">${minerInfo.rarity}</div>
-                    <div style="font-size: 11px; margin: 2px 0;">Hashpower: ${minerInfo.hashpower.toLocaleString()}</div>
+                    <div style="font-size: 10px; color: ${minerInfo.rarityColor}; font-weight: bold; margin-bottom: 2px;">${minerInfo.rarity || 'Common'}</div>
+                    <div style="font-size: 11px; margin: 2px 0;">Hashpower: ${(minerInfo.hashpower || 0).toLocaleString()}</div>
                     <div style="font-size: 11px; color: green; margin-bottom: 6px;">🟢 Running</div>
 
                     <!-- 操作按钮 -->
@@ -6464,4 +6508,3 @@ if (exportedCount === coreFunctions.length) {
 }
 
 console.log('✅ Core functionality module loading completed');
-俄

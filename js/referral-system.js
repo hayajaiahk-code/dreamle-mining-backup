@@ -87,6 +87,12 @@ class ReferralSystem {
     
     // 在platform页面设置邀请人地址
     setupReferralInPlatform() {
+        // 🚨 检查是否被内联代码禁用
+        if (window.DISABLE_REFERRAL_SYSTEM_AUTOFILL) {
+            console.log('ℹ️ Referral autofill handled by inline code, skipping referral-system.js autofill');
+            return;
+        }
+
         console.log('🔧 在平台页面设置邀请系统...');
 
         // 等待页面加载完成

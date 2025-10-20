@@ -496,12 +496,9 @@
     // 开始初始化
     tryInitialize();
 
-    //
-    //
+    // 如果 provider 未就绪，监听延迟注入
     if (!providerReady) {
-        console.log('
-
-');
+        console.log('⏳ Provider 未就绪，监听延迟注入...');
         watchForLateInjection(15000, 200);
     }
 

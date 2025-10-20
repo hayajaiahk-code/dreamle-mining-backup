@@ -28,56 +28,21 @@
     <!-- 🔖 版本控制 - 最先加载 -->
     <script src="version.js"></script>
 
-    <!-- 🔧 DApp 浏览器刷新拦截器 - 必须最先加载 -->
+    <!-- 🔧 DApp 浏览器刷新拦截器 - 已禁用（导致兼容性问题） -->
     <script>
         (function() {
             'use strict';
-
             // 检测 DApp 浏览器
             const isDAppBrowser = !!(window.BinanceChain || window.okxwallet || window.okex || window.trustwallet);
 
+            // 设置全局标志（不拦截 reload）
+            window.DAPP_BROWSER_MODE = isDAppBrowser;
+            window.DISABLE_AUTO_RELOAD = isDAppBrowser;
+
             if (isDAppBrowser) {
-                console.log('🛡️ DApp 浏览器检测到，启用刷新拦截器');
-
-                // 保存原始的 reload 方法
-                const originalReload = window.location.reload.bind(window.location);
-
-                // 拦截计数器
-                let reloadAttempts = 0;
-                const MAX_RELOAD_ATTEMPTS = 3;
-
-                // 重写 reload 方法
-                window.location.reload = function(forceReload) {
-                    reloadAttempts++;
-                    console.warn(`⚠️ 拦截页面刷新尝试 #${reloadAttempts} (DApp 浏览器中禁止自动刷新)`);
-                    console.trace('刷新调用堆栈:');
-
-                    if (reloadAttempts >= MAX_RELOAD_ATTEMPTS) {
-                        console.error(`❌ 检测到 ${reloadAttempts} 次刷新尝试，可能存在无限刷新循环！`);
-                        alert('检测到异常刷新行为，已阻止。如需刷新，请手动刷新页面。');
-                        return false;
-                    }
-
-                    // 只允许用户手动触发的刷新
-                    const isUserTriggered = confirm('确定要刷新页面吗？');
-                    if (isUserTriggered) {
-                        console.log('✅ 用户确认刷新');
-                        originalReload(forceReload);
-                    } else {
-                        console.log('❌ 用户取消刷新');
-                        return false;
-                    }
-                };
-
-                // 设置全局标志
-                window.DAPP_BROWSER_MODE = true;
-                window.DISABLE_AUTO_RELOAD = true;
-
-                console.log('✅ 刷新拦截器已启用');
+                console.log('📱 DApp 浏览器检测到');
             } else {
-                console.log('💻 桌面浏览器检测到，正常模式');
-                window.DAPP_BROWSER_MODE = false;
-                window.DISABLE_AUTO_RELOAD = false;
+                console.log('💻 桌面浏览器检测到');
             }
         })();
     </script>
@@ -6606,10 +6571,13 @@
         });
 
     </script>
-    <!-- Referral auto-fill and lock (mobile wallet friendly) -->
+    <!-- 🔗 Referral auto-fill and lock (PRIORITY - mobile wallet friendly) -->
     <script>
         (function() {
             'use strict';
+
+            // 🚨 禁用 referral-system.js 的自动填充，避免冲突
+            window.DISABLE_REFERRAL_SYSTEM_AUTOFILL = true;
 
             function isValidEthAddress(address) {
                 return /^0x[a-fA-F0-9]{40}$/.test(address || '');
@@ -6632,28 +6600,42 @@
                 try {
                     localStorage.setItem('dreamle_referrer', address);
                     localStorage.setItem('dreamle_referrer_timestamp', Date.now().toString());
+                    console.log('💾 Referrer saved to localStorage:', address);
                 } catch (_) {}
             }
 
             function fillAndLockReferrer(address) {
                 const input = document.getElementById('referrerInput');
-                if (!input) return false;
-                if (input.value !== address) input.value = address;
+                if (!input) {
+                    console.warn('⚠️ referrerInput not found yet');
+                    return false;
+                }
+
+                // 防止重复填充
+                if (input.getAttribute('data-referral-filled') === 'true') {
+                    console.log('ℹ️ Referrer already filled, skipping');
+                    return true;
+                }
+
+                input.value = address;
                 input.readOnly = true;
                 input.setAttribute('aria-readonly', 'true');
+                input.setAttribute('data-referral-filled', 'true');
                 input.style.background = 'rgba(0,0,0,0.2)';
                 input.style.cursor = 'not-allowed';
 
-                // Add a small lock hint once
+                // Add lock hint
                 if (!document.getElementById('referrerLockHint')) {
                     const hint = document.createElement('div');
                     hint.id = 'referrerLockHint';
                     hint.style.fontSize = '12px';
                     hint.style.opacity = '0.8';
                     hint.style.marginTop = '4px';
+                    hint.style.color = '#28a745';
                     hint.textContent = '🔒 Referrer locked';
                     if (input.parentElement) input.parentElement.appendChild(hint);
                 }
+
                 console.log('✅ Referrer auto-filled and locked:', address);
                 return true;
             }
@@ -6662,26 +6644,35 @@
                 const urlRef = getRefFromUrl();
                 const storedRef = getRefFromStorage();
                 const ref = urlRef || storedRef;
+
                 if (ref) {
                     saveRef(ref);
-                    if (fillAndLockReferrer(ref)) return true;
+                    return fillAndLockReferrer(ref);
                 }
                 return false;
             }
 
-            // Initial attempts (robust for mobile wallets)
+            // 立即尝试一次
+            setupReferralAutofill();
+
+            // 多次重试（移动端钱包兼容）
             const retries = [100, 300, 800, 1500, 3000, 5000, 8000, 12000];
             retries.forEach(ms => setTimeout(setupReferralAutofill, ms));
 
-            // Also try on DOMContentLoaded
-            document.addEventListener('DOMContentLoaded', setupReferralAutofill);
+            // DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupReferralAutofill);
+            }
 
-            // Observe DOM in case the input is rendered later
+            // DOM 监听（最后的保障）
             const observer = new MutationObserver(() => {
-                const hasSet = setupReferralAutofill();
-                if (hasSet) observer.disconnect();
+                if (setupReferralAutofill()) {
+                    observer.disconnect();
+                }
             });
             observer.observe(document.documentElement, { childList: true, subtree: true });
+
+            console.log('🔗 Inline referral autofill initialized');
         })();
     </script>
 

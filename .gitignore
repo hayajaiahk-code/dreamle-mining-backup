@@ -1,1 +1,39 @@
+# Vercel
 .vercel
+
+# 日志文件
+logs/
+*.log
+
+# 备份文件
+backup/
+*.tar.gz
+*.zip
+
+# 临时文件
+*.broken.*
+test-*.html
+dapp-test.html
+binance-dapp-diagnostic.html
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Node modules
+node_modules/
+
+# 环境变量
+.env
+.env.local
+
+# 脚本文件
+*.sh
