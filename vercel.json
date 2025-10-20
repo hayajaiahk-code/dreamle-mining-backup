@@ -1,24 +1,19 @@
 {
   "version": 2,
-  "name": "dreamle-mining-platform",
   "builds": [
     {
       "src": "**/*",
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/",
+      "destination": "/index.html"
     },
     {
-      "src": "/platform",
-      "dest": "/platform.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/platform",
+      "destination": "/platform.html"
     }
   ],
   "headers": [
