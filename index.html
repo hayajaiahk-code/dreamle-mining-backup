@@ -3,6 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 🎨 强制深色模式 - 修复 iOS/OKX DApp 浏览器白色背景问题 -->
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0a0a0f">
+    <style>
+        /* 强制深色模式 - 最高优先级 */
+        :root {
+            color-scheme: dark;
+        }
+        html {
+            background-color: #0a0a0f !important;
+            color-scheme: dark;
+        }
+        body {
+            background-color: #0a0a0f !important;
+            color-scheme: dark;
+        }
+    </style>
+
     <title>Dreamle Mining - Next-Generation AI-Powered Web3 Mining Platform</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.ico">
