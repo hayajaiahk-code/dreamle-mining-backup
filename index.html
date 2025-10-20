@@ -7,18 +7,41 @@
     <!-- 🎨 强制深色模式 - 修复 iOS/OKX DApp 浏览器白色背景问题 -->
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="supported-color-schemes" content="dark">
     <style>
-        /* 强制深色模式 - 最高优先级 */
+        /* 🔥 iOS 15/17 专用深色模式修复 - 最高优先级 */
         :root {
-            color-scheme: dark;
+            color-scheme: dark !important;
+            background-color: #0a0a0f !important;
+            background: #0a0a0f !important;
         }
+
         html {
             background-color: #0a0a0f !important;
-            color-scheme: dark;
+            background: #0a0a0f !important;
+            color-scheme: dark !important;
+            min-height: 100vh !important;
         }
+
         body {
             background-color: #0a0a0f !important;
-            color-scheme: dark;
+            background: #0a0a0f !important;
+            color-scheme: dark !important;
+            min-height: 100vh !important;
+        }
+
+        /* iOS WebKit 强制深色背景 */
+        @supports (-webkit-touch-callout: none) {
+            html, body {
+                background-color: #0a0a0f !important;
+                background: #0a0a0f !important;
+            }
+        }
+
+        /* 防止白色闪烁 */
+        * {
+            -webkit-tap-highlight-color: transparent !important;
         }
     </style>
 
@@ -280,6 +303,35 @@
 
 </head>
 <body style="background-color: #0a0a0f !important; background: #0a0a0f !important; color: #ffffff !important;">
+
+    <!-- 🔥 iOS 15/17 强制深色模式脚本 - 必须在页面最开始执行 -->
+    <script>
+        (function() {
+            // 立即设置背景色，防止白色闪烁
+            document.documentElement.style.backgroundColor = '#0a0a0f';
+            document.documentElement.style.background = '#0a0a0f';
+            document.body.style.backgroundColor = '#0a0a0f';
+            document.body.style.background = '#0a0a0f';
+            document.body.style.color = '#ffffff';
+
+            // iOS 15/17 专用修复
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                document.documentElement.style.setProperty('background-color', '#0a0a0f', 'important');
+                document.body.style.setProperty('background-color', '#0a0a0f', 'important');
+
+                // 监听页面加载，确保背景色不被覆盖
+                window.addEventListener('DOMContentLoaded', function() {
+                    document.documentElement.style.backgroundColor = '#0a0a0f';
+                    document.body.style.backgroundColor = '#0a0a0f';
+                });
+
+                window.addEventListener('load', function() {
+                    document.documentElement.style.backgroundColor = '#0a0a0f';
+                    document.body.style.backgroundColor = '#0a0a0f';
+                });
+            }
+        })();
+    </script>
 
     <!-- Navigation Bar -->
     <nav class="navbar">

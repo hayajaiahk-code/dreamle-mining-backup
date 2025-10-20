@@ -4,6 +4,8 @@
 
 在 OKX DApp 浏览器中，网站显示白色背景，而不是预期的深色主题。
 
+**特别注意**: iOS 15/17 对深色模式的处理比 iOS 13 更严格，需要额外的修复代码。
+
 ---
 
 ## 🎯 解决方案
@@ -23,10 +25,12 @@
 <html lang="en" style="background-color: #0a0a0f !important; background: #0a0a0f !important;">
 ```
 
-#### B. Head 部分的 Meta 标签（第 8-9 行）
+#### B. Head 部分的 Meta 标签（第 8-11 行）
 ```html
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="supported-color-schemes" content="dark">
 ```
 
 #### C. Head 部分的内联样式（第 10-23 行）
