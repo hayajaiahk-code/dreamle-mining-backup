@@ -1,7 +1,42 @@
 # ⚡ 快速参考卡片 - Dreamle Platform
 
-> **用途**: Augment AI 快速查找关键信息  
-> **更新**: 2025-10-22
+> **用途**: Augment AI 快速查找关键信息
+> **最后更新**: 2025-10-22 17:30
+> **最新修改**: 移除法律警告横幅，保留免责声明页面
+
+---
+
+## 🆕 最新修改记录（2025-10-22）
+
+### ✅ 已完成的修改
+
+1. **法律免责声明系统**
+   - ✅ 创建了 `legal-disclaimer.html` 完整免责声明页面
+   - ✅ 页脚添加了 "Legal Disclaimer" 链接（红色高亮）
+   - ✅ **已隐藏**页面顶部和页脚的红色警告横幅（用户要求）
+   - 📍 位置：`index.html` 页脚、`buy-drm-preview.html` 顶部（已删除）
+
+2. **页脚链接更新**
+   - ✅ 删除了 404 链接（Privacy Policy, Terms of Service）
+   - ✅ 更新为：Legal Disclaimer, Developer Contact, Telegram
+   - 📧 开发者邮箱：hayajaiahk@gmail.com
+   - 💬 Telegram：@PandaBlock_Labs
+
+3. **PWA 注释清理**
+   - ✅ 删除了页面底部显示的 PWA 注释
+   - 📍 位置：`index.html` 之前的 2835-2837 行
+
+4. **Vercel 项目清理**
+   - ✅ 删除了多余的 `dreamle-drm` 项目
+   - ✅ 只保留 `backup` 项目
+
+### 📝 重要文件
+
+| 文件 | 状态 | 说明 |
+|------|------|------|
+| `legal-disclaimer.html` | ✅ 新建 | 完整的法律免责声明页面（中英文） |
+| `index.html` | ✅ 修改 | 页脚更新，警告横幅已删除 |
+| `buy-drm-preview.html` | ✅ 修改 | 顶部警告横幅已删除 |
 
 ---
 
@@ -267,6 +302,53 @@ grep -r "background.*white" . --include="*.html" --include="*.css"
 1. `深色主题修复总结.md` - 白色背景修复
 2. `OKX_WALLET_FIX_SUMMARY.md` - OKX 钱包问题
 3. `BINANCE_WALLET_TEST_GUIDE.md` - Binance 钱包测试
+
+---
+
+## 🎯 常见修改任务（快速指南）
+
+### 1️⃣ 修改页脚链接
+**文件**: `index.html`, `buy-drm-preview.html`, `platform.html`
+**位置**: 搜索 `footer-legal` 或 `footer-bottom`
+**示例**:
+```html
+<div class="footer-legal">
+    <a href="legal-disclaimer.html">⚖️ Legal Disclaimer</a>
+    <a href="mailto:hayajaiahk@gmail.com">📧 Developer Contact</a>
+    <a href="https://t.me/PandaBlock_Labs">💬 Telegram</a>
+</div>
+```
+
+### 2️⃣ 添加/删除警告横幅
+**文件**: `index.html` (页脚上方), `buy-drm-preview.html` (顶部)
+**当前状态**: 已删除所有警告横幅
+**如需恢复**: 查看 Git 历史 `git log --oneline | grep "法律警告"`
+
+### 3️⃣ 修改合约地址
+**文件**: `buy-drm-preview.html` (行 1100-1103)
+**重要**: 同时检查 `js/buy-drm-functions.js` 确保一致
+```javascript
+const SALE_CONTRACT_ADDRESS = '0x1C8c3e823F98EFEc34FEf5673b4d63a23A251224';
+const DRM_TOKEN_ADDRESS = '0x4440409e078D44A63c72696716b84A46814717e9';
+const USDT_TOKEN_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+```
+
+### 4️⃣ 修改按钮样式（避免白色背景）
+**原则**: 使用渐变或透明背景，避免 `#fff` 或 `rgba(255,255,255,x)`
+**推荐样式**:
+```css
+background: linear-gradient(135deg, #00ffff, #ff00ff);  /* 青紫渐变 */
+background: rgba(0, 0, 0, 0.3);  /* 半透明黑色 */
+background: transparent;  /* 完全透明 */
+```
+
+### 5️⃣ 添加新页面到导航
+**文件**: `platform.html` (搜索 `tab-buttons`)
+**注意**: 外部链接需要添加 `tab-link-external` class
+```html
+<a href="new-page.html" class="tab-btn tab-link-external"
+   target="_blank" onclick="event.stopPropagation();">🆕 New Page</a>
+```
 
 ---
 

@@ -1,8 +1,51 @@
 # 🚀 Dreamle Mining Platform - 项目结构指南
 
-> **最后更新**: 2025-10-22  
-> **用途**: 帮助 Augment AI 快速理解项目结构和功能  
+> **最后更新**: 2025-10-22 17:30
+> **用途**: 帮助 Augment AI 快速理解项目结构和功能
 > **项目**: Dreamle 挖矿平台 + DRM 代币购买系统
+> **最新状态**: 法律免责声明已添加，警告横幅已隐藏
+
+---
+
+## 🆕 最新修改总结（2025-10-22）
+
+### ✅ 今日完成的工作
+
+1. **法律免责声明系统**
+   - 创建 `legal-disclaimer.html` - 完整的中英文免责声明页面
+   - 内容包括：教育目的声明、地区限制（禁止中国用户）、风险警告、开发者联系方式
+   - 页脚添加 "Legal Disclaimer" 链接（红色高亮）
+
+2. **警告横幅处理**
+   - 最初添加了红色警告横幅（页脚和购买页面顶部）
+   - **用户要求后已全部删除/隐藏**
+   - 免责声明页面仍然保留，可通过页脚链接访问
+
+3. **页脚链接优化**
+   - 删除了 404 链接（Privacy Policy, Terms of Service, Contact Us）
+   - 替换为：Legal Disclaimer, Developer Contact, Telegram
+   - 开发者联系方式：hayajaiahk@gmail.com, @PandaBlock_Labs
+
+4. **Bug 修复**
+   - 删除了页面底部显示的 PWA 注释
+   - 清理了多余的 Vercel 项目（dreamle-drm）
+
+5. **部署和备份**
+   - 所有修改已部署到 Vercel 生产环境
+   - 所有代码已备份到 GitHub
+
+### 📝 新增文件
+
+| 文件 | 用途 | URL |
+|------|------|-----|
+| `legal-disclaimer.html` | 法律免责声明页面 | `/legal-disclaimer.html` |
+
+### 🔄 修改的文件
+
+| 文件 | 修改内容 |
+|------|----------|
+| `index.html` | 页脚链接更新，删除警告横幅，删除 PWA 注释 |
+| `buy-drm-preview.html` | 删除顶部警告横幅 |
 
 ---
 
@@ -12,6 +55,7 @@
 1. **挖矿平台** - 用户购买矿机、质押、挖矿、推荐奖励
 2. **DRM 代币购买** - 独立的代币购买页面
 3. **管理后台** - 管理员功能（提现、数据查看等）
+4. **法律免责声明** - 独立的免责声明页面（新增）
 
 ---
 
@@ -43,6 +87,7 @@
 | `index.html` | 首页/登录页 | `/` |
 | `platform.html` | 挖矿平台主界面 | `/platform` |
 | `buy-drm-preview.html` | DRM 代币购买页面 | `/buy-drm-preview` |
+| `legal-disclaimer.html` | 法律免责声明页面 | `/legal-disclaimer.html` |
 
 ### 💎 DRM 购买系统（重要！）
 
