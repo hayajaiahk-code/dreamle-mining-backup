@@ -5948,7 +5948,7 @@ function updateReferralLinkDisplay(userAddress) {
     }
 }
 
-// 13. 复制邀请连接
+// 13. 复制邀请连接 - 增强版（支持华为手机和欧意DApp）
 async function copyReferralLink() {
     console.log('📋 复制邀请连接');
 
@@ -5959,29 +5959,162 @@ async function copyReferralLink() {
             return;
         }
 
-        // 选择文本
-        referralLinkElement.select();
-        referralLinkElement.setSelectionRange(0, 99999); // 移动端兼容
+        const textToCopy = referralLinkElement.value;
+        let copySuccess = false;
 
-        // 尝试使用现代API复制
-        if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(referralLinkElement.value);
-            showMessage('Referral link copied to clipboard!', 'success');
-        } else {
-            // 回退到传统方法
-            const successful = document.execCommand('copy');
-            if (successful) {
-                showMessage('Referral link copied to clipboard!', 'success');
-            } else {
-                showMessage('Copy failed, please copy manually', 'error');
+        // 方法1: 尝试使用 Clipboard API (最现代的方法)
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                copySuccess = true;
+                console.log('✅ 使用 Clipboard API 复制成功');
+            } catch (clipboardError) {
+                console.warn('⚠️ Clipboard API 失败:', clipboardError);
             }
         }
 
-        console.log('✅ 邀请连接复制成功');
+        // 方法2: 如果方法1失败，尝试 execCommand (传统方法，兼容性更好)
+        if (!copySuccess) {
+            try {
+                // 确保元素可见且可选择
+                referralLinkElement.style.display = 'block';
+                referralLinkElement.style.opacity = '1';
+                referralLinkElement.readOnly = false;
+
+                // 选择文本
+                referralLinkElement.focus();
+                referralLinkElement.select();
+
+                // 移动端兼容
+                if (referralLinkElement.setSelectionRange) {
+                    referralLinkElement.setSelectionRange(0, textToCopy.length);
+                }
+
+                // 执行复制命令
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    copySuccess = true;
+                    console.log('✅ 使用 execCommand 复制成功');
+                }
+
+                // 恢复只读状态
+                referralLinkElement.readOnly = true;
+            } catch (execError) {
+                console.warn('⚠️ execCommand 失败:', execError);
+            }
+        }
+
+        // 方法3: 如果前两种方法都失败，创建临时文本区域 (最兼容的方法)
+        if (!copySuccess) {
+            try {
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+
+                // 设置样式使其不可见但仍然可以被选择
+                textArea.style.position = 'fixed';
+                textArea.style.top = '0';
+                textArea.style.left = '0';
+                textArea.style.width = '2em';
+                textArea.style.height = '2em';
+                textArea.style.padding = '0';
+                textArea.style.border = 'none';
+                textArea.style.outline = 'none';
+                textArea.style.boxShadow = 'none';
+                textArea.style.background = 'transparent';
+                textArea.style.opacity = '0';
+                textArea.style.zIndex = '-1';
+
+                // 添加到DOM
+                document.body.appendChild(textArea);
+
+                // 聚焦并选择
+                textArea.focus();
+                textArea.select();
+
+                // 移动端兼容
+                if (textArea.setSelectionRange) {
+                    textArea.setSelectionRange(0, textToCopy.length);
+                }
+
+                // 尝试复制
+                const successful = document.execCommand('copy');
+
+                // 移除临时元素
+                document.body.removeChild(textArea);
+
+                if (successful) {
+                    copySuccess = true;
+                    console.log('✅ 使用临时文本区域复制成功');
+                }
+            } catch (textAreaError) {
+                console.warn('⚠️ 临时文本区域方法失败:', textAreaError);
+            }
+        }
+
+        // 方法4: 针对某些DApp浏览器的特殊处理
+        if (!copySuccess && typeof window.okxwallet !== 'undefined') {
+            try {
+                // 欧意钱包特殊处理
+                const input = document.createElement('input');
+                input.setAttribute('readonly', 'readonly');
+                input.setAttribute('value', textToCopy);
+                input.style.position = 'absolute';
+                input.style.left = '-9999px';
+                document.body.appendChild(input);
+
+                input.select();
+                input.setSelectionRange(0, textToCopy.length);
+
+                const successful = document.execCommand('copy');
+                document.body.removeChild(input);
+
+                if (successful) {
+                    copySuccess = true;
+                    console.log('✅ 使用 OKX 特殊方法复制成功');
+                }
+            } catch (okxError) {
+                console.warn('⚠️ OKX 特殊方法失败:', okxError);
+            }
+        }
+
+        // 显示结果
+        if (copySuccess) {
+            showMessage('✅ Referral link copied successfully!', 'success');
+
+            // 视觉反馈：短暂改变按钮颜色
+            const copyBtn = event?.target;
+            if (copyBtn) {
+                const originalBg = copyBtn.style.backgroundColor;
+                copyBtn.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    copyBtn.style.backgroundColor = originalBg;
+                }, 500);
+            }
+        } else {
+            // 所有方法都失败，提供手动复制提示
+            showMessage('⚠️ Auto-copy failed. Please long-press to copy manually', 'warning');
+
+            // 自动选择文本，方便用户手动复制
+            referralLinkElement.focus();
+            referralLinkElement.select();
+        }
+
+        console.log(copySuccess ? '✅ 邀请连接复制成功' : '⚠️ 需要手动复制');
 
     } catch (error) {
         console.error('❌ 复制邀请连接失败:', error);
-        showMessage('Copy failed: ' + error.message, 'error');
+        showMessage('Please long-press the link to copy manually', 'error');
+
+        // 即使出错也尝试选择文本
+        try {
+            const referralLinkElement = document.getElementById('referralLink');
+            if (referralLinkElement) {
+                referralLinkElement.focus();
+                referralLinkElement.select();
+            }
+        } catch (selectError) {
+            console.error('❌ 选择文本失败:', selectError);
+        }
     }
 }
 

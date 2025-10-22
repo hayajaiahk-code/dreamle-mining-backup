@@ -1991,8 +1991,8 @@
             }
         });
 
-        // Copy referral link function
-        function copyReferralLink() {
+        // Copy referral link function - Enhanced for Huawei & OKX DApp compatibility
+        async function copyReferralLink() {
             const referralInput = document.getElementById('referralLinkInput');
             if (!referralInput) return;
 
@@ -2002,24 +2002,109 @@
                 return;
             }
 
-            // Copy to clipboard
-            referralInput.select();
-            referralInput.setSelectionRange(0, 99999); // Mobile compatibility
+            const textToCopy = referralInput.value;
+            let copySuccess = false;
 
-            try {
-                document.execCommand('copy');
-                showNotification('Referral link copied to clipboard!', 'success');
-            } catch (err) {
-                // Use modern API as fallback
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(referralInput.value).then(() => {
-                        showNotification('Referral link copied to clipboard!', 'success');
-                    }).catch(() => {
-                        showNotification('Copy failed, please copy manually', 'error');
-                    });
-                } else {
-                    showNotification('Copy failed, please copy manually', 'error');
+            // Method 1: Try Clipboard API (most modern)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+                    copySuccess = true;
+                    console.log('✅ Copied using Clipboard API');
+                } catch (clipboardError) {
+                    console.warn('⚠️ Clipboard API failed:', clipboardError);
                 }
+            }
+
+            // Method 2: Try execCommand (traditional, better compatibility)
+            if (!copySuccess) {
+                try {
+                    referralInput.style.display = 'block';
+                    referralInput.style.opacity = '1';
+                    referralInput.readOnly = false;
+
+                    referralInput.focus();
+                    referralInput.select();
+
+                    if (referralInput.setSelectionRange) {
+                        referralInput.setSelectionRange(0, textToCopy.length);
+                    }
+
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        copySuccess = true;
+                        console.log('✅ Copied using execCommand');
+                    }
+
+                    referralInput.readOnly = true;
+                } catch (execError) {
+                    console.warn('⚠️ execCommand failed:', execError);
+                }
+            }
+
+            // Method 3: Try temporary textarea (most compatible)
+            if (!copySuccess) {
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    textArea.style.position = 'fixed';
+                    textArea.style.top = '0';
+                    textArea.style.left = '0';
+                    textArea.style.opacity = '0';
+                    textArea.style.zIndex = '-1';
+
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+
+                    if (textArea.setSelectionRange) {
+                        textArea.setSelectionRange(0, textToCopy.length);
+                    }
+
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(textArea);
+
+                    if (successful) {
+                        copySuccess = true;
+                        console.log('✅ Copied using temporary textarea');
+                    }
+                } catch (textAreaError) {
+                    console.warn('⚠️ Temporary textarea failed:', textAreaError);
+                }
+            }
+
+            // Method 4: OKX DApp special handling
+            if (!copySuccess && typeof window.okxwallet !== 'undefined') {
+                try {
+                    const input = document.createElement('input');
+                    input.setAttribute('readonly', 'readonly');
+                    input.setAttribute('value', textToCopy);
+                    input.style.position = 'absolute';
+                    input.style.left = '-9999px';
+                    document.body.appendChild(input);
+
+                    input.select();
+                    input.setSelectionRange(0, textToCopy.length);
+
+                    const successful = document.execCommand('copy');
+                    document.body.removeChild(input);
+
+                    if (successful) {
+                        copySuccess = true;
+                        console.log('✅ Copied using OKX special method');
+                    }
+                } catch (okxError) {
+                    console.warn('⚠️ OKX special method failed:', okxError);
+                }
+            }
+
+            // Show result
+            if (copySuccess) {
+                showNotification('✅ Referral link copied successfully!', 'success');
+            } else {
+                showNotification('⚠️ Auto-copy failed. Please long-press to copy manually', 'warning');
+                referralInput.focus();
+                referralInput.select();
             }
         }
 

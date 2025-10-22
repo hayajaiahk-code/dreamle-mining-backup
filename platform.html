@@ -737,7 +737,7 @@
 
         /* Card styles */
         .card {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(10, 10, 15, 0.95) !important;
             border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 20px;
             padding: 25px;
@@ -857,7 +857,7 @@
 
         /* Statistics cards */
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 15, 0.8) !important;
             border: 1px solid rgba(0, 255, 255, 0.2);
             border-radius: 15px;
             padding: 20px;
@@ -1142,7 +1142,7 @@
             display: flex;
             align-items: center;
             padding: 15px;
-            background: #f8f9fa;
+            background: #1a2a1a;
             border-radius: 8px;
             border-left: 4px solid #28a745;
             transition: all 0.3s ease;
@@ -1251,7 +1251,7 @@
 
         .miner-item.active {
             border-color: #28a745;
-            background: #f8fff8;
+            background: #1a2a1a;
         }
 
         /* Input field styles */
@@ -1842,7 +1842,7 @@
             align-items: center;
             gap: 12px;
             padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 15, 0.8) !important;
             border: 1px solid rgba(0, 255, 136, 0.2);
             border-radius: 10px;
             color: #ffffff;
@@ -2186,7 +2186,7 @@
             display: flex;
             align-items: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 15, 0.8) !important;
             border: 2px solid rgba(0, 255, 255, 0.2);
             border-radius: 15px;
             cursor: pointer;
@@ -2240,7 +2240,7 @@
         .wallet-option.unavailable:hover {
             transform: none;
             border-color: rgba(0, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 15, 0.8) !important;
         }
 
         /* Miner status styles */
@@ -2313,9 +2313,9 @@
             justify-content: center;
             padding: 60px 20px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 15, 0.8) !important;
             border-radius: 15px;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border: 2px dashed rgba(0, 255, 255, 0.2);
             min-height: 300px;
         }
 
@@ -2535,9 +2535,9 @@
         .daily-hashpower-container {
             margin: 15px 0;
             padding: 15px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             border-radius: 10px;
-            border: 1px solid #dee2e6;
+            border: 1px solid #2a2a3e;
         }
 
         .hashpower-summary {
@@ -2642,8 +2642,8 @@
         }
 
         .schedule-day.pending {
-            background: #f8f9fa;
-            border-color: #dee2e6;
+            background: #1a1a2e;
+            border-color: #2a2a3e;
         }
 
 
@@ -3054,8 +3054,8 @@
             align-items: center;
             gap: 15px;
             padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 15, 0.8) !important;
+            border: 1px solid rgba(0, 255, 255, 0.1);
             border-radius: 8px;
             transition: all 0.3s ease;
         }
@@ -3510,6 +3510,7 @@
             <button class="tab-btn" data-tab="purchase" onclick="window.switchTab && window.switchTab('purchase')">🛒 Buy Miners</button>
             <button class="tab-btn" data-tab="miners" onclick="window.switchTab && window.switchTab('miners')" id="minersTabBtn">🤖 Miner Management</button>
             <button class="tab-btn" data-tab="exchange" onclick="window.switchTab && window.switchTab('exchange')" id="exchangeTabBtn">🔄 Token Exchange</button>
+            <a href="buy-drm-preview.html?v=28" class="tab-btn tab-link-external" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;" target="_blank" onclick="event.stopPropagation();">💎 Buy DRM</a>
             <button class="tab-btn" data-tab="referral" onclick="window.switchTab && window.switchTab('referral')" id="referralTabBtn">👥 Referral System</button>
             <button class="tab-btn" data-tab="admin" onclick="window.switchTab && window.switchTab('admin')" id="adminTabBtn" style="display: none; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🔐 Admin Panel</button>
         </div>
@@ -4314,7 +4315,7 @@
     </script>
     <script src="js/network-helper.js?v=20251009"></script>
     <script src="js/mobile-wallet-fix.js?v=20251009"></script>
-    <script src="js/core-functions.js?v=20251009-fix3"></script>
+    <script src="js/core-functions.js?v=20251021-huawei-copy-fix"></script>
 
     <!-- API adapter removed - Use direct RPC connection for performance improvement -->
     <!-- Performance improvement: 269ms → 69ms (74% improvement) -->
@@ -5506,6 +5507,12 @@
             console.log('🔍 Found tab buttons count:', tabButtons.length);
 
             tabButtons.forEach((btn, index) => {
+                // Skip external links (like Buy DRM)
+                if (btn.classList.contains('tab-link-external')) {
+                    console.log(`🔗 Skipping external link: ${btn.textContent.trim()}`);
+                    return;
+                }
+
                 const tabName = btn.dataset.tab;
                 console.log(`🔍 Tab button ${index + 1}:`, tabName, btn.textContent.trim());
 
